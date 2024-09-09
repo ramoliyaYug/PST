@@ -15,6 +15,7 @@ console.log("25m" - 5); //NaN //string cannot convert to bigint
 
 console.log(typeof([])); //object
 console.log({}+[]); //[object Object]
+//when you use + with object it converts to string 
 
 console.log(typeof([1,2,3,4,])); //object
 
