@@ -1,5 +1,3 @@
-Company Overview :
-Vodafone Group Plc is a British multinational telecommunication company headquartered in 1984. Its services span across Europe, Asia, Africa, and Oceania, making it one of the largest mobile and fixed network operators in the world. The suite of services provided includes broadband, data, mobile voice, and IoT solutions. The company is one among the most noted players within the realms of the telecommunication industry, epitomized by innovation, mega network infrastructure, and commitment to an improved connected world.
 
 Problem Identification :
 Vodafone faced one of its biggest challenges in the early 2010s, given the developing demand for mobile data and the expectation to provide quality services amidst rapidly changing technologies. Exponential growth in data traffic owing to the widespread use of smartphones and mobile applications burdened Vodafone's present network architecture. The increasing need to accommodate advanced technologies like 4G and IoT worsened it even more. Such problems, if overlooked, may bring forward service quality deterioration, network congestion, and even a loss of clientele to competitors.
