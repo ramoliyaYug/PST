@@ -52,6 +52,20 @@ const employee2 = [
     }
 ]
 
-//DIFF B/W [] AND . when calling property
+/*
+DIFF B/W [] AND . when calling property:
+-every key in object is a string
+- if we have a key value with empty spaces inside and we want to cal that property then we use [] otherwise . is enough
+- like this
+const person78={
+    "person name": "soumya",
+    "age": 19, 
+    "gender": "male",
+    "color": "white",
+};
+*/
 //what are the rule to define key in object
-//what are the specific reasons to use object or array
+/*
+what are the specific reasons to use object or array
+when we want to store a values and order is also important then we use array
+*/

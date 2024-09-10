@@ -151,3 +151,30 @@ fruits.fill("kiwi",2,4) ;
 
 console.log(fruits);
 
+//quick tips
+/*
+- we can change the length property of arrays but the original array will be removed permanently. to acccess the original array again then we have to create a copy of that array first.
+*/
+
+let arr = [1, 2, 3, 4, 5];
+console.log(arr);// output: [1, 2, 3, 4, 5]
+
+arr.length = 2;
+
+console.log(arr); // output: [1, 2]
+
+/*
+when we try to stretch the length of a array
+-we will get thr empty element at the end of the array
+-and the length of the array will be changed also
+*/
+let arr1 = [1,2,3,4,5,6];
+arr1.length = 9;
+
+console.log(arr1); // output: [1, 2, 3, 4, 5, 6, empty slots]
+
+console.log(arr1.length);
+
+// bina bakchodi ka sidha sa explanation:
+// Short-> Data Removed
+// Extended-> Empty item
