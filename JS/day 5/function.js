@@ -4,6 +4,8 @@ what are functions ? :
 - functions are reusable pieces or block of code that perform a specific task
 - we can define function once and we can use it whenever we want by calling that function
 
+-Inside a function if we call "let x = 44" then then the value x will be assigned through out the function and if we call "var x = 44" then the value of x will be assigned through out the code
+
 need of funtions :
 -code reusability
 -organized code

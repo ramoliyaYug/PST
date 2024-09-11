@@ -151,6 +151,10 @@ fruits.fill("kiwi",2,4) ;
 
 console.log(fruits);
 
+let array=[1,2,3,4,5,6];
+arr.fill(0,1,4); // digits of array Index [1],[2],[3] are replaced by 0. Index [0],[4],[5] remains the same. fill doesn't consider the last index for (0,1,4)
+console.log(arr); // output-> [ 1, 0, 0, 0, 5, 6 ]
+
 //quick tips
 /*
 - we can change the length property of arrays but the original array will be removed permanently. to acccess the original array again then we have to create a copy of that array first.
