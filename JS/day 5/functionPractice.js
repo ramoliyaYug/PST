@@ -4,6 +4,7 @@ function product(stringNum){
     return stringNum*2;
 };
 
+
 let result = product(2);
 console.log(result);
 
@@ -23,7 +24,7 @@ let res = opr("12345");
 
 console.log(res*2);
 
-//questio 2
+//question 2
 // write a js function which takes 4 parameters name,class,rollNo,age and print an introduction sentence
 function intro(name, cls, rollNo, age,){
     console.log(`My Name is ${name} and I'am ${age} years old, I am studing in ${cls} and my rollno is ${rollNo}`);
