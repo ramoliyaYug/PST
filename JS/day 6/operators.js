@@ -63,7 +63,7 @@ console.log(e);
 
 //assignment operators:
 let n=7 
-n+=6 //13
+n+=6 //13 // n = n + 6
 n-=4 //9
 n*=6 //54
 n/=3 //18
@@ -112,7 +112,7 @@ condition? Expression 1(true value) :Expression 2 (false value);
 //class question 1:
 let marksReq = 60;
 let marksObtained = 59.99;
-let result = marksObtained >= marksReq? "Pass" : "Fail";
+let result = marksObtained > marksReq ? "Pass" : "Fail";
 console.log(result);
 
 //class question 2:
