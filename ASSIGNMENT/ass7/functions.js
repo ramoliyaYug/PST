@@ -15,7 +15,7 @@ function isEligibleForDiscount(hasMembership, totalPurchase) {
 };
 
 console.log(isEligibleForDiscount(true, 120)); // Output: true
-console.log(isEligibleForDiscount(false, 120)); // Output: false
+console.log(isEligibleForDiscount(false, 90)); // Output: false
 
 /*
 Question 2:
