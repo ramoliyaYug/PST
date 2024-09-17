@@ -163,3 +163,9 @@ switch(day){
         console.log("Sunday");
         break;
 }
+
+//mystery of switch(true)
+/*
+-switch (true) hum tab use karte hai jab hume variable mai alag datatype de rakhi ho and hame case mai alag datatype compare karni ho tab hum switch(true) use karte hai
+-like variable mai number hai and case mai boolean condition check jkarni ho to hum jo bhi value switch ke argument mao pass karege wo wala case check hoga agar false hoga to false wali condition check hogi and true hoga to true
+*/

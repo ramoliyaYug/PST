@@ -11,7 +11,7 @@ Display the letter grade to the user.
 
 let studentGrade = 85;
 
-switch (studentGrade) {
+switch (true) {
     case studentGrade >= 90:
         console.log("Letter Grade: A");
         break;
