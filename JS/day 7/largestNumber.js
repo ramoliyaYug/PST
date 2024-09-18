@@ -32,4 +32,4 @@ function maxNum2(d, e, f) {
     }
 }
 
-maxNum2(15,25);
+maxNum2(15,25,30);
