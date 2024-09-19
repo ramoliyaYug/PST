@@ -4,9 +4,9 @@ factory function and constructor functions:
 -they provide a simple way to create objects
 -factory function are the function like normal one only, just returns object
 */
-function createCircle(){
+function createCircle(r){
     return{
-        radius:1,
+        radius:r,
         draw: function(){
             console.log('draw');
         }

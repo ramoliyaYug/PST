@@ -45,8 +45,7 @@ Question 3.
 Write a javascript program to print the rank of students based on the percentage.
 */
 
-
-function rank(percentStd1, percentStd2, percentStd3) {  
+function maxNum(percentStd1, percentStd2, percentStd3) {  
     if (percentStd1 > percentStd2 && percentStd1 > percentStd3) {
         console.log(percentStd1);
     }
@@ -58,14 +57,4 @@ function rank(percentStd1, percentStd2, percentStd3) {
     }
 };
 
-
-
-
-
-
-
-//pick 5 software companies that you want to work in. why?
-//pick one of these companies and tell us what one product feature intrested you most and why?
-
-
-
+maxNum(90, 79, 89);

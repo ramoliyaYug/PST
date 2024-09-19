@@ -6,7 +6,7 @@ function Car(model, color, year_of_purchase){
         color: color,
         year_of_purchase: year_of_purchase,
         calculateAge: function(current_year){
-            return current_year - this.year_of_purchase;
+            return current_year - year_of_purchase;
         }
     }
 }
