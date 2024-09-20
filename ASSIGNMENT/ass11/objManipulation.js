@@ -42,3 +42,14 @@ Round the result to the nearest whole number using `Math.ceil()`.
 Return the count of Pizzas you should order as an integer.
 Example: if the input is 12 (12 guests), the function should return 5 (5 Pizzas)
 */
+
+function getPizzaCount(guests){
+    const slicesPerPizza = 8;
+    const slicesPerPeople = 3;
+    const totalSlices = guests * slicesPerPeople;
+    return Math.ceil(totalSlices / slicesPerPizza);
+}
+
+const guestInvited = 12;
+const pizzasToBeOrdered = getPizzaCount(guestInvited);
+console.log(pizzasToBeOrdered) // output : 
