@@ -59,3 +59,17 @@ console.log(circle3);
 
 delete circle3.draw
 console.log(circle3);
+ 
+
+// factory function are the objects and constructor functions are the template and that's why we use the keyword new to create the new objects
+//and normal function are the function and the function datatype is not in js
+
+//a function which take n number of parameterand return the sum of all that parameters
+
+function sum(...num){
+    let sum = 0;
+    for(let i of num){
+        sum += i;
+    }
+    return sum;
+}

@@ -11,10 +11,11 @@ Question 1: Object Manipulation
 
 function manipulateStudentInfo(student){
     let totalMarks = 0;
-    for (let i = 0; i < student.grades.legth ; i++) {
+    for (let i = 0; i < student.grades.length ; i++) {
         totalMarks += student.grades[i];
     };
     student.averageGrade = totalMarks / student.grades.length;
+    let studentcopy = JSON.parse(JSON.stringify(student));
     return [student, studentcopy];
 };
 
@@ -28,3 +29,16 @@ const student = {
 const [modifiedStudent, studentcopy] = manipulateStudentInfo(student);
 console.log(modifiedStudent);
 console.log(studentcopy);
+
+/*
+Question 2: Pizza Order
+
+You are planning to throw a party and want to order Pizzas for the guests. Assuming each person gets 3 slices of Pizza and that each Pizza has 8 slices, you want to find out how many Pizzas should be ordered for this party. Write a JavaScript function that takes the number of people invited to the party as an input and returns the total number of Pizzas required.
+Your function should:
+
+Take the number of guests as input.
+Use the assumption that each Pizza has 8 slices and each person gets 3 slices.
+Round the result to the nearest whole number using `Math.ceil()`.
+Return the count of Pizzas you should order as an integer.
+Example: if the input is 12 (12 guests), the function should return 5 (5 Pizzas)
+*/

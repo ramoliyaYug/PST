@@ -37,8 +37,8 @@ function isAvailable(checkNum){
     return false;
 };
 
-console.log(isAvailable(6));
-console.log(isAvailable(9));
+console.log(isAvailable(6)); //true
+console.log(isAvailable(9)); //false
 
 /*
 Question 3.

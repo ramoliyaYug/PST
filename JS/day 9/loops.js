@@ -71,22 +71,31 @@ do{
 //for in loop:
 
 let obj = {name: "John", age: 30, city: "New York"};
-
 for(let key in obj){
     console.log(key + " = " + obj[key]);
 };
+//whenn we want to iterate over the objects we will use the for in loop
 
 //for of loop:
 
 let arr = [1, 2, 3, 4, 5];
-
 for(let value of arr){
     console.log(value);
 };
+//when we don't want to work with indexe of array and we just want to use values then we use for of loop
 
 let language = "JavaScript";
 
 let text = "";
 for (let x of language) {
 text += x;
+}
+
+//find even number in array using for of looop:
+let array = [2,4,3,1,5,9,12]
+
+for(let value of array){
+    if(value%2 == 0){
+        console.log(value);
+    }
 }

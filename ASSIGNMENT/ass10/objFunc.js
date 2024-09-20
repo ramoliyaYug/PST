@@ -39,8 +39,6 @@ function Book(title, author) {
 }
 
 const book1 = new Book("The catcher in the rye", "J. D. Salinger");
-console.log("Book1: ");
 console.log(book1);
 const book2 = new Book("1984", "George Orwell");
-console.log("Book2: ");
 console.log(book2);
