@@ -52,4 +52,4 @@ function getPizzaCount(guests){
 
 const guestInvited = 12;
 const pizzasToBeOrdered = getPizzaCount(guestInvited);
-console.log(pizzasToBeOrdered) // output : 
+console.log(pizzasToBeOrdered);
