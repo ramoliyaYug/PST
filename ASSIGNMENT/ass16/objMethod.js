@@ -36,6 +36,16 @@ function swapKeysAndValues(obj){
     return swapped;
 }
 
+// function swapKeysAndValues(obj1){
+//     let swapped=Object.entries(obj1); //nested arrays
+//     for(let value of swapped){
+//         let temp=value[0];
+//         value[0]=value[1];
+//         value[1]=temp;
+//     }
+//     return swapped;
+// }
+
 const input2 = {
     a:1,
     b:2,
