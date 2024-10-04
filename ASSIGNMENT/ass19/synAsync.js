@@ -119,7 +119,7 @@ Write a code using the concept of promise, fetch the json data from https://dumm
 let data = fetch('https://dummyjson.com/posts');
 
 let response = data.then(data => data.json());
-console.log(response);
+// console.log(response);
 
 response.then((data)=>{
     console.log(data);
