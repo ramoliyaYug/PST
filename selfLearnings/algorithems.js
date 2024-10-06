@@ -1,5 +1,5 @@
 /*
-cheat sheegt to find the time complexity of the algorithm:
+cheat sheet to find the time complexity of the algorithm:
 
 1. calculation not depended on the input size then it will be the constant time complexity so its Big-O notation is O(1).
 
@@ -115,4 +115,3 @@ few points about recursion:
 - every recursive solution need to have a base case - a condition to terminate the recursion
 - recusion might simplify solving problem but it does not transfer to a faster solution. A recursive solution may be far worse compare to an iterative solution.
 */
-
