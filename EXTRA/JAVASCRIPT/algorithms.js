@@ -255,4 +255,43 @@ function quickSort(arr){
 
 /*
 merge sort:
+- divide array into subarray, each containing one element(an array with one element is considered as sorted)
+- repeatly merge the subarray to produce  new sorted subarray untill there is only one subarray remaining. that will be sorted array.
 */
+
+function mergeSort(arr){
+ if(arr.length<2){
+   return arr;
+ }
+ const mid = Math.floor(arr.length/2);
+ let leftArr = arr.slice(0, mid);
+ let rightArr = arr.slice(mid);
+ return merge(mergeSort(leftArr), mergeSort(rightArr));
+}
+
+function merge(leftArr, rightArr){
+  const sortedArr =  [];
+  while(leftArr.length && rightArr.length){
+    if(leftArr[0] <= rightArr[0]){
+      sortedArr.push(leftArr.shift());
+    } else {
+      sortedArr.push(rightArr.shift());
+    }
+  }
+  return [...sortedArr,...leftArr,...rightArr];
+}
+//Big-O of this algorithm is O(nlogn)
+
+//cross product or a cartesian product problem
+//given two finite non-empty set find their cartesian producte
+function cartesianProduct(arr1, arr2){
+  let result= [];
+  for(let i=0; i<arr1.length; i++){
+    for(let j=0;j<arr2.length;j++){
+      result.push([arr1[i], arr2[j]]);
+    }
+  }
+  return result;
+}
+
+console.log(cartesianProduct([1,2],[3,4,5]));
