@@ -295,3 +295,39 @@ function cartesianProduct(arr1, arr2){
 }
 
 console.log(cartesianProduct([1,2],[3,4,5]));
+//Big-O O(mn)
+
+//climbing staricase problem:
+//given a staircase of n steps, count the number of ways to distinct ways to climb to the top. you can either climb 1 or 2 steps at once
+//basic idea on this problem:
+//if you have to climb one or two steps at a time the way we can climb from step is n-1 or n-2, so the calculate the way to climb n-1 and n-2 steps and then add them
+//climbingStaircase(n)=climbingStaircasr(n-1)+climbingStaircase(n-2)
+
+function climbingStaircase(n){
+  let noOfWays = [1,2];
+  for(let i=2; i<=n; i++){
+    noOfWays[i] = noOfWays[i-1]+noOfWays[i-2];
+  }
+  return noOfWays[nn-1]
+}
+//Big-O O(n) linear time complexity
+
+//tower of hanoi problem:
+//only one disc is moved at once
+//each move consist of taking upper disk from one of the stacks and placing it on the top of the another stack or on an empty rod
+//no dis is placed on top of a disc that is smaller
+//basic idea on this problem:
+//shift n-1 disc from A to B using C (when required)
+//shift last disc from A to C
+//shift n-2 disc from B to C using A (when required)
+function towerOfHanoi(n, fromRod, toRod, usingRod){
+  if(n === 1){
+    console.log(`Move disc 1 from ${fromRod} to ${toRod}`)
+    return;
+  }
+  towerOfHanoi(n-1, fromRod, usingRod, toRod);
+  console.log(`Move disc ${n} from ${fromRod} to ${toRod}`)
+  towerOfHanoi(n-1, usingRod, toRod, fromRod);
+}
+
+//Big-O O(2^n) exponential time complexity
