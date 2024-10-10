@@ -1,0 +1,134 @@
+<!--
+Problem Statement: Responsive Student Portfolio with Table
+Enhancements
+You have been tasked with creating a Student Portfolio website that showcases projects and
+allows visitors to contact the student. The portfolio should be responsive and visually appealing,
+implementing advanced HTML and CSS techniques. The design must be user-friendly and
+adapt to different screen sizes, from mobile devices to desktops.
+Requirements:
+1. Header and Navigation:
+○ The header should include the student’s name and navigation links to "About
+Me", "Projects", and "Contact" sections.
+○ The navigation should be responsive and switch to a vertical layout on smaller
+screens.
+2. Projects Section:
+○ Use a table layout for the projects section, ensuring the design adapts to various
+screen sizes:
+○ The projects should be listed in a table with columns for "Project Name",
+"Description", and "Technologies Used".
+○ The table should support hover functionality:
+■ When hovering over a table row, the row should "glow" (i.e., change the
+background color, and scale slightly).
+3. Contact Form:
+○ The portfolio must include a contact form with the following fields:
+■ Name (text input)
+■ Email (email input)
+■ Message (textarea)
+■ Button (button with hover)
+○ All fields should be required, and the form should be accessible and easy to use
+on all devices.
+4. Responsive Design:
+○ Implement media queries to ensure the portfolio adapts to different screen sizes:
+■ On small screens (below 768px), the layout should adjust to a single
+column.
+■ On larger screens (above 1024px), the grid should have a 3-column
+layout for the projects section.
+5. Styling and Animations:
+○ Use CSS pseudo-classes to enhance interactivity (e.g., hover, active).
+○ Add smooth transitions to the hover effects for a polished user experience.
+6. Additional Considerations:
+○ Ensure the layout uses CSS Grid and Flexbox where appropriate to structure
+the content.
+○ Add any necessary CSS properties for basic styling like fonts, colors, margins,
+paddings, and border styles.
+Deliverables:
+● A fully functional HTML file that implements the portfolio structure.
+● A CSS file that contains the necessary styles, including grid layout, media queries,
+pseudo-classes for the table hover effect, and responsive design features.
+Bonus:
+● Add CSS animations to enhance the user experience further.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h2>My Portfolio</h2>
+      <a href="#about">
+      <img class="pic" src="PROFILEPIC.jpg" alt="PROFILEPIC" />
+    </a>
+      <h1>RAMOLIYA YUG</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div id="about">
+      <h2>About Me</h2>
+      <p>
+        I'm a student passionate about web development and creating responsive,
+        user-friendly websites.
+      </p>
+    </div>
+
+    <div class="table" id="projects">
+      <h2>Projects</h2>
+      <table border="3">
+        <tr>
+          <th>Project Name</th>
+          <th>Description</th>
+          <th>Technologies Used</th>
+        </tr>
+        <tr>
+          <td>Money Splitter WebApp</td>
+          <td>App to manage the money among the friends</td>
+          <td>HTML, CSS, JavaScript</td>
+        </tr>
+        <tr>
+          <td>Calculator</td>
+          <td>A basic calculator</td>
+          <td>HTML, CSS, JavaScript</td>
+        </tr>
+        <tr>
+          <td>Automatic Cart</td>
+          <td>The basic shopping website cart</td>
+          <td>HTML, CSS, JavaScript</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="contact">
+      <h2>Contact Me</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required placeholder="name"/>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="email"/>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required placeholder="message"></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+    <div class="links">
+        <span>
+        <a href="https://github.com/ramoliyaYug">GitHub</a>
+    </span>
+<span>
+        <a href="https://www.linkedin.com/in/yug-ramoliya-25a3b0308/">LinkedIn</a>
+    </span>
+    </div>
+  </body>
+</html>
