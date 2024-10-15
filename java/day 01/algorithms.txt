@@ -1,0 +1,9 @@
+algorithms:
+- it is a finite number of steps or instructions to solve the problem.
+- uses: 
+ - data scince
+ - AI
+ - research
+ - computer science
+
+- start -> algorithm -> stop
