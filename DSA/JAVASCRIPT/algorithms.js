@@ -153,8 +153,58 @@ function linearSearch(arr, target) {
 // time complexity of linear search is linear so Big-O is O(n)
 
 //binary search:
+/*
+-given a sorted array and a target element t find the target element t in the array. return -1 if the target element is not found. then find the time complexity.
+
+binary search psuedocode:
+- if array is empty then return -1 as the element is not found
+- if array haas element then find the mid element of the array,if taarget is equal to mid element then return the mid element index.
+- if target is less than mid element then binary search left half of the array
+- if target is greater than mid element then binary search right half of the array
+*/
+
+function binarySearch(arr, target) {
+  let leftIndex = 0;
+  let rightIndex = arr.length - 1;
+
+  while(leftIndex <= rightIndex) {
+    let midIndex = Math.flor((leftIndex + rightIndex) / 2);
+    if(target === arr[midIndex]) {
+      return midIndex;
+    }
+    if(target < arr[midIndex]) {
+      rightIndex = midIndex - 1;
+    } else {
+      leftIndex = midIndex + 1;
+    }
+  }
+  return -1;
+}
+// time complexity of binary search is log(n) so Big-O is O(log(n))
 
 //recursive binary search:
+function recursiveBinarySearch(arr, target) {
+  return search(arr, target, 0, arr.length - 1);
+}
+
+function search(arr, target, leftIndex, rightIndex) {
+  if(leftIndex > rightIndex) {
+    return -1;
+  }
+
+  let midIndex = Math.floor((leftIndex + rightIndex) / 2);
+
+  if(target === arr[midIndex]) {
+    return midIndex;
+  } 
+
+  if(target < arr[midIndex]) {
+    return search(arr, target, leftIndex, midIndex - 1);
+  } else {
+    return search(arr, target, midIndex + 1, rightIndex);
+  }
+}
+// time complexity of recursive binary search is log(n) so Big-O is O(log(n))
 
 /*
 sorting algorithms:
@@ -308,7 +358,7 @@ function climbingStaircase(n){
   for(let i=2; i<=n; i++){
     noOfWays[i] = noOfWays[i-1]+noOfWays[i-2];
   }
-  return noOfWays[nn-1]
+  return noOfWays[n-1]
 }
 //Big-O O(n) linear time complexity
 
