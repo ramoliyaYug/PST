@@ -1,7 +1,14 @@
-function solution(digits){
-    let a = Number(digits.join(""));
-    let b = a + 1;
-    return b.split("");
+/*
+factorial trailing zeroes
+*/
+function solution(n){
+    let count = 0;
+    let i = 5;
+    while(n/i >= 1){
+        count += Math.floor(n/i);
+        i *= 5;
+    }
+    return count
 }
 
-console.log(solution([1,2,3,4,9]))
+console.log(solution());
