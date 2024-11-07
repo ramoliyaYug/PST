@@ -1,35 +1,24 @@
-//Relative Sort Array
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        int currentSum = nums[0];
 
-class RelSort {
-    public static int[] RelativeSort(int[] arr1, int[] arr2) {
-        int[] fr = new int[1001];
-        int index = 0;
-        for(int i = 0; i < arr1.length; i++) {
-            fr[arr1[i]]++;
+        for (int i = 1; i < nums.length; i++) {
+            currentSum = Math.max(nums[i], currentSum + nums[i]);
+
+            maxSum = Math.max(maxSum, currentSum);
         }
-        for(int a:arr2) {
-            while(fr[a] > 0) {
-                arr1[index++] = a;
-                fr[a]--;
-            }
-        }
-        for (int i = 0; i < fr.length; i++) {
-            while (fr[i] > 0) {
-                arr1[index++] = i;
-                fr[i]--;
-            }
-        }
-        return arr1;
-        }
+        return maxSum;
+    }
 }
-public class LeetCode {
-    public static void main(String[] args) {
-        int[] arr1 = {2,3,1,3,2,4,6,7,9,2,19};
-        int[] arr2 = {2,1,4,3,9,6};
+public class LeetCode{
+    public static void main(String[] args){
+    int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
-        int[] res = RelSort.RelativeSort(arr1, arr2);
-        for(int i = 0; i < res.length; i++) {
-            System.out.print(res[i] + " ");
-        }
+    Solution solution = new Solution();
+
+    int maxSum = solution.maxSubArray(nums);
+
+    System.out.println("Maximum subarray sum is: " + maxSum);
     }
 }

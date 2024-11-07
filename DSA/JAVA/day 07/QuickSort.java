@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Quick {
     // Method to perform QuickSort on a given array within the specified range (low to high)
     public static void qSort(int[] arr, int low, int high) {
@@ -58,8 +60,6 @@ public class QuickSort {
         Quick.qSort(arr, 0, arr.length - 1);
         
         // Print the sorted array
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+         System.out.println(Arrays.toString(arr));
     }
 }
