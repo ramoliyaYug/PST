@@ -1,24 +1,45 @@
-class Solution {
-    public int maxSubArray(int[] nums) {
-        int maxSum = nums[0];
-        int currentSum = nums[0];
-
-        for (int i = 1; i < nums.length; i++) {
-            currentSum = Math.max(nums[i], currentSum + nums[i]);
-
-            maxSum = Math.max(maxSum, currentSum);
-        }
-        return maxSum;
+//return all possible substrings of a string
+import java.util.ArrayList;
+imort java.util.HashSet;
+public class LeetCode {
+    public static void main(String[] args) {
+        String s = "abcde";
+        System.out.println(substrings(s));
+        System.out.println(isUnique(s));
+        System.out.println(isUniqueUsingHashSet(s));
+        //printing unique substring
     }
-}
-public class LeetCode{
-    public static void main(String[] args){
-    int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
-    Solution solution = new Solution();
+    public static ArrayList<String> substrings(String s) {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                res.add(s.substring(i, j));
+            }
+        }
+        return res;
+    }
+    //method to check if string has all unique characters or not
+    public static boolean isUnique(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
-    int maxSum = solution.maxSubArray(nums);
-
-    System.out.println("Maximum subarray sum is: " + maxSum);
+    //using hashset
+    public static boolean isUniqueUsingHashSet(String s) {
+        HashSet<Character> set = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (set.contains(s.charAt(i))) {
+                return false;
+            }
+            set.add(s.charAt(i));
+        }
+        return true;
     }
 }
