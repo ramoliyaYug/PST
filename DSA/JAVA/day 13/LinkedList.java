@@ -29,7 +29,18 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        
+        LinkedList list = new LinkedList();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.append(4);
+        list.append(5);
+        //printing the linked list
+        Node temp = list.head;
+        while(temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
     }
 }
 
