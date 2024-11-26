@@ -1,35 +1,40 @@
+//create the doubly circular linked list having n nodes and delete the n-1 th node
 class Node{
     int data;
     Node next;
+    Node prev;
     Node(int data){
         this.data = data;
         this.next = null;
+        this.prev = null;
     }
 }
-//create a circular linked list has 5 node and print it twice and delete the middle node
-class CirLinkedList{
+class DoublyCircularLinkedList{
     Node head;
-    
     public void insert(int data){
         Node newNode = new Node(data);
-        if(head == null){
+        if(head ==null){
             head = newNode;
-            newNode.next = head;
+            head.next = head;
+            head.prev = head;
         }else{
             Node temp = head;
             while(temp.next != head){
                 temp = temp.next;
             }
             temp.next = newNode;
+            newNode.prev = temp;
             newNode.next = head;
+            head.prev = newNode;
         }
     }
-    
+
     public void delete(int data){
         Node temp = head;
         while(temp.next != head){
             if(temp.next.data == data){
                 temp.next = temp.next.next;
+                temp.next.prev = temp;
                 break;
             }
             temp = temp.next;
@@ -45,17 +50,16 @@ class CirLinkedList{
         System.out.println(temp.data);
     }
 }
-public class CircularLinkedList {
+public class DoublyCirList {
     public static void main(String[] args) {
-        CirLinkedList cl = new CirLinkedList();
-        cl.insert(1);
-        cl.insert(2);
-        cl.insert(3);
-        cl.insert(4);
-        cl.insert(5);
-        cl.display();
-        cl.display();
-        cl.delete(3);
-        cl.display();
+        DoublyCircularLinkedList list = new DoublyCircularLinkedList();
+        list.insert(1);
+        list.insert(2);
+        list.insert(3);
+        list.insert(4);
+        list.insert(5);
+        list.display();
+        list.delete(4);
+        list.display();
     }
 }
