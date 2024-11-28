@@ -28,6 +28,18 @@ class DoublyCircularLinkedList{
             head.prev = newNode;
         }
     }
+    //method to insert at kth node
+    public void insertAt(int data, int k){
+        Node newNode = new Node(data);
+        Node temp = head;
+        for(int i=1;i<k-1;i++){
+            temp = temp.next;
+        }
+        newNode.next = temp.next;
+        newNode.prev = temp;
+        temp.next = newNode;
+        newNode.next.prev = newNode;
+    }
 
     public void delete(int data){
         Node temp = head;
@@ -39,6 +51,19 @@ class DoublyCircularLinkedList{
             }
             temp = temp.next;
         }
+    }
+    //methods for deleting the first and last node
+    public void deleteFirst(){
+        head = head.next;
+        head.prev = head;
+    }
+    public void deleteLast(){
+        Node temp = head;
+        while(temp.next != head){
+            temp = temp.next;
+        }
+        temp.prev.next = head;
+        head.prev = temp.prev;
     }
 
     public void display(){
@@ -60,6 +85,12 @@ public class DoublyCirList {
         list.insert(5);
         list.display();
         list.delete(4);
+        list.display();
+        list.deleteFirst();
+        list.display();
+        list.deleteLast();
+        list.display();
+        list.insertAt(6,3);
         list.display();
     }
 }

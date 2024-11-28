@@ -1,35 +1,32 @@
 /*
-Mad scientist Mike entertains himself by arranging rows of dominoes. He doesn't need dominoes, though: he uses rectangular magnets instead. Each magnet has two poles, positive (a "plus") and negative (a "minus"). If two magnets are put together at a close distance, then the like poles will repel each other and the opposite poles will attract each other.
+One day Vasya the Hipster decided to count how many socks he had. It turned out that he had a red socks and b blue socks.
 
-Mike starts by laying one magnet horizontally on the table. During each following step Mike adds one more magnet horizontally to the right end of the row. Depending on how Mike puts the magnet on the table, it is either attracted to the previous one (forming a group of multiple magnets linked together) or repelled by it (then Mike lays this magnet at some distance to the right from the previous one). We assume that a sole magnet not linked to others forms a group of its own.
+According to the latest fashion, hipsters should wear the socks of different colors: a red one on the left foot, a blue one on the right foot.
 
+Every day Vasya puts on new socks in the morning and throws them away before going to bed as he doesn't want to wash them.
 
-Mike arranged multiple magnets in a row. Determine the number of groups that the magnets formed.
+Vasya wonders, what is the maximum number of days when he can dress fashionable and wear different socks, and after that, for how many days he can then wear the same socks until he either runs out of socks or cannot make a single pair from the socks he's got.
+
+Can you help him?
 
 Input
-The first line of the input contains an integer n (1 ≤ n ≤ 100000) — the number of magnets. Then n lines follow. The i-th line (1 ≤ i ≤ n) contains either characters "01", if Mike put the i-th magnet in the "plus-minus" position, or characters "10", if Mike put the magnet in the "minus-plus" position.
+The single line of the input contains two positive integers a and b (1 ≤ a, b ≤ 100) — the number of red and blue socks that Vasya's got.
 
 Output
-On the single line of the output print the number of groups of magnets.
+Print two space-separated integers — the maximum number of days when Vasya can wear different socks and the number of days when he can wear the same socks until he either runs out of socks or cannot make a single pair from the socks he's got.
+
+Keep in mind that at the end of the day Vasya throws away the socks that he's been wearing on that day.
 */
 import java.util.Scanner;
-
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-        }
-        int count = 0;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i] != arr[i+1]){
-                count++;
-            }else{
-                continue;
-            }
-        }
-        System.out.println(count);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int ans1 = Math.min(a, b);
+        int ans2 = Math.max(a, b);
+        System.out.println(ans1 + " " + ans2);
     }
 }
+
+

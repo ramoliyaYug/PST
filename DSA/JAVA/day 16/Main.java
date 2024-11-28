@@ -28,6 +28,27 @@ class DoublyLinkedList { // Corrected class name to start with an uppercase lett
             newNode.prev = temp; // Set the previous pointer of the new node
         }
     }
+
+    public void delete(int data) {
+        Node temp = head;
+        while (temp.next != null) {
+            if (temp.next.data == data) {
+                temp.next = temp.next.next;
+                temp.next.prev = temp;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
 }
 
 public class Main { // Updated class name to avoid confusion with the DoublyLinkedList class
@@ -38,11 +59,13 @@ public class Main { // Updated class name to avoid confusion with the DoublyLink
         dll.insert(20);
         dll.insert(30);
 
-        // Print the elements of the doubly linked list
-        Node temp = dll.head; // Start from the head node
-        while (temp != null) { // Traverse until the end of the list
-            System.out.println(temp.data); // Print the data of the current node
-            temp = temp.next; // Move to the next node
-        }
+        // Display the linked list
+        dll.display();
+
+        // Delete an element from the linked list
+        dll.delete(20);
+
+        // Display the updated linked list
+        dll.display();
     }
 }
