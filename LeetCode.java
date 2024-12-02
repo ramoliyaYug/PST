@@ -1,44 +1,44 @@
+/*
+Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is a prefix of any word in sentence.
+
+Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a prefix of more than one word, return the index of the first word (minimum index). If there is no such word return -1.
+
+A prefix of a string s is any leading contiguous substring of s.
+
+ 
+
+Example 1:
+
+Input: sentence = "i love eating burger", searchWord = "burg"
+Output: 4
+Explanation: "burg" is prefix of "burger" which is the 4th word in the sentence.
+Example 2:
+
+Input: sentence = "this problem is an easy problem", searchWord = "pro"
+Output: 2
+Explanation: "pro" is prefix of "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
+Example 3:
+
+Input: sentence = "i am tired", searchWord = "you"
+Output: -1
+Explanation: "you" is not a prefix of any word in the sentence.
+*/
 public class LeetCode {
-    public static void main(String[] args) {
-      int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-      int k = 12;
-  
-      // Calling the twoSum function and printing the result
-      int[] result = new LeetCode().twoSum(nums, k);
-      System.out.println("Result: [" + result[0] + ", " + result[1] + "]");
-    }
-  
-    public int[] twoSum(int[] numbers, int target) {
-      int left = 0;
-      int right = numbers.length - 1;
-  
-      // Print initial values of left and right indices
-      System.out.println("Starting with left: " + left + " (value: " + numbers[left] + "), right: " + right + " (value: " + numbers[right] + ")");
-      
-      while (left < right) {
-        int sum = numbers[left] + numbers[right];
-        
-        // Print the current sum and the indices of left and right
-        System.out.println("Checking indices: left = " + left + ", right = " + right + " -> sum = " + sum);
-  
-        if (sum == target) {
-          // Found the pair, return 1-based indices (left + 1, right + 1)
-          System.out.println("Found target! left = " + (left + 1) + ", right = " + (right + 1));
-          return new int[]{left + 1, right + 1};
-        } else if (sum > target) {
-          // If the sum is greater than the target, move the right pointer leftwards
-          System.out.println("Sum is greater than target. Moving right pointer left.");
-          right--;
-        } else {
-          // If the sum is less than the target, move the left pointer rightwards
-          System.out.println("Sum is less than target. Moving left pointer right.");
-          left++;
+    public int isPrefixOfWord(String sentence, String searchWord) {
+        String[] words = sentence.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].startsWith(searchWord)) {
+                return i + 1;
+            }
         }
-      }
-  
-      // If no solution is found, return an indication of failure (this case should not happen for valid input)
-      System.out.println("No solution found.");
-      return new int[]{0, 0};
+        return -1;
     }
+
+  public static void main(String[] args) {
+    LeetCode obj = new LeetCode();
+    String sentence = "i love eating burger";
+    String searchWord = "burg";
+    System.out.println(obj.isPrefixOfWord(sentence, searchWord));
   }
+}
   

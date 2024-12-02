@@ -1,32 +1,38 @@
 /*
-One day Vasya the Hipster decided to count how many socks he had. It turned out that he had a red socks and b blue socks.
+Imagine that you have a twin brother or sister. Having another person that looks exactly like you seems very unusual. It's hard to say if having something of an alter ego is good or bad. And if you do have a twin, then you very well know what it's like.
 
-According to the latest fashion, hipsters should wear the socks of different colors: a red one on the left foot, a blue one on the right foot.
+Now let's imagine a typical morning in your family. You haven't woken up yet, and Mom is already going to work. She has been so hasty that she has nearly forgotten to leave the two of her darling children some money to buy lunches in the school cafeteria. She fished in the purse and found some number of coins, or to be exact, n coins of arbitrary values a1, a2, ..., an. But as Mom was running out of time, she didn't split the coins for you two. So she scribbled a note asking you to split the money equally.
 
-Every day Vasya puts on new socks in the morning and throws them away before going to bed as he doesn't want to wash them.
-
-Vasya wonders, what is the maximum number of days when he can dress fashionable and wear different socks, and after that, for how many days he can then wear the same socks until he either runs out of socks or cannot make a single pair from the socks he's got.
-
-Can you help him?
+As you woke up, you found Mom's coins and read her note. "But why split the money equally?" — you thought. After all, your twin is sleeping and he won't know anything. So you decided to act like that: pick for yourself some subset of coins so that the sum of values of your coins is strictly larger than the sum of values of the remaining coins that your twin will have. However, you correctly thought that if you take too many coins, the twin will suspect the deception. So, you've decided to stick to the following strategy to avoid suspicions: you take the minimum number of coins, whose sum of values is strictly more than the sum of values of the remaining coins. On this basis, determine what minimum number of coins you need to take to divide them in the described manner.
 
 Input
-The single line of the input contains two positive integers a and b (1 ≤ a, b ≤ 100) — the number of red and blue socks that Vasya's got.
+The first line contains integer n (1 ≤ n ≤ 100) — the number of coins. The second line contains a sequence of n integers a1, a2, ..., an (1 ≤ ai ≤ 100) — the coins' values. All numbers are separated with spaces.
 
 Output
-Print two space-separated integers — the maximum number of days when Vasya can wear different socks and the number of days when he can wear the same socks until he either runs out of socks or cannot make a single pair from the socks he's got.
-
-Keep in mind that at the end of the day Vasya throws away the socks that he's been wearing on that day.
+In the single line print the single number — the minimum needed number of coins.
 */
+
 import java.util.Scanner;
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        int ans1 = Math.min(a, b);
-        int ans2 = Math.max(a, b);
-        System.out.println(ans1 + " " + ans2);
+        int n = sc.nextInt();
+        int[] coins = new int[n];
+        for (int i = 0; i < n; i++) {
+            coins[i] = sc.nextInt();
+        }
+        int[] prefixSum = new int[n + 1];
+        prefixSum[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            prefixSum[i] = prefixSum[i - 1] + coins[i - 1];
+        }
+        int minCoins = Integer.MAX_VALUE;
+        for (int i = 1; i <= n; i++) {
+            if (prefixSum[i] > prefixSum[n] / 2) {
+                minCoins = Math.min(minCoins, i);
+            }
+        }
+        System.out.println(minCoins);
     }
 }
-
 

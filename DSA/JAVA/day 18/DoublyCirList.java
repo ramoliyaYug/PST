@@ -66,6 +66,17 @@ class DoublyCircularLinkedList{
         head.prev = temp.prev;
     }
 
+    //finding the length of the list
+    public int length(){
+        Node temp = head;
+        int count = 0;
+        while(temp.next != head){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
     public void display(){
         Node temp = head;
         while(temp.next != head){
@@ -92,5 +103,6 @@ public class DoublyCirList {
         list.display();
         list.insertAt(6,3);
         list.display();
+        System.out.println(list.length());
     }
 }
