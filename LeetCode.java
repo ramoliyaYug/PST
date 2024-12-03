@@ -1,44 +1,50 @@
 /*
-Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is a prefix of any word in sentence.
-
-Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a prefix of more than one word, return the index of the first word (minimum index). If there is no such word return -1.
-
-A prefix of a string s is any leading contiguous substring of s.
+Given an integer array nums, return the largest perimeter of a triangle with a non-zero area, formed from three of these lengths. If it is impossible to form any triangle of a non-zero area, return 0.
 
  
 
 Example 1:
 
-Input: sentence = "i love eating burger", searchWord = "burg"
-Output: 4
-Explanation: "burg" is prefix of "burger" which is the 4th word in the sentence.
+Input: nums = [2,1,2]
+Output: 5
+Explanation: You can form a triangle with three side lengths: 1, 2, and 2.
 Example 2:
 
-Input: sentence = "this problem is an easy problem", searchWord = "pro"
-Output: 2
-Explanation: "pro" is prefix of "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
-Example 3:
-
-Input: sentence = "i am tired", searchWord = "you"
-Output: -1
-Explanation: "you" is not a prefix of any word in the sentence.
+Input: nums = [1,2,1,10]
+Output: 0
+Explanation: 
+You cannot use the side lengths 1, 1, and 2 to form a triangle.
+You cannot use the side lengths 1, 1, and 10 to form a triangle.
+You cannot use the side lengths 1, 2, and 10 to form a triangle.
+As we cannot use any three side lengths to form a triangle of non-zero area, we return 0.
 */
 public class LeetCode {
-    public int isPrefixOfWord(String sentence, String searchWord) {
-        String[] words = sentence.split(" ");
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].startsWith(searchWord)) {
-                return i + 1;
+    public String addSpaces(String s, int[] spaces) {
+        int i = 0, j = 0;
+        StringBuilder res = new StringBuilder();
+        
+        while (i < s.length() && j < spaces.length) {
+            if (i < spaces[j]) {
+                res.append(s.charAt(i));
+                i++;
+            } else {
+                res.append(' ');
+                j++;
             }
         }
-        return -1;
+        
+        if (i < s.length()) {
+            res.append(s.substring(i));
+        }
+        
+        return res.toString();
     }
 
   public static void main(String[] args) {
-    LeetCode obj = new LeetCode();
-    String sentence = "i love eating burger";
-    String searchWord = "burg";
-    System.out.println(obj.isPrefixOfWord(sentence, searchWord));
+    LeetCode lc = new LeetCode();
+    String s = "abcde";
+    int[] spaces = {0,1,1,2};
+    System.out.println(lc.addSpaces(s, spaces));
   }
 }
   

@@ -14,6 +14,14 @@ class Node {
 class DoublyLinkedList { // Corrected class name to start with an uppercase letter (Java convention)
     Node head; // Head of the doubly linked list
 
+    //method to insert at the start at the list
+    public void insertAtStart(int data){
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+    }
+
     // Method to insert a new node at the end of the list
     public void insert(int data) {
         Node newNode = new Node(data); // Create a new node

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+  </head>
+  <body>
+    <div id="container">
+      <h2>Form Registration</h2>
+      <!-- Sign up -->
+      <div id="signup">
+        <h1>Sign up page</h1>
+        <form>
+          <input type="text" id="username" placeholder="username" />
+          <input type="email" id="email" placeholder="email" />
+          <input type="password" id="password" placeholder="password" />
+          <button>signup</button>
+          <p>Already a user <a id="login_btn" href="#">Login</a></p>
+        </form>
+      </div>
+    </div>
+    <!-- Login -->
+    <div id="login" style="display: none">
+      <h1>Login Page</h1>
+      <form>
+        <input type="email" id="email_login" placeholder="email" />
+        <input type="password" id="password_login" placeholder="password" />
+        <button>Login</button>
+        <p>Create an account <a href="#" id="signup_btn">signup</a></p>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
