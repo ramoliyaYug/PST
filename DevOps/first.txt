@@ -1,0 +1,11 @@
+DevOps:
+-SRE : site reliability engineer
+-the basic principle is to automate the things
+-testing & automation
+-maintaining code and downtime
+-planning
+-mean time to resolve:
+
+internet : outside;
+intranet : inside;
+

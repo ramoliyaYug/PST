@@ -1,46 +1,50 @@
 /*
-You are given an integer n
-. Check if n
- has an odd divisor, greater than one (does there exist such a number x
- (x>1
-) that n
- is divisible by x
- and x
- is odd).
+You are given three digits a
+, b
+, c
+. Two of them are equal, but the third one is different from the other two.
 
-For example, if n=6
-, then there is x=3
-. If n=4
-, then such a number does not exist.
+Find the value that occurs exactly once.
 
 Input
-The first line contains one integer t
- (1≤t≤104
-) — the number of test cases. Then t
- test cases follow.
+The first line contains a single integer t
+ (1≤t≤270
+) — the number of test cases.
 
-Each test case contains one integer n
- (2≤n≤1014
-).
-
-Please note, that the input for some test cases won't fit into 32
--bit integer type, so you should use at least 64
--bit integer type in your programming language.
+The only line of each test case contains three digits a
+, b
+, c
+ (0≤a
+, b
+, c≤9
+). Two of the digits are equal, but the third one is different from the other two.
 
 Output
-For each test case, output on a separate line:
-
-"YES" if n
- has an odd divisor, greater than one;
-"NO" otherwise.
-You can output "YES" and "NO" in any case (for example, the strings yEs, yes, Yes and YES will be recognized as positive).
+For each test case, output the value that occurs exactly once.
 */
 
+import java.util.ArrayList;
 import java.util.Scanner;
-
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < t; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            if (a != b && a != c) {
+                res.add(a);
+            } else if (b != a && b != c) {
+                res.add(b);
+            } else {
+                res.add(c);
+            }
+        }
+        for (int i = 0; i < res.size(); i++) {
+            System.out.println(res.get(i));
+        }
     }
 }
 
