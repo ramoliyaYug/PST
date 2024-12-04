@@ -41,19 +41,6 @@ import java.util.Scanner;
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        long t = sc.nextLong();
-        long[] arr = new long[(int) t];
-        for(long i = 0; i < t; i++) {
-            arr[(int) i] = sc.nextLong();
-        }
-        for (long i = 0; i < t; i++) {
-            //check if it is power of 2 or not
-            if((arr[(int) i])&((arr[(int) i])-1) == 0) {
-                System.out.println("NO");
-            }else{
-                System.out.println("YES");
-            }
-        }
     }
 }
 

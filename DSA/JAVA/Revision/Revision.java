@@ -92,6 +92,13 @@
  - gcd(a,b) = gcd(a%b,b)
  - assume a>=b it is the fact that a%b < a/2
 */
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//concepts of boolean arrays:
+/*
+
+*/
 public class Revision {
     public static void main(String[] args) {
 

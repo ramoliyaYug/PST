@@ -1,0 +1,16 @@
+-conversion
+-time and space complexity
+-binary search
+-prefix sum
+-two pointer
+-sliding window
+-boolean Arrays
+-hashmap and hashlist
+-stringBuilder and stringburffer
+-subarray and substring
+
+
+
+-math(number theory) (https://youtube.com/playlist?list=PLzDmwrrgE-UVnyEtA-_zuffIm3smCO2eA&si=SxWzGAgQIgn5_soF)
+ -GCD
+ -
