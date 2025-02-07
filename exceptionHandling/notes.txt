@@ -1,0 +1,3 @@
+- exception is a problem/event during execution of the program
+- whenever a exception occurs, the object of throwable class is created and throwed by try block and recieved by catch block
+- when a exception occurs, execution of the program stops immidieatly and your program will terminate
