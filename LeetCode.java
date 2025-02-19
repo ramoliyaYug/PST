@@ -1,47 +1,31 @@
 /*
-There are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the ith friend brings you to the (i+1)th friend for 1 <= i < n, and moving clockwise from the nth friend brings you to the 1st friend.
+A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).
 
-The rules of the game are as follows:
+For example, "2582" is good because the digits (2 and 8) at even positions are even and the digits (5 and 2) at odd positions are prime. However, "3245" is not good because 3 is at an even index but is not even.
+Given an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.
 
-Start at the 1st friend.
-Count the next k friends in the clockwise direction including the friend you started at. The counting wraps around the circle and may count some friends more than once.
-The last friend you counted leaves the circle and loses the game.
-If there is still more than one friend in the circle, go back to step 2 starting from the friend immediately clockwise of the friend who just lost and repeat.
-Else, the last friend in the circle wins the game.
-Given the number of friends, n, and an integer k, return the winner of the game.
+A digit string is a string consisting of digits 0 through 9 that may contain leading zeros.
 
  
 
 Example 1:
 
-
-Input: n = 5, k = 2
-Output: 3
-Explanation: Here are the steps of the game:
-1) Start at friend 1.
-2) Count 2 friends clockwise, which are friends 1 and 2.
-3) Friend 2 leaves the circle. Next start is friend 3.
-4) Count 2 friends clockwise, which are friends 3 and 4.
-5) Friend 4 leaves the circle. Next start is friend 5.
-6) Count 2 friends clockwise, which are friends 5 and 1.
-7) Friend 1 leaves the circle. Next start is friend 3.
-8) Count 2 friends clockwise, which are friends 3 and 5.
-9) Friend 5 leaves the circle. Only friend 3 is left, so they are the winner.
+Input: n = 1
+Output: 5
+Explanation: The good numbers of length 1 are "0", "2", "4", "6", "8".
 Example 2:
 
-Input: n = 6, k = 5
-Output: 1
-Explanation: The friends leave in this order: 5, 4, 6, 2, 3. The winner is friend 1.
+Input: n = 4
+Output: 400
+Example 3:
+
+Input: n = 50
+Output: 564908303
  
 
 Constraints:
 
-1 <= k <= n <= 500
- 
-
-Follow up:
-
-Could you solve this problem in linear time with constant space?
+1 <= n <= 1015
 */
 
 import java.util.List;
@@ -52,37 +36,31 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class LeetCode {
-    public int findTheWinnerRecursion(int n, int k) {
-        //use recursion to solve this problem
-        //base case
-        if(n == 1){
-            return 1;
-        }
-        //recursive case
-        return (findTheWinnerRecursion(n-1, k) + k-1) % n + 1;
+    int mod = (int)1e9 + 7;
+    public int countGoodNumbers(long n) {
+        long even = (n+1)/2;
+        long odd = n/2;
+        long a = pow(4,odd)%mod;
+        long b = pow(5,even)%mod;
+        return (int)((a*b)%mod);
     }
 
-    //using arraylist
-    public int findTheWinnerArrayList(int n, int k) {
-        //use arraylist to solve this problem
-        List<Integer> list = new ArrayList<>();
-        for(int i = 1; i <= n; i++){
-            list.add(i);
+    public long pow(long a, long b) {
+        if(b==0){
+            return 1;
         }
-        while(list.size() != 1){
-            for(int i = 0; i < k-1; i++){
-                list.add(list.remove(0));
-            }
-            list.remove(0);
+        long x = pow(a,b/2);
+        if(b%2==0){
+            return (x*x)%mod;
+        }else{
+            return (a*x*x)%mod;
         }
-        return list.get(0);
     }
 
     public static void main(String[] args) {
         LeetCode sol = new LeetCode();
-        int n = 5;
-        int k = 2;
-        System.out.println(sol.findTheWinnerRecursion(n,k));
-        System.out.println(sol.findTheWinnerArrayList(n,k));
+        System.out.println(sol.countGoodNumbers(1));
+        System.out.println(sol.countGoodNumbers(4));
+        System.out.println(sol.countGoodNumbers(50));
     }
 }

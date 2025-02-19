@@ -1,0 +1,10 @@
+-> stack is the data str which follows a specific principle LIFO(last in first out)
+-> operations:
+    - push
+    - pop
+    - display
+    - IsEmpty
+
+-> stack in-built class
+    - using arrays
+    - using linked list
