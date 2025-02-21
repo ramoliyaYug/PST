@@ -1,130 +1,53 @@
 /*
-Miami GP
-Chef has finally got the chance of his lifetime to drive in the 
-F
-1
-F1 tournament. But, there is one problem. Chef did not know about the 107% rule and now he is worried whether he will be allowed to race in the main event or not.
+We know that prime numbers are positive integers that have exactly two distinct positive divisors. Similarly, we'll call a positive integer t Т-prime, if t has exactly three distinct positive divisors.
 
-Given the fastest finish time as 
-X
-X seconds and Chef's finish time as 
-Y
-Y seconds, determine whether Chef will be allowed to race in the main event or not.
+You are given an array of n positive integers. For each of them determine whether it is Т-prime or not.
 
-Note that, Chef will only be allowed to race if his finish time is within 107% of the fastest finish time.
-
-Input Format
-First line will contain 
-T
-T, number of testcases. Then the testcases follow.
-Each testcase contains of a single line of input, two space separated integers 
-X
-X and 
-Y
-Y denoting the fastest finish time and Chef's finish time respectively.
-Output Format
-For each test case, output 
-YES
-YES if Chef will be allowed to race in the main event, else output 
-NO
-NO.
-
-You may print each character of the string in uppercase or lowercase (for example, the strings 
-YeS
-YeS, 
-yEs
-yEs, 
-yes
-yes and 
-YES
-YES will all be treated as identical).
-
-Constraints
-1
-≤
-T
-≤
-2
-⋅
-1
-0
-4
-1≤T≤2⋅10 
-4
- 
-1
-≤
-X
-≤
-Y
-≤
-200
-1≤X≤Y≤200
-Sample 1:
 Input
+The first line contains a single positive integer, n (1 ≤ n ≤ 105), showing how many numbers are in the array. The next line contains n space-separated integers xi (1 ≤ xi ≤ 1012).
+
+Please, do not use the %lld specifier to read or write 64-bit integers in С++. It is advised to use the cin, cout streams or the %I64d specifier.
+
 Output
-4
-1 2
-15 16
-15 17
-100 107
-NO
-YES
-NO
-YES
-Explanation:
-Test case 
-1
-1: The fastest car finished in 
-1
-1 second. Thus, Chef should have finished on or before 
-1.07
-1.07 seconds to ensure qualification but he finished in 
-2
-2 seconds. Hence, Chef will not be allowed to race in the main event.
+Print n lines: the i-th line should contain "YES" (without the quotes), if number xi is Т-prime, and "NO" (without the quotes), if it isn't.
 
-Test case 
-2
-2: The fastest car finished in 
-15
-15 seconds. Thus, Chef should have finished on or before 
-16.05
-16.05 seconds to ensure qualification and he managed to finish in 
-16
-16 seconds. Hence, Chef will be allowed to race in the main event.
-
-Test case 
+Examples
+InputCopy
 3
-3: The fastest car finished in 
-15
-15 seconds. Thus, Chef should have finished on or before 
-16.05
-16.05 seconds to ensure qualification but he finished in 
-17
-17 seconds. Hence, Chef will not be allowed to race in the main event.
+4 5 6
+OutputCopy
+YES
+NO
+NO
+Note
+The given test has three numbers. The first number 4 has exactly three divisors — 1, 2 and 4, thus the answer for this number is "YES". The second number 5 has two divisors (1 and 5), and the third number 6 has four divisors (1, 2, 3, 6), hence the answer for them is "NO".
 
-Test case 
-4
-4: The fastest car finished in 
-100
-100 seconds. Thus, Chef should have finished on or before 
-107
-107 seconds to ensure qualification and he finished just in time for qualification. Hence, Chef will be allowed to race in the main event.
+
 */
 import java.util.*;
 
 public class CodeForces {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        while(t-- > 0){
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            if(y <= (int)(x*1.07)){
-                System.out.println("YES");
-            }else{
-                System.out.println("NO");
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+
+        while (t-- > 0) {
+            int n = scanner.nextInt(); 
+            int[] result = new int[n]; 
+
+            for (int i = n - 1; i >= 0; i--) { 
+                String row = scanner.next();
+                for (int j = 0; j < 4; j++) {
+                    if (row.charAt(j) == '#') {
+                        result[i] = j + 1;
+                        break;
+                    }
+                }
             }
+            for (int col : result) {
+                System.out.print(col + " ");
+            }
+            System.out.println();
         }
     }
 }
