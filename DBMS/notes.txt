@@ -9,6 +9,8 @@ DDL:
 DQL:
 - select -> reads the data from the table
 - selection -> selects the data from the table
+ - filters data according to specified conditions using clauses
+   1.where(conditions):
 - projection -> projects the data from the table
 
   - wrtie a query to display name and job : select name, job from employee
@@ -28,4 +30,37 @@ DQL:
   - Alias:
     column as 'Alias Name'
   - write query to display annual salary
-    select salary*12 as 'annual salary' from employee    
+    select salary*12 as 'annual salary' from employee
+    select salary*6 as 'Half Annual Salary' from employee
+    select salary/30 as 'Daily Salary' from employee    
+
+
+  - write query to display details of employee who are earning more than 1500
+    select * from employee where salary>1500
+  - write query to display details of employee who are working as a salesman
+    select * from employee where job='salesman'
+  - write query to display salary where the employee earn more than 20,000 annualy
+    select ename, salary*12 as 'Annual Salary' from employee where salary*12>20000
+  - write a query to display the name and hire date of employee who are hired after year 1981
+    select ename, hiredate from employee where hiredate>'1981-12-31'
+    select ename, hiredate from employee where hiredate>'1981-01-01' // hired in and after 1981
+
+
+  - qualifier:
+    - if you need to display all the column of the table along with the new column you need to use qualifier along with the table name
+      [table_name.*,column_name]
+
+  - write query to display all the all the details of the employee along with annual salary of the employee
+    select employee.*, salary*12 as 'Annual Salary' from employee
+    select employee.*, salary+ifnull(commission,0) as 'Total Salary' from employee
+  
+  - in the latest mysql you can do *,column_name so you do not need of qualifier
+
+
+  - operators:
+    - arithmetic operators
+    - comparison operators
+    - logical operators
+
+  - write query to display all the records of the employee who are working as a salesman and earning total salary more then 20,000
+    select *, salary+ifnull(commission,0) as 'Total Salary' from employee where job='salesman' and salary+ifnull(commission,0)>20000
