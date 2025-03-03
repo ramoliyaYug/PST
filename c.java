@@ -55,41 +55,29 @@ C
 
 import java.util.*;
 
-public class CodeForces {
+public class Code {
+    public static void solve() {
+        int[] cnt = new int[3]; 
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < 9; i++) {
+            char c = sc.next().charAt(0); 
+            if (c != '?') {
+                cnt[c - 'A']++;
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            if (cnt[i] < 3) { 
+                System.out.println((char)('A' + i));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
-        
-        while(t-- > 0){
-            int[] count = new int[3];
-            String[] s = new String[3]; 
-            
-            for(int i = 0; i < 3; i++){
-                s[i] = sc.next(); 
-            }
-            
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 3; j++){
-                    if(s[i].charAt(j) == 'A'){
-                        count[0]++;
-                    }
-                    else if(s[i].charAt(j) == 'B'){
-                        count[1]++; 
-                    }
-                    else if(s[i].charAt(j) == 'C'){
-                        count[2]++; 
-                    }
-                }
-            }
-            
-            for(int i = 0; i < 3; i++){
-                if(count[i] == 2){ 
-                    System.out.println((char)('A' + i));
-                }
-            }
+        for (int i = 1; i <= t; i++) {
+            solve(); 
         }
-        
-        sc.close(); 
     }
 }
 

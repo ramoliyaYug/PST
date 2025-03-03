@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <div id="displayBox">Displayed Here</div>
+
+    <script >
+
+        const input = document.getElementById('input');
+        const displayBox = document.getElementById('displayBox');
+
+        function display(query) {
+            displayBox.innerText = `${query}`;
+        }
+
+        input.addEventListener('input', (e) => {
+            display(e.target.value);
+        });
+
+        function debounce(fun,timer){
+            let timeout;
+            return function(...args){
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    fun.apply(this,args);
+                },timer);
+            }
+        }
+    </script>
+</body>
+</html>

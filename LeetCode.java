@@ -1,36 +1,37 @@
 /*
-The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
+You are given a 0-indexed integer array nums and an integer pivot. Rearrange nums such that the following conditions are satisfied:
 
-By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
-
-"123"
-"132"
-"213"
-"231"
-"312"
-"321"
-Given n and k, return the kth permutation sequence.
+Every element less than pivot appears before every element greater than pivot.
+Every element equal to pivot appears in between the elements less than and greater than pivot.
+The relative order of the elements less than pivot and the elements greater than pivot is maintained.
+More formally, consider every pi, pj where pi is the new position of the ith element and pj is the new position of the jth element. If i < j and both elements are smaller (or larger) than pivot, then pi < pj.
+Return nums after the rearrangement.
 
  
 
 Example 1:
 
-Input: n = 3, k = 3
-Output: "213"
+Input: nums = [9,12,5,10,14,3,10], pivot = 10
+Output: [9,5,3,10,10,12,14]
+Explanation: 
+The elements 9, 5, and 3 are less than the pivot so they are on the left side of the array.
+The elements 12 and 14 are greater than the pivot so they are on the right side of the array.
+The relative ordering of the elements less than and greater than pivot is also maintained. [9, 5, 3] and [12, 14] are the respective orderings.
 Example 2:
 
-Input: n = 4, k = 9
-Output: "2314"
-Example 3:
-
-Input: n = 3, k = 1
-Output: "123"
+Input: nums = [-3,4,3,2], pivot = 2
+Output: [-3,2,4,3]
+Explanation: 
+The element -3 is less than the pivot so it is on the left side of the array.
+The elements 4 and 3 are greater than the pivot so they are on the right side of the array.
+The relative ordering of the elements less than and greater than pivot is also maintained. [-3] and [4, 3] are the respective orderings.
  
 
 Constraints:
 
-1 <= n <= 9
-1 <= k <= n!
+1 <= nums.length <= 105
+-106 <= nums[i] <= 106
+pivot equals to an element of nums.
 */
 
 import java.util.List;
@@ -41,33 +42,36 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
+import java.math.BigInteger;
 
 public class LeetCode {
-    public String getPermutation(int n, int k) {
-        int[] fact = new int[n];
-        List<Integer> nums = new ArrayList<>();
-        fact[0] = 1;
-        for (int i = 1; i < n; i++) {
-            fact[i] = fact[i - 1] * i;
+    public int[] pivotArray(int[] nums, int pivot) {
+        int n = nums.length;
+        int[] res = new int[n];
+        int left = 0;
+        for(int i = 0; i < n; i++) {
+            if(nums[i] < pivot) {
+                res[left++] = nums[i];
+            }
         }
-        for (int i = 1; i <= n; i++) {
-            nums.add(i);
+        for(int i = 0; i < n; i++) {
+            if(nums[i] == pivot) {
+                res[left++] = nums[i];
+            }
         }
-        k--;
-        StringBuilder sb = new StringBuilder();
-        for (int i = n - 1; i >= 0; i--) {
-            int index = k / fact[i];
-            sb.append(nums.get(index));
-            nums.remove(index);
-            k %= fact[i];
+        for(int i = 0; i < n; i++) {
+            if(nums[i] > pivot) {
+                res[left++] = nums[i];
+            }
         }
-        return sb.toString();
+        return res;
     }
-
     public static void main(String[] args) {
         LeetCode sol = new LeetCode();
-        int n = 3;
-        int k = 3;
-        System.out.println(sol.getPermutation(n, k));
+        int[] nums = {9, 12, 5, 10, 14, 3, 10};
+        int pivot = 10;
+        int[] res = sol.pivotArray(nums, pivot);
+        System.out.println(Arrays.toString(res));
+
     }
 }

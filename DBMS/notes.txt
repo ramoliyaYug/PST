@@ -1,0 +1,31 @@
+DDL:
+- create table -> creates a new table
+- alter table -> modifies the table
+- read table -> reads the data from the table
+- truncate table -> deletes all the data from the table
+- drop table -> deletes the table
+- rename table -> renames the table
+
+DQL:
+- select -> reads the data from the table
+- selection -> selects the data from the table
+- projection -> projects the data from the table
+
+  - wrtie a query to display name and job : select name, job from employee
+  - use of distinct
+    displays unique records
+    select distinct column_name from table_name
+    select distinct job from employee
+  - expression:
+    
+  - write query to display salary with 10% high
+    select salary*1.1 from employee
+  - write query to display salary with 10% low
+    select salary*0.9 from employee
+  - write query to display salary total salary of employee
+    select salary+commission from employee (this is not correct if commission is null then total amount will be null)
+    select salary+ifnull(commission,0) from employee
+  - Alias:
+    column as 'Alias Name'
+  - write query to display annual salary
+    select salary*12 as 'annual salary' from employee    
