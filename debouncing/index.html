@@ -31,6 +31,25 @@
                 },timer);
             }
         }
+
+        function throttle(fun,timer){
+            let timeout;
+            let lastRan;
+            return function(...args){
+                if(!lastRan){
+                    fun(args);
+                    lastRan = Date.now();
+                }
+                else{
+                    timeout = setTimeout(() => {
+                        if(Date.now() - lastRan >= timer){
+                            fun(args);
+                            lastRan = Date.now();
+                        }
+                    },timer-(Date.now()-lastRan));
+                }
+            }
+        }
     </script>
 </body>
 </html>
