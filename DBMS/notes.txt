@@ -64,3 +64,50 @@ DQL:
 
   - write query to display all the records of the employee who are working as a salesman and earning total salary more then 20,000
     select *, salary+ifnull(commission,0) as 'Total Salary' from employee where job='salesman' and salary+ifnull(commission,0)>20000
+  - write a query to display hiredate and the dep no. of the emp only if they hired after 20th may 1981 and dep no. is 30
+    select hiredate, deptno from employee where hiredate>'1981-05-20' and deptno=30
+  - write a query to display the name job and hire date of the employee who work as manager and and hire before june 1981
+    select ename, job, hiredate from employee where job='manager' and hiredate<'1981-06-01'
+  - write a query to display the details of the employee along with their annual salary as annual salary only if their annual salary is more than 35,000 and they should not be working in dep 20
+    select *, salary*12 as 'Annual Salary' from employee where salary*12>35000 and deptno!=20
+  - wrtie a query to display name and job of the employee who are working as a manager or as a salesman
+    select ename, job from employee where job='manager' or job='salesman'  
+  - write a query to display message " employee ename earns salary per month" for all employee
+    select concat('Employee ',ename,' earns ',salary,' per month') from employee
+
+
+    - special operators:
+      -like 
+      -not like
+      -in
+      -not in
+      -between .. and
+      -not between .. and
+      -is
+      -is not
+
+  - write a query to display details of employee only if their commission is null
+    select * from employee where commission is null
+  - write a query to display details of employee only if their commission is not null  
+    select * from employee where commission is not null
+  - write a query to display name,job of the employee who are working as salesman,manager,clerk
+    select ename, job from employee where job in ('salesman','manager','clerk')
+  - write a query to display the name and dep no if they are working in either dep 10,30  
+    select ename, deptno from employee where deptno in (10,30)
+  - write a query to display name,job,depno of the employee only if they are working either as salesman or manager and in the dep no 20 or 30
+    select ename,job,depno from employee where job in ('salesman','manager') and depno in (20,30) 
+  - write a query to display name,job of the employee only if they are not working as a salesman or manager
+    select ename,job from employee where job not in ('salesman','manager')
+  - write a query to display details of the employee only if their annual salary is between 20,000 and 30,000
+    select * from employee where salary*12 between 20000 and 30000
+  - write a query to display details of the employee if they hired after the year 1980 and before 1986
+    select * from employee where hiredate between '1980-01-01' and '1986-12-31'    
+
+
+  - like and not like 
+     - % : any number of character + any character
+     - _ : any character + single number
+
+  - write a query to display details of the employee only if their job contains man
+    select * from employee where ename like '%man%'
+  -   

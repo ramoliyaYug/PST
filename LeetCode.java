@@ -1,27 +1,32 @@
 /*
-Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
-
-A subarray is a contiguous part of an array.
+Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
 
  
 
 Example 1:
 
-Input: nums = [4,5,0,-2,-3,1], k = 5
-Output: 7
-Explanation: There are 7 subarrays with a sum divisible by k = 5:
-[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+Input: pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
+Output: true
+Explanation: We might do the following sequence:
+push(1), push(2), push(3), push(4),
+pop() -> 4,
+push(5),
+pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
 Example 2:
 
-Input: nums = [5], k = 9
-Output: 0
+Input: pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
+Output: false
+Explanation: 1 cannot be popped before 2.
  
 
 Constraints:
 
-1 <= nums.length <= 3 * 104
--104 <= nums[i] <= 104
-2 <= k <= 104
+1 <= pushed.length <= 1000
+0 <= pushed[i] <= 1000
+All the elements of pushed are unique.
+popped.length == pushed.length
+popped is a permutation of pushed.
+
 */
 
 import java.util.List;
@@ -35,10 +40,24 @@ import java.util.Stack;
 import java.math.BigInteger;
 
 public class LeetCode {
-    public int subarraysDivByK(int[] nums, int k) {
-        
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Stack<Integer> stack = new Stack<>();
+        int j = 0;
+        for(int i = 0; i < pushed.length; i++){
+            stack.push(pushed[i]);
+            while(!stack.isEmpty() && stack.peek() == popped[j]){
+                stack.pop();
+                j++;
+            }
+        }
+        return stack.isEmpty();
     }
+
     public static void main(String[] args) {
         LeetCode sol = new LeetCode();
+        int[] pushed = {1,2,3,4,5};
+        int[] popped = {4,5,3,2,1};
+        System.out.println(sol.validateStackSequences(pushed, popped));
     }
 }
+
