@@ -1,32 +1,38 @@
 /*
-Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 
  
 
 Example 1:
 
-Input: pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
-Output: true
-Explanation: We might do the following sequence:
-push(1), push(2), push(3), push(4),
-pop() -> 4,
-push(5),
-pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Explanation:
+
+There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
 Example 2:
 
-Input: pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
-Output: false
-Explanation: 1 cannot be popped before 2.
+Input: strs = [""]
+
+Output: [[""]]
+
+Example 3:
+
+Input: strs = ["a"]
+
+Output: [["a"]]
+
  
 
 Constraints:
 
-1 <= pushed.length <= 1000
-0 <= pushed[i] <= 1000
-All the elements of pushed are unique.
-popped.length == pushed.length
-popped is a permutation of pushed.
-
+1 <= strs.length <= 104
+0 <= strs[i].length <= 100
+strs[i] consists of lowercase English letters.
 */
 
 import java.util.List;
@@ -40,24 +46,22 @@ import java.util.Stack;
 import java.math.BigInteger;
 
 public class LeetCode {
-    public boolean validateStackSequences(int[] pushed, int[] popped) {
-        Stack<Integer> stack = new Stack<>();
-        int j = 0;
-        for(int i = 0; i < pushed.length; i++){
-            stack.push(pushed[i]);
-            while(!stack.isEmpty() && stack.peek() == popped[j]){
-                stack.pop();
-                j++;
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String str = new String(chars);
+            if (!map.containsKey(str)) {
+                map.put(str, new ArrayList<>());
             }
+            map.get(str).add(s);
         }
-        return stack.isEmpty();
+        return new ArrayList<>(map.values());
     }
 
     public static void main(String[] args) {
         LeetCode sol = new LeetCode();
-        int[] pushed = {1,2,3,4,5};
-        int[] popped = {4,5,3,2,1};
-        System.out.println(sol.validateStackSequences(pushed, popped));
     }
 }
 

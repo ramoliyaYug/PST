@@ -110,4 +110,50 @@ DQL:
 
   - write a query to display details of the employee only if their job contains man
     select * from employee where ename like '%man%'
-  -   
+  - write a query to display name,hiredate and salary of the employee whose salary does not end with 0 and was not hired in may
+    select ename, hiredate, salary from employee where salary not like '%0' and hiredate not like '%-05-%'
+
+
+  - multi row function
+    - Min(col/expression)
+    - Max(col/expression)
+    - Sum(col/expression)
+    - Count(col/*)
+    - avg(col/expression)  
+
+
+  - write a query to display least salary of the employee
+    select min(salary) from employee
+  - write a query to display the hiredate of the employee who was hired first
+    select min(hiredate) from employee
+  - write a query to display min annual salary given o any employee
+    select min(salary*12) from employee
+  - write a query to display least name of the employee
+    select min(ename) from employee
+  - write a query to display max salary of the employee     
+    select max(salary) from employee
+  - write a query to display last hired employee
+    select max(hiredate) from employee
+  - write a query to display name of the employee who is last in alphabetical order
+    select max(ename) from employee
+
+  - write a query to display number of employee present in the table
+    select count(*) from employee
+  - write a query to display number of employee who has reporting to manager
+    select count(mgr) from employee
+  - write a query to display number of employee who are earning commission
+    select count(commission) from employee
+  - write a query display sum of all salary to given all employee monthly
+    select sum(salary) from employee
+
+  - write a query to display average salary of the employee
+    select avg(salary) from employee
+  - write a query to display average quaterly salary of the employee
+    select avg(salary/3) from employee
+  - write a query to display average commission earned by the employee
+    select avg(commission) from employee
+  - write a query to display the min and max salary of the employee only if they are working in dep 10 or 30
+    select min(salary),max(salary) from employee where deptno in (10,30)
+  - write query to display the sum and average salaries of all the salesman only if they are hired after the year 1981 and before 1986
+    select sum(salary), avg(salary) from employee where job='salesman' and hiredate between '1981-01-01' and '1986-12-31'
+  
