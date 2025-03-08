@@ -1,38 +1,31 @@
 /*
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+The overall run time complexity should be O(log (m+n)).
 
  
 
 Example 1:
 
-Input: strs = ["eat","tea","tan","ate","nat","bat"]
-
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
-
-Explanation:
-
-There is no string in strs that can be rearranged to form "bat".
-The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
 Example 2:
 
-Input: strs = [""]
-
-Output: [[""]]
-
-Example 3:
-
-Input: strs = ["a"]
-
-Output: [["a"]]
-
+Input: nums1 = [1,2], nums2 = [3,4]
+Output: 2.50000
+Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
  
 
 Constraints:
 
-1 <= strs.length <= 104
-0 <= strs[i].length <= 100
-strs[i] consists of lowercase English letters.
+nums1.length == m
+nums2.length == n
+0 <= m <= 1000
+0 <= n <= 1000
+1 <= m + n <= 2000
+-106 <= nums1[i], nums2[i] <= 106
+
 */
 
 import java.util.List;
@@ -46,18 +39,19 @@ import java.util.Stack;
 import java.math.BigInteger;
 
 public class LeetCode {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        for (String s : strs) {
-            char[] chars = s.toCharArray();
-            Arrays.sort(chars);
-            String str = new String(chars);
-            if (!map.containsKey(str)) {
-                map.put(str, new ArrayList<>());
-            }
-            map.get(str).add(s);
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i : nums1){
+            arr.add(i);
         }
-        return new ArrayList<>(map.values());
+        for(int i : nums2){
+            arr.add(i);
+        } 
+        Collections.sort(arr);
+        if(arr.size()%2==1){
+            return arr.get(arr.size()/2);
+        }
+        return (arr.get(arr.size()/2)+arr.get(arr.size()/2-1))/2.0;
     }
 
     public static void main(String[] args) {

@@ -157,3 +157,186 @@ DQL:
   - write query to display the sum and average salaries of all the salesman only if they are hired after the year 1981 and before 1986
     select sum(salary), avg(salary) from employee where job='salesman' and hiredate between '1981-01-01' and '1986-12-31'
   
+
+  - group bu clauses
+    - group by
+
+  - Write query to display the max salary for each job
+    select job, max(salary) as max_salary from employee group by job;
+
+  - Write query to display the max salary and the job given for each job role
+    select job, max(salary) as max_salary, ename from employee group by job;
+
+  - Write query to display the average salary as Average Salary and deptno for every department
+    select deptno, avg(salary) as average_salary from employee group by deptno;
+
+  - Write query to display the count of employees as "employee count", job in each job role
+    select job, count(*) as employee_count from employee group by job;
+
+  - Write query to display the total number of employees from each department  
+    select deptno, count(*) as total_employees from employee group by deptno;
+
+  - Write query to display the minimum and maximum salary along with the dept no for each dept.
+    select deptno, min(salary) as min_salary, max(salary) as max_salary from employee group by deptno;
+
+  - Write query to display the minimum salary of the employees working in the same department and having the same designation
+    select deptno, job, min(salary) as min_salary from employee group by deptno, job;
+
+  - Write query to display the count of the employee working in the same department and were hired on the same day
+    select deptno, hiredate, count(*) as employee_count from employee group by deptno, hiredate;
+
+  - Write query to display the number of employees working in each department only if their salary is greater than 1500
+    select deptno, count(*) as employee_count from employee where salary > 1500 group by deptno;
+
+  - Write query to display the number of employees and their average salary from each department only if they are hired in the month of June, July, or December
+    select deptno, count(*) as employee_count, avg(salary) as average_salary from employee where month(hiredate) in (6, 7, 12) group by deptno;
+
+
+  - having clause
+    - applied after the table is being grouped (after the group by clause)
+    - we can mention aggregate/multirow functionin having clause
+
+
+  - Write query to display the max salary for each job
+    select job, max(salary) as max_salary from employee group by job;
+
+  - Write query to display the max salary and the job given for each job role 
+    select job, max(salary) as max_salary, ename from employee group by job;
+
+  - Write query to display the average salary as Average Salary and deptno for every department
+    select deptno, avg(salary) as average_salary from employee group by deptno;
+
+  - Write query to display the count of employees as "employee count", job in each job role 
+    select job, count(*) as employee_count from employee group by job;
+
+  - Write query to display the total number of employees from each department 
+    select deptno, count(*) as total_employees from employee group by deptno;
+
+  - Write query to display the minimum and maximum salary along with the dept no for each dept.
+    select deptno, min(salary) as min_salary, max(salary) as max_salary from employee group by deptno;
+
+  - Write query to display the minimum salary of the employees working in the same department and having the same designation
+    select deptno, job, min(salary) as min_salary from employee group by deptno, job;
+
+  - Write query to display the count of the employee working in the same department and were hired on the same day
+    select deptno, hiredate, count(*) as employee_count from employee group by deptno, hiredate;
+
+  - Write query to display the number of employees working in each department only if their salary is greater than 1500
+    select deptno, count(*) as employee_count from employee where salary > 1500 group by deptno;
+
+  - Write query to display the number of employees and their average salary from each department only if they are hired in the month of June, July, or December
+    select deptno, count(*) as employee_count, avg(salary) as average_salary from employee where month(hiredate) in (6, 7, 12) group by deptno;
+
+  - Write query to display the deptno, min salary, max salary, and the average salary for each department only if there are at least 3 employees working in that department
+    select deptno, min(salary) as min_salary, max(salary) as max_salary, avg(salary) as average_salary from employee group by deptno having count(*) >= 3;
+
+  - Write query to display the number of the employees only if there are more than 10 employees in that table
+    select count() as total_employees from employee having count() > 10;
+
+  - Write query to display the deptno, name and salary only if the employees are working in dept 10 or 20 and the average salary is greater than 3500
+    select deptno, ename, salary from employee where deptno in (10,20) group by deptno having avg(salary) > 3500;
+
+  - Write query to display the number of employees only if the employees are working in dept(10,20) and their average salary is greater than 1500
+    select deptno, count(*) as employee_count from employee where deptno in (10,20) group by deptno having avg(salary) > 1500;
+
+  - Write query to display the job and the number of employees for each designation only if there are at least 3 people in that job
+    select job, count() as employee_count from employee group by job having count() >= 3;
+
+  - Write query to display the details of the employees arranged in highest to lowest salary order
+    select * from employee order by salary desc;
+
+  - Write query to display the details of the employees in the order from first hired employee to last hired employee
+    select * from employee order by hiredate asc;
+
+
+    SUBQUERIES
+    - If the data is in the same table but it is unknown
+    - If the data is known but it is in some other table
+
+  - Write query to display the name and salary of the employee who are earning more than 'Miller'
+    select ename, salary from employee where salary > (select salary from employee where ename = 'Miller');
+
+  - Write query to display the details of the employees working in 'NEW YORK'
+    select * from employee where deptno in (select deptno from department where loc = 'NEW YORK');
+
+  - Write query to display the name and hiredate of the employees who are hired after KING
+    select ename, hiredate from employee where hiredate > (select hiredate from employee where ename = 'KING');
+
+  - Write query to display the details of the employees who work in the same department as of Jones
+    select * from employee where deptno = (select deptno from employee where ename = 'Jones');
+
+  - Write query to display the name and job of employees who have the same job as SCOTT
+    select ename, job from employee where job = (select job from employee where ename = 'SCOTT');
+
+  - Write query to display the name and salary of employees earning more than the average salary of all employees
+    select ename, salary from employee where salary > (select avg(salary) from employee);
+
+  - Write query to display the name and department number of employees who work in the same department as the employee with the highest salary
+    select ename, deptno from employee where deptno = (select deptno from employee where salary = (select max(salary) from employee));
+
+  - Write query to display the name and hiredate of employees hired before SMITH
+    select ename, hiredate from employee where hiredate < (select hiredate from employee where ename = 'SMITH');
+
+  - Write query to display the name and salary of employees earning less than BLAKE
+    select ename, salary from employee where salary < (select salary from employee where ename = 'BLAKE');
+
+  - Write query to display the details of employees who report to the same manager as FORD
+    select * from employee where mgr = (select mgr from employee where ename = 'FORD');
+
+  - Write query to display the name and job of employees who have the same job as the employee with the lowest salary
+    select ename, job from employee where job = (select job from employee where salary = (select min(salary) from employee));
+
+  - Write query to display the name and department number of employees working in the same department as ADAMS
+    select ename, deptno from employee where deptno = (select deptno from employee where ename = 'ADAMS');
+
+  - Write query to display the name and salary of employees earning more than the highest salary in department 30
+    select ename, salary from employee where salary > (select max(salary) from employee where deptno = 30);
+
+  - Write query to display the name and hiredate of employees hired after the earliest hire date in department 20
+    select ename, hiredate from employee where hiredate > (select min(hiredate) from employee where deptno = 20);
+
+  - Write query to display the name and commission of employees who have a higher commission than WARD
+    select ename, comm from employee where comm > (select comm from employee where ename = 'WARD');
+
+  - Write query to display the details of employees who have the same job as the employee with the most recent hire date
+    select * from employee where job = (select job from employee where hiredate = (select max(hiredate) from employee));
+   
+  - Write query to display the name and salary of employees earning less than the average salary in department 10
+    select ename, salary from employee where salary < (select avg(salary) from employee where deptno = 10);
+
+  - Write query to display the name and department number of employees working in the same department as the employee with the lowest employee number
+    select ename, deptno from employee where deptno = (select deptno from employee where empno = (select min(empno) from employee));
+
+  - Write query to display the name and job of employees who have a different job than KING but work in the same department
+    select ename, job from employee where job <> (select job from employee where ename = 'KING') and deptno = (select deptno from employee where ename = 'KING');
+
+  - Write query to display the name and hiredate of employees hired on the same day as TURNER
+    select ename, hiredate from employee where hiredate = (select hiredate from employee where ename = 'TURNER');
+
+  - Write query to display the name and salary of employees earning more than ALLEN but less than JONES
+    select ename, salary from employee where salary > (select salary from employee where ename = 'ALLEN') and salary < (select salary from employee where ename = 'JONES');
+
+  - Write query to display the details of employees who work in the department with the highest total salary
+    select * from employee where deptno = (select deptno from employee group by deptno order by sum(salary) desc limit 1);
+
+  - Write query to display the name and manager number of employees who report to the same manager as CLARK
+    select ename, mgr from employee where mgr = (select mgr from employee where ename = 'CLARK');
+
+  - Write query to display the name and job of employees who have a job that exists in department 30 but are not in department 30
+    select ename, job from employee where job in (select job from employee where deptno = 30) and deptno <> 30;
+
+  - Write query to display the name and salary of employees who earn more than the lowest salary in department 20
+    select ename, salary from employee where salary > (select min(salary) from employee where deptno = 20);
+
+  - Write query to display the name and hiredate of employees hired before the latest hire date in department 30
+    select ename, hiredate from employee where hiredate < (select max(hiredate) from employee where deptno = 30);
+
+  - Write query to display the name and job of employees who have the same job as the employee with the highest commission
+    select ename, job from employee where job = (select job from employee where comm = (select max(comm) from employee));
+
+  - Write query to display the details of employees who work in the same department as the employee with employee number 7902
+    select * from employee where deptno = (select deptno from employee where empno = 7902);
+
+  - Write query to display the name and salary of employees earning less than the average salary of employees with the job 'CLERK'
+    select ename, salary from employee where salary < (select avg(salary) from employee where job = 'CLERK');
+
