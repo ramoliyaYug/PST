@@ -1,34 +1,40 @@
 /*
-Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+We build a table of n rows (1-indexed). We start by writing 0 in the 1st row. Now in every subsequent row, we look at the previous row and replace each occurrence of 0 with 01, and each occurrence of 1 with 10.
 
-The overall run time complexity should be O(log (m+n)).
+For example, for n = 3, the 1st row is 0, the 2nd row is 01, and the 3rd row is 0110.
+Given two integer n and k, return the kth (1-indexed) symbol in the nth row of a table of n rows.
 
  
 
 Example 1:
 
-Input: nums1 = [1,3], nums2 = [2]
-Output: 2.00000
-Explanation: merged array = [1,2,3] and median is 2.
+Input: n = 1, k = 1
+Output: 0
+Explanation: row 1: 0
 Example 2:
 
-Input: nums1 = [1,2], nums2 = [3,4]
-Output: 2.50000
-Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+Input: n = 2, k = 1
+Output: 0
+Explanation: 
+row 1: 0
+row 2: 01
+Example 3:
+
+Input: n = 2, k = 2
+Output: 1
+Explanation: 
+row 1: 0
+row 2: 01
  
 
 Constraints:
 
-nums1.length == m
-nums2.length == n
-0 <= m <= 1000
-0 <= n <= 1000
-1 <= m + n <= 2000
--106 <= nums1[i], nums2[i] <= 106
-
+1 <= n <= 30
+1 <= k <= 2n - 1
 */
 
 import java.util.List;
+import java.lang.classfile.constantpool.StringEntry;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,19 +45,20 @@ import java.util.Stack;
 import java.math.BigInteger;
 
 public class LeetCode {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        for(int i : nums1){
-            arr.add(i);
+    public int kthGrammar(int n, int k) {
+        StringBuilder row = new StringBuilder("0");
+        for (int i = 1; i < n; i++) {
+            StringBuilder newRow = new StringBuilder();
+            for (char c : row.toString().toCharArray()) {
+                if (c == '0') {
+                    newRow.append("01");
+                } else {
+                    newRow.append("10");
+                }
+            }
+            row = newRow;
         }
-        for(int i : nums2){
-            arr.add(i);
-        } 
-        Collections.sort(arr);
-        if(arr.size()%2==1){
-            return arr.get(arr.size()/2);
-        }
-        return (arr.get(arr.size()/2)+arr.get(arr.size()/2-1))/2.0;
+        return row.charAt(k - 1) - '0';
     }
 
     public static void main(String[] args) {
