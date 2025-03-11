@@ -13,6 +13,36 @@ DQL:
    1.where(conditions):
 - projection -> projects the data from the table
 
+-> new table has been created (department table)
+        +--------+------------+----------+
+      | DEPTNO | DNAME      | LOC      |
+      +--------+------------+----------+
+      |     10 | ACCOUNTING | NEW YORK |
+      |     20 | RESEARCH   | DALLAS   |
+      |     30 | SALES      | CHICAGO  |
+      |     40 | OPERATIONS | BOSTON   |
+      +--------+------------+----------+
+
+  -> employee table 
+        +--------+----------+-----------+------------+------+---------+---------+---------------+
+      | emp_no | emp_name | job       | hire_date  | mgr  | salary  | comm    | department_no |
+      +--------+----------+-----------+------------+------+---------+---------+---------------+
+      |   7369 | SMITH    | CLERK     | 1980-12-17 | 7902 |  800.00 |    NULL |            20 |
+      |   7499 | ALLEN    | SALESMAN  | 1981-02-20 | 7698 | 1600.00 |  300.00 |            30 |
+      |   7521 | WARD     | SALESMAN  | 1981-02-22 | 7698 | 1250.00 |  500.00 |            30 |
+      |   7566 | JONES    | MANAGER   | 1981-04-02 | 7839 | 2975.00 |    NULL |            20 |
+      |   7654 | MARTIN   | SALESMAN  | 1981-09-28 | 7698 | 1250.00 | 1400.00 |            30 |
+      |   7698 | BLAKE    | MANAGER   | 1981-05-01 | 7839 | 2850.00 |    NULL |            30 |
+      |   7782 | CLARK    | MANAGER   | 1981-06-09 | 7839 | 2450.00 |    NULL |            10 |
+      |   7788 | SCOTT    | ANALYST   | 1987-04-19 | 7566 | 3000.00 |    NULL |            20 |
+      |   7839 | KING     | PRESIDENT | 1981-11-17 | NULL | 5000.00 |    NULL |            10 |
+      |   7844 | TURNER   | SALESMAN  | 1981-09-08 | 7698 | 1500.00 |    0.00 |            30 |
+      |   7876 | ADAMS    | CLERK     | 1987-05-23 | 7788 | 1100.00 |    NULL |            20 |
+      |   7900 | JAMES    | CLERK     | 1981-12-03 | 7698 |  950.00 |    NULL |            30 |
+      |   7902 | FORD     | ANALYST   | 1981-12-03 | 7566 | 3000.00 |    NULL |            20 |
+      |   7934 | MILLER   | CLERK     | 1982-01-23 | 7782 | 1300.00 |    NULL |            10 |
+      +--------+----------+-----------+------------+------+---------+---------+---------------+
+
   - wrtie a query to display name and job : select name, job from employee
   - use of distinct
     displays unique records
@@ -339,4 +369,27 @@ DQL:
 
   - Write query to display the name and salary of employees earning less than the average salary of employees with the job 'CLERK'
     select ename, salary from employee where salary < (select avg(salary) from employee where job = 'CLERK');
+
+
+  
+
+  - find employee who earn more than the average salary of the sales department
+    select ename, salary from employee where salary > (select avg(salary) from employee where deptno = (select deptno from department where dname = 'SALES'));
+
+  - list the name and salary of the employee who earn more than the max salary of the employee with no commission
+    select ename, salary from employee where salary > (select max(salary) from employee where comm is null);
+
+  - find the department name where the highest paid employees work
+    select dname from department where deptno = (select deptno from employee where salary = (select max(salary) from employee));
+  
+  - find employees who work in a department with the same avg salary as department 20
+    select ename from employee where deptno = (select deptno from employee group by deptno having avg(salary) = (select avg(salary) from employee where deptno = 20));
+
+  - find the name and manager number of employee who report to a manager who work in dep 10
+    select ename, mgr from employee where mgr in (select mgr from employee where deptno = 10);
+
+  - list employees whose salary is greater than the avg salary of their job role
+    select ename from employee where salary > (select avg(salary) from employee where job in);
+  
+  -
 
