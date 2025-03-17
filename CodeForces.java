@@ -1,95 +1,61 @@
 /*
-In the game show "Ten Words of Wisdom", there are n
- participants numbered from 1
- to n
-, each of whom submits one response. The i
--th response is ai
- words long and has quality bi
-. No two responses have the same quality, and at least one response has length at most 10
-.
+Vasya has a grid with 2
+ rows and n
+ columns. He colours each cell red, green, or blue.
 
-The winner of the show is the response which has the highest quality out of all responses that are not longer than 10
- words. Which response is the winner?
+Vasya is colourblind and can't distinguish green from blue. Determine if Vasya will consider the two rows of the grid to be coloured the same.
 
 Input
-The first line contains a single integer t
+The input consists of multiple test cases. The first line contains an integer t
  (1≤t≤100
-) — the number of test cases.
+) — the number of test cases. The description of the test cases follows.
 
-The first line of each test case contains a single integer n
- (1≤n≤50
-) — the number of responses.
+The first line of each test case contains an integer n
+ (1≤n≤100
+) — the number of columns of the grid.
 
-Then n
- lines follow, the i
--th of which contains two integers ai
- and bi
- (1≤ai,bi≤50
-) — the number of words and the quality of the i
--th response, respectively.
-
-Additional constraints on the input: in each test case, at least one value of i
- satisfies ai≤10
-, and all values of bi
- are distinct.
+The following two lines each contain a string consisting of n
+ characters, each of which is either R, G, or B, representing a red, green, or blue cell, respectively — the description of the grid.
 
 Output
-For each test case, output a single line containing one integer x
- (1≤x≤n
-) — the winner of the show, according to the rules given in the statement.
+For each test case, output "YES" if Vasya considers the grid's two rows to be identical, and "NO" otherwise.
 
-It can be shown that, according to the constraints in the statement, exactly one winner exists for each test case.
+You can output the answer in any case (for example, the strings "yEs", "yes", "Yes" and "YES" will be recognized as a positive answer).
 
 Example
 InputCopy
-3
-5
-7 2
-12 5
-9 3
-9 4
-10 1
-3
-1 2
-3 4
-5 6
-1
-1 43
-OutputCopy
+6
+2
+RG
+RB
 4
-3
+GRBG
+GBGB
+5
+GGGGG
+BBBBB
+7
+BBBBBBB
+RRRRRRR
+8
+RGBRRGBR
+RGGRRBGR
 1
+G
+G
+OutputCopy
+YES
+NO
+YES
+NO
+YES
+YES
 Note
-In the first test case, the responses provided are as follows:
+In the first test case, Vasya sees the second cell of each row as the same because the second cell of the first row is green and the second cell of the second row is blue, so he can't distinguish these two cells. The rest of the rows are equal in colour. Therefore, Vasya will say that the two rows are coloured the same, even though they aren't.
 
-Response 1: 7
- words, quality 2
-Response 2: 12
- words, quality 5
-Response 3: 9
- words, quality 3
-Response 4: 9
- words, quality 4
-Response 5: 10
- words, quality 1
-We can see that the responses with indices 1
-, 3
-, 4
-, and 5
- have lengths not exceeding 10
- words. Out of these responses, the winner is the one with the highest quality.
+In the second test case, Vasya can see that the two rows are different.
 
-Comparing the qualities, we find that:
-
-Response 1 has quality 2
-.
-Response 3 has quality 3
-.
-Response 4 has quality 4
-.
-Response 5 has quality 1
-.
-Among these responses, Response 4 has the highest quality.
+In the third test case, every cell is green or blue, so Vasya will think they are the same.
 
 
 
@@ -103,21 +69,15 @@ public class CodeForces {
         int t = sc.nextInt();
         while (t-- > 0) {
             int n = sc.nextInt();
-            int[] words = new int[n];
-            int[] quality = new int[n];
-            for (int i = 0; i < n; i++) {
-                words[i] = sc.nextInt();
-                quality[i] = sc.nextInt();
+            String str1 = sc.next();
+            String str2 = sc.next();
+            str1 = str1.replace('B', 'G');
+            str2 = str2.replace('B', 'G');
+            if (str1.equals(str2)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
             }
-            int max = 0;
-            int index = 0;
-            for (int i = 0; i < n; i++) {
-                if (words[i] <= 10 && quality[i] > max) {
-                    max = quality[i];
-                    index = i + 1;
-                }
-            }
-            System.out.println(index);
         } 
     }
 }
