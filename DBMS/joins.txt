@@ -1,0 +1,7 @@
+- wqtd the details of the employees along with the total income and the annual salary only if the salary is greater than the manager of smith's manager and working in the same job as the manager of ford's manager and hired before the manager of the jon's manager and works in the same location as the manager of the ADAM's manager
+
+- wqtd the employee names and their corrosponding department location
+  select e.name, d.loc from employee e inner join department d on e.deptno=d.deptno
+
+- list the name,job and department name of all employee
+  select e.ename, e.job, d.dname from employee e inner join department d on e.deptno=d.deptno

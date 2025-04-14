@@ -1,31 +1,23 @@
 /*
-Given an integer num, return the number of digits in num that divide num.
+Given a positive integer n, find the smallest integer which has exactly the same digits existing in the integer n and is greater in value than n. If no such positive integer exists, return -1.
 
-An integer val divides nums if nums % val == 0.
+Note that the returned integer should fit in 32-bit integer, if there is a valid answer but it does not fit in 32-bit integer, return -1.
 
  
 
 Example 1:
 
-Input: num = 7
-Output: 1
-Explanation: 7 divides itself, hence the answer is 1.
+Input: n = 12
+Output: 21
 Example 2:
 
-Input: num = 121
-Output: 2
-Explanation: 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2.
-Example 3:
-
-Input: num = 1248
-Output: 4
-Explanation: 1248 is divisible by all of its digits, hence the answer is 4.
+Input: n = 21
+Output: -1
  
 
 Constraints:
 
-1 <= num <= 109
-num does not contain 0 as one of its digits.
+1 <= n <= 231 - 1
 */
 
 import java.util.List;
@@ -40,23 +32,11 @@ import java.math.BigInteger;
 
 
 public class LeetCode {
-    public int countDigits(int num) {
-        int n =
-        List<Integer> arr = new ArrayList<>();
-        while (num > 0) {
-            int digit = num%10;
-            arr.add(digit);
-            num/=10;
-        }
-        int count = 0;
-        for(int i = 0;i<arr.size();i++){
-            if(num%arr.get(i)==0){
-                count++;
-            }
-        }
-        return count;
+    public int nextGreaterElement(int n) {
+        String num = String.valueOf(n);
+        char[] arr = num.toCharArray();
+        for(int i = 0;i<)
     }
-
     public static void main(String[] args) {
         LeetCode sol = new LeetCode();
     }
