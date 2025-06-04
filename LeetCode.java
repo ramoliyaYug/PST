@@ -1,75 +1,70 @@
 /*
-Alice and Bob play a game with piles of stones. There are an even number of piles arranged in a row, and each pile has a positive integer number of stones piles[i].
+Given an array of integers nums, sort the array in increasing order based on the frequency of the values. If multiple values have the same frequency, sort them in decreasing order.
 
-The objective of the game is to end with the most stones. The total number of stones across all the piles is odd, so there are no ties.
-
-Alice and Bob take turns, with Alice starting first. Each turn, a player takes the entire pile of stones either from the beginning or from the end of the row. This continues until there are no more piles left, at which point the person with the most stones wins.
-
-Assuming Alice and Bob play optimally, return true if Alice wins the game, or false if Bob wins.
+Return the sorted array.
 
  
 
 Example 1:
 
-Input: piles = [5,3,4,5]
-Output: true
-Explanation: 
-Alice starts first, and can only take the first 5 or the last 5.
-Say she takes the first 5, so that the row becomes [3, 4, 5].
-If Bob takes 3, then the board is [4, 5], and Alice takes 5 to win with 10 points.
-If Bob takes the last 5, then the board is [3, 4], and Alice takes 4 to win with 9 points.
-This demonstrated that taking the first 5 was a winning move for Alice, so we return true.
+Input: nums = [1,1,2,2,2,3]
+Output: [3,1,1,2,2,2]
+Explanation: '3' has a frequency of 1, '1' has a frequency of 2, and '2' has a frequency of 3.
 Example 2:
 
-Input: piles = [3,7,2,3]
-Output: true
+Input: nums = [2,3,1,3,2]
+Output: [1,3,3,2,2]
+Explanation: '2' and '3' both have a frequency of 2, so they are sorted in decreasing order.
+Example 3:
+
+Input: nums = [-1,1,-6,4,5,-6,1,4,1]
+Output: [5,-1,4,4,-6,-6,1,1,1]
  
 
 Constraints:
 
-2 <= piles.length <= 500
-piles.length is even.
-1 <= piles[i] <= 500
-sum(piles[i]) is odd.
+1 <= nums.length <= 100
+-100 <= nums[i] <= 100
 */
 
 import java.util.List;
+import java.util.Queue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
+import javax.swing.tree.TreeNode;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
 
 
 public class LeetCode {
-    public boolean stoneGame(int[] piles) {
-        int alice = 0;
-        int bob = 0;
-        int n = piles.length;
-        ArrayList<Integer> list = new ArrayList<>();
+    public int[] frequencySort(int[] nums) {
+        int n = nums.length;
+        HashMap<Integer.Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
-            list.add(piles[i]);
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
         }
-        Collections.sort(list, Collections.reverseOrder());
+        List<Integer> res = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (i % 2 == 0) {
-                alice += list.get(i);
+            res.add(nums[i]);
+        }
+        Collections.sort(res, (a, b) -> {
+            if (map.get(a) == map.get(b)) {
+                return b - a;
             } else {
-                bob += list.get(i);
+                return map.get(a) - map.get(b);
             }
-        }       
-        return alice > bob;
+        });
+        for(int i = 0; i < n; i++) {
+            nums[i] = res.get(i);
+        }
+        return nums;
     }
 
     public static void main(String[] args) {
         LeetCode lc = new LeetCode();
-        int[] piles1 = {5, 3, 4, 5};
-        int[] piles2 = {3, 7, 2, 3};
-        System.out.println(lc.stoneGame(piles1)); // Output: true
-        System.out.println(lc.stoneGame(piles2)); // Output: true
-        
     }
 }

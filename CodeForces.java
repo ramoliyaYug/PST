@@ -1,64 +1,49 @@
 /*
-Vasya has a grid with 2
- rows and n
- columns. He colours each cell red, green, or blue.
+Small, but very brave, mouse Brain was not accepted to summer school of young villains. He was upset and decided to postpone his plans of taking over the world, but to become a photographer instead.
 
-Vasya is colourblind and can't distinguish green from blue. Determine if Vasya will consider the two rows of the grid to be coloured the same.
+As you may know, the coolest photos are on the film (because you can specify the hashtag #film for such).
+
+Brain took a lot of colourful pictures on colored and black-and-white film. Then he developed and translated it into a digital form. But now, color and black-and-white photos are in one folder, and to sort them, one needs to spend more than one hour!
+
+As soon as Brain is a photographer not programmer now, he asks you to help him determine for a single photo whether it is colored or black-and-white.
+
+Photo can be represented as a matrix sized n × m, and each element of the matrix stores a symbol indicating corresponding pixel color. There are only 6 colors:
+
+'C' (cyan)
+'M' (magenta)
+'Y' (yellow)
+'W' (white)
+'G' (grey)
+'B' (black)
+The photo is considered black-and-white if it has only white, black and grey pixels in it. If there are any of cyan, magenta or yellow pixels in the photo then it is considered colored.
 
 Input
-The input consists of multiple test cases. The first line contains an integer t
- (1≤t≤100
-) — the number of test cases. The description of the test cases follows.
+The first line of the input contains two integers n and m (1 ≤ n, m ≤ 100) — the number of photo pixel matrix rows and columns respectively.
 
-The first line of each test case contains an integer n
- (1≤n≤100
-) — the number of columns of the grid.
-
-The following two lines each contain a string consisting of n
- characters, each of which is either R, G, or B, representing a red, green, or blue cell, respectively — the description of the grid.
+Then n lines describing matrix rows follow. Each of them contains m space-separated characters describing colors of pixels in a row. Each character in the line is one of the 'C', 'M', 'Y', 'W', 'G' or 'B'.
 
 Output
-For each test case, output "YES" if Vasya considers the grid's two rows to be identical, and "NO" otherwise.
+Print the "#Black&White" (without quotes), if the photo is black-and-white and "#Color" (without quotes), if it is colored, in the only line.
 
-You can output the answer in any case (for example, the strings "yEs", "yes", "Yes" and "YES" will be recognized as a positive answer).
-
-Example
+Examples
 InputCopy
-6
-2
-RG
-RB
-4
-GRBG
-GBGB
-5
-GGGGG
-BBBBB
-7
-BBBBBBB
-RRRRRRR
-8
-RGBRRGBR
-RGGRRBGR
-1
-G
-G
+2 2
+C M
+Y Y
 OutputCopy
-YES
-NO
-YES
-NO
-YES
-YES
-Note
-In the first test case, Vasya sees the second cell of each row as the same because the second cell of the first row is green and the second cell of the second row is blue, so he can't distinguish these two cells. The rest of the rows are equal in colour. Therefore, Vasya will say that the two rows are coloured the same, even though they aren't.
-
-In the second test case, Vasya can see that the two rows are different.
-
-In the third test case, every cell is green or blue, so Vasya will think they are the same.
-
-
-
+#Color
+InputCopy
+3 2
+W W
+W W
+B B
+OutputCopy
+#Black&White
+InputCopy
+1 1
+W
+OutputCopy
+#Black&White
 */
 
 import java.util.*;
@@ -66,19 +51,28 @@ import java.util.*;
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-        while (t-- > 0) {
-            int n = sc.nextInt();
-            String str1 = sc.next();
-            String str2 = sc.next();
-            str1 = str1.replace('B', 'G');
-            str2 = str2.replace('B', 'G');
-            if (str1.equals(str2)) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        sc.nextLine();
+        boolean isColored = false;
+        for(int i = 0;i<n;i++){
+            String colorline = sc.nextLine();
+            for(int j=0;j<colorline.length();j++){
+                if(colorline.charAt(j)== 'C' || colorline.charAt(j) == 'M' || colorline.charAt(j) == 'Y'){
+                    isColored = true;
+                    break;
+                }
             }
-        } 
+            if(isColored){
+                break;
+            }
+        }
+        if(isColored){
+            System.out.println("#Color");
+        }else{
+            System.out.println("#Black&White");
+        }
     }
 }
+
 
