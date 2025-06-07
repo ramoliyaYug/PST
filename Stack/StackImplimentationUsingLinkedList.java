@@ -10,11 +10,6 @@ class Node {
 class StackLinkedList{
     Node top;
     public void push(int data){
-        //overflow
-        if(top == null){
-            top = new Node(data);
-            return;
-        }
         Node newNode = new Node(data);
         newNode.next = top;
         top = newNode;
