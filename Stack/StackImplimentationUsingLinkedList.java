@@ -6,63 +6,78 @@ class Node {
         this.next = null;
     }
 }
-
-class StackLinkedList{
-    Node top;
-    public void push(int data){
-        Node newNode = new Node(data);
-        newNode.next = top;
-        top = newNode;
+public class StackImplimentationUsingLinkedList {
+    private Node top;
+    public StackImplimentationUsingLinkedList() {
+        this.top = null;
     }
-
-    public void peek(){
-        //underflow
-        if(top == null){
-            System.out.println("Stack is empty");
+    public void push(int x) {
+        Node newNode = new Node(x);
+        if (top == null) {
+            top = newNode;
+        } else {
+            newNode.next = top;
+            top = newNode;
+        }
+    }
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        int x = top.data;
+        top = top.next;
+        return x;
+    }
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return top.data;
+    }
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
             return;
         }
-        System.out.println(top.data);
-    }
-
-    public void display(){
-        //underflow
-        if(top == null){
-            System.out.println("Stack is empty");
-            return;
-        }
-        System.out.println("Stack elements are:");
-        Node temp = top;
-        while(temp != null){
-            System.out.print(temp.data+" ");
-            temp = temp.next;
+        Node current = top;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
         }
         System.out.println();
     }
-    public void pop(){
-        //underflow
-        if(top == null){
-            System.out.println("Stack is empty");
-            return;
-        }
-        System.out.println("Popped element is: "+top.data);
-        top = top.next;
-    }
-
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return top == null;
     }
-}
-public class StackImplimentationUsingLinkedList {
+    public int size() {
+        int count = 0;
+        Node current = top;
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
     public static void main(String[] args) {
-        StackLinkedList s = new StackLinkedList();
-        s.push(10);
-        s.push(20);
-        s.push(30);
-        s.push(40);
-        s.push(50);
-        s.display();
-        s.peek();
-        s.pop();
-        s.display();
+        StackImplimentationUsingLinkedList stack = new StackImplimentationUsingLinkedList();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.display(); // Output: 30 20 10 
+        System.out.println("Top element is: " + stack.peek()); // Output: Top element is: 30
+        System.out.println("Popped element is: " + stack.pop()); // Output: Popped element is: 30
+        stack.display(); // Output: 20 10 
+        System.out.println("Stack size is: " + stack.size()); // Output: Stack size is: 2
+        System.out.println("Is stack empty? " + stack.isEmpty()); // Output: Is stack empty? false
+        System.out.println("Popped element is: " + stack.pop()); // Output: Popped element is: 20
+        System.out.println("Popped element is: " + stack.pop()); // Output: Popped element is: 10
+        System.out.println("Is stack empty? " + stack.isEmpty()); // Output: Is stack empty? true
+        System.out.println("Popped element is: " + stack.pop()); // Output: Stack Underflow
+        // Output: Popped element is: -1
+        stack.display(); // Output: Stack Underflow
+        // Output: Stack Underflow
+        System.out.println("Top element is: " + stack.peek()); // Output: Stack Underflow
     }
 }

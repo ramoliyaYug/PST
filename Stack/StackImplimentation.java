@@ -1,65 +1,68 @@
-class Stack{
-    int n = 10;
-    int[] arr = new int[n];
-    int top = -1;
-    public void push(int data){
-        //overglow
-        if(top == n-1){
-            System.out.println("Stack is full");
-            return;
-        }
-        top++;
-        arr[top] = data;
+public class StackImplimentation {
+    private int[] arr;
+    private int top;
+    private int capacity;
+
+    public StackImplimentation(int size) {
+        arr = new int[size];
+        capacity = size;
+        top = -1;
     }
 
-    public void peek(){
-        if(top == -1){
-            System.out.println("Stack is empty");
+    public void push(int x) {
+        if (isFull()) {
+            System.out.println("Stack Overflow");
             return;
         }
-        System.out.println(arr[top]);
+        arr[++top] = x;
     }
 
-    public void display(){
-        if(top == -1){
-            System.out.println("Stack is empty");
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return arr[top--];
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return arr[top];
+    }
+
+    public void display() {
+        if (isempty()) {
+            System.out.println("Stack Underflow");
             return;
         }
-        System.out.println("Stack elements are:");
-        for(int i = 0; i <= top; i++){
-            System.out.print(arr[i]);
+        for (int i = top; i >= 0; i--) {
+            System.out.print(arr[i] + " ");
         }
+        System.out.println();
     }
-
-    public void pop(){
-        if(top == -1){
-            System.out.println("Stack is empty");
-            return;
-        }
-        System.out.println("Popped element is: "+arr[top]);
-        top--;
-    }
-
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return top == -1;
     }
-
-    public void size(){
-        System.out.println("Size of stack is: "+(top+1));
+    public boolean isFull() {
+        return top == capacity - 1;
     }
-}
-public class StackImplimentation {
+    public int size() {
+        return top + 1;
+    }
     public static void main(String[] args) {
-        Stack s = new Stack();
-        s.push(10);
-        s.push(20);
-        s.push(30);
-        s.push(40);
-        s.push(50);
-        s.display();
-        s.peek();
-        s.pop();
-        s.display();
-        System.out.println(s.isEmpty());
+        StackImplimentation stack = new StackImplimentation(5);
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        stack.display(); // Output: 30 20 10 
+        System.out.println("Top element is: " + stack.peek()); // Output: Top element is: 30
+        System.out.println("Stack size is: " + stack.size()); // Output: Stack size is: 3
+        System.out.println("Is stack empty? " + stack.isEmpty()); // Output: Is stack empty? false
+        System.out.println("Is stack full? " + stack.isFull()); // Output: Is stack full? false
+        System.out.println("Popped element is: " + stack.pop()); // Output: Popped element is: 30
+        stack.display(); // Output: 20 10
     }
 }
