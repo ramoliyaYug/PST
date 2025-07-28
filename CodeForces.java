@@ -10,15 +10,12 @@ import java.util.regex.*;
 import java.lang.*;
 import java.time.*;
 
-public class LeetCode {
-    public int something() {
-        System.out.println("hello sem-3");
-        return 0;
-    }
-
-
+public class CodeForces {
     public static void main(String[] args) {
-        LeetCode solution = new LeetCode();
-        System.out.println(solution.something());
-    }
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            System.out.println("hello sem-3");
+        }
+    }    
 }
