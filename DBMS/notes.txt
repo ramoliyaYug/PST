@@ -98,7 +98,7 @@ DQL:
     select hiredate, deptno from employee where hiredate>'1981-05-20' and deptno=30
   - write a query to display the name job and hire date of the employee who work as manager and and hire before june 1981
     select ename, job, hiredate from employee where job='manager' and hiredate<'1981-06-01'
-  - write a query to display the details of the employee along with their annual salary as annual salary only if their annual salary is more than 35,000 and they should not be working in dep 20
+  - write a query to display the details `    of the employee along with their annual salary as annual salary only if their annual salary is more than 35,000 and they should not be working in dep 20
     select *, salary*12 as 'Annual Salary' from employee where salary*12>35000 and deptno!=20
   - wrtie a query to display name and job of the employee who are working as a manager or as a salesman
     select ename, job from employee where job='manager' or job='salesman'  

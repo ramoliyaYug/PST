@@ -1,38 +1,64 @@
 /*
-Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp.
+There is a list of n (idKey, value) pairs arriving in an arbitrary order, where idKey is an integer between 1 and n and value is a string. No two pairs have the same id.
 
-Implement the TimeMap class:
+Design a list that returns the values in increasing order of their IDs by returning a chunk (list) of values after each insertion. The concatenation of all the chunks should result in a list of the sorted values.
 
-TimeMap() Initializes the object of the data structure.
-void set(String key, String value, int timestamp) Stores the key key with the value value at the given time timestamp.
-String get(String key, int timestamp) Returns a value such that set was called previously, with timestamp_prev <= timestamp. If there are multiple such values, it returns the value associated with the largest timestamp_prev. If there are no values, it returns "".
+Implement the OrderedStream class:
+
+OrderedStream(int n) Constructs the list to take n values.
+String[] insert(int idKey, String value) Inserts the pair (idKey, value) into the list, then returns the largest possible chunk of currently inserted values that appear next in the order.
  
 
-Example 1:
+Example:
+
+
 
 Input
-["TimeMap", "set", "get", "get", "set", "get", "get"]
-[[], ["foo", "bar", 1], ["foo", 1], ["foo", 3], ["foo", "bar2", 4], ["foo", 4], ["foo", 5]]
+["OrderedStream", "insert", "insert", "insert", "insert", "insert"]
+[[5], [3, "ccccc"], [1, "aaaaa"], [2, "bbbbb"], [5, "eeeee"], [4, "ddddd"]]
 Output
-[null, null, "bar", "bar", null, "bar2", "bar2"]
+[null, [], ["aaaaa"], ["bbbbb", "ccccc"], [], ["ddddd", "eeeee"]]
 
 Explanation
-TimeMap timeMap = new TimeMap();
-timeMap.set("foo", "bar", 1);  // store the key "foo" and value "bar" along with timestamp = 1.
-timeMap.get("foo", 1);         // return "bar"
-timeMap.get("foo", 3);         // return "bar", since there is no value corresponding to foo at timestamp 3 and timestamp 2, then the only value is at timestamp 1 is "bar".
-timeMap.set("foo", "bar2", 4); // store the key "foo" and value "bar2" along with timestamp = 4.
-timeMap.get("foo", 4);         // return "bar2"
-timeMap.get("foo", 5);         // return "bar2"
+// Note that the values ordered by ID is ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"].
+OrderedStream os = new OrderedStream(5);
+os.insert(3, "ccccc"); // Inserts (3, "ccccc"), returns [].
+os.insert(1, "aaaaa"); // Inserts (1, "aaaaa"), returns ["aaaaa"].
+os.insert(2, "bbbbb"); // Inserts (2, "bbbbb"), returns ["bbbbb", "ccccc"].
+os.insert(5, "eeeee"); // Inserts (5, "eeeee"), returns [].
+os.insert(4, "ddddd"); // Inserts (4, "ddddd"), returns ["ddddd", "eeeee"].
+// Concatentating all the chunks returned:
+// [] + ["aaaaa"] + ["bbbbb", "ccccc"] + [] + ["ddddd", "eeeee"] = ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"]
+// The resulting order is the same as the order above.
  
 
 Constraints:
 
-1 <= key.length, value.length <= 100
-key and value consist of lowercase English letters and digits.
-1 <= timestamp <= 107
-All the timestamps timestamp of set are strictly increasing.
-At most 2 * 105 calls will be made to set and get.
+1 <= n <= 1000
+1 <= id <= n
+value.length == 5
+value consists only of lowercase letters.
+Each call to insert will have a unique id.
+Exactly n calls will be made to insert.
+Hint 1
+Maintain the next id that should be outputted.
+Hint 2
+Maintain the ids that were inserted in the list.
+Hint 3
+Per each insert, make a loop where you check if the id that has the turn has been inserted, and if so increment the id that has the turn and continue the loop, else break.
+After any operation either a
+ or b
+ becomes a+b
+. Out of the two options, clearly it is better to increase the smaller number. For example, with numbers 2,3
+ we can either get a pair 2,5
+ or 3,5
+; to obtain larger numbers, the last pair is better in every way.
+
+With this we can just simulate the process and count the number of steps. The worst case is a=b=1
+, n=109
+, where each new addition produces the next element of the Fibonacci sequence. At this point we can just run the simulation and find out that 43
+ steps are always enough. In general, Fibonacci sequence grows exponentially, thus O(logn)
+ steps are needed.
 */
 import java.util.List;
 import java.lang.reflect.Array;
@@ -43,33 +69,29 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 import java.math.BigInteger;
-class TimeMap {
-    HashMap<String, List<Integer>> timeMap;
-    HashMap<String, List<String>> valueMap;
-    
-    public TimeMap() {
-        timeMap = new HashMap<>();
-        valueMap = new HashMap<>();
+class OrderedStream {
+    List<String> list;
+    int pointer;
+
+    public OrderedStream(int n) {
+        list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(null);
+        }
+        pointer = 0;
     }
-    
-    public void set(String key, String value, int timestamp) {
-        timeMap.putIfAbsent(key, new ArrayList<>());
-        valueMap.putIfAbsent(key, new ArrayList<>());
-        
-        timeMap.get(key).add(timestamp);
-        valueMap.get(key).add(value);
-    }
-    
-    public String get(String key, int timestamp) {
-        if (!timeMap.containsKey(key)) return "";
-        List<Integer> timestamps = timeMap.get(key);
-        List<String> values = valueMap.get(key);
-        int index = Collections.binarySearch(timestamps, timestamp);
-        if (index >= 0) return values.get(index); 
-        index = -index - 2; 
-        return (index >= 0) ? values.get(index) : "";
+
+    public List<String> insert(int idKey, String value) {
+        list.set(idKey - 1, value);
+        List<String> result = new ArrayList<>();
+        while (pointer < list.size() && list.get(pointer) != null) {
+            result.add(list.get(pointer));
+            pointer++;
+        }
+        return result;
     }
 }
+
 
 public class Implimentation {
     public static void main(String[] args) {

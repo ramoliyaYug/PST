@@ -1,63 +1,68 @@
 /*
-You are given a 0-indexed array mountain. Your task is to find all the peaks in the mountain array.
+You are given two positive integers n and limit.
 
-Return an array that consists of indices of peaks in the given array in any order.
+Return the total number of ways to distribute n candies among 3 children such that no child gets more than limit candies.
 
-Notes:
-
-A peak is defined as an element that is strictly greater than its neighboring elements.
-The first and last elements of the array are not a peak.
  
 
 Example 1:
 
-Input: mountain = [2,4,4]
-Output: []
-Explanation: mountain[0] and mountain[2] can not be a peak because they are first and last elements of the array.
-mountain[1] also can not be a peak because it is not strictly greater than mountain[2].
-So the answer is [].
+Input: n = 5, limit = 2
+Output: 3
+Explanation: There are 3 ways to distribute 5 candies such that no child gets more than 2 candies: (1, 2, 2), (2, 1, 2) and (2, 2, 1).
 Example 2:
 
-Input: mountain = [1,4,3,8,5]
-Output: [1,3]
-Explanation: mountain[0] and mountain[4] can not be a peak because they are first and last elements of the array.
-mountain[2] also can not be a peak because it is not strictly greater than mountain[3] and mountain[1].
-But mountain [1] and mountain[3] are strictly greater than their neighboring elements.
-So the answer is [1,3].
+Input: n = 3, limit = 3
+Output: 10
+Explanation: There are 10 ways to distribute 3 candies such that no child gets more than 3 candies: (0, 0, 3), (0, 1, 2), (0, 2, 1), (0, 3, 0), (1, 0, 2), (1, 1, 1), (1, 2, 0), (2, 0, 1), (2, 1, 0) and (3, 0, 0).
  
 
 Constraints:
 
-3 <= mountain.length <= 100
-1 <= mountain[i] <= 100
+1 <= n <= 50
+1 <= limit <= 50
 */
 
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Stack;
+import java.util.TreeMap;
 import javax.swing.tree.TreeNode;
+
+import java.lang.classfile.components.ClassPrinter.ListNode;
 import java.lang.reflect.Array;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 public class LeetCode {
-    public List<Integer> findPeaks(int[] mountain) {
-        int n = mountain.length;
-        List<Integer> res = new ArrayList<>();
-        for(int i =1;i<n-1;i++){
-            if(mountain[i] > mountain[i-1] && mountain[i] > mountain[i+1]){
-                res.add(i);
+    public int distributeCandies(int n, int limit) {
+        //Use three nested for loops to check all the triplets.
+        int count = 0;
+        for (int i = 0; i <= limit; i++) {
+            for (int j = 0; j <= limit; j++) {
+                for (int k = 0; k <= limit; k++) {
+                    if (i + j + k == n) {
+                        count++;
+                    }
+                }
             }
         }
-        return res;
+        return count;
     }
 
+
     public static void main(String[] args) {
-        LeetCode lc = new LeetCode();
+        LeetCode solution = new LeetCode();
     }
 }

@@ -1,78 +1,78 @@
 /*
-Small, but very brave, mouse Brain was not accepted to summer school of young villains. He was upset and decided to postpone his plans of taking over the world, but to become a photographer instead.
+Polycarp has three sisters: Alice, Barbara, and Cerene. They're collecting coins. Currently, Alice has a
+ coins, Barbara has b
+ coins and Cerene has c
+ coins. Recently Polycarp has returned from the trip around the world and brought n
+ coins.
 
-As you may know, the coolest photos are on the film (because you can specify the hashtag #film for such).
+He wants to distribute all these n
+ coins between his sisters in such a way that the number of coins Alice has is equal to the number of coins Barbara has and is equal to the number of coins Cerene has. In other words, if Polycarp gives A
+ coins to Alice, B
+ coins to Barbara and C
+ coins to Cerene (A+B+C=n
+), then a+A=b+B=c+C
+.
 
-Brain took a lot of colourful pictures on colored and black-and-white film. Then he developed and translated it into a digital form. But now, color and black-and-white photos are in one folder, and to sort them, one needs to spend more than one hour!
+Note that A, B or C (the number of coins Polycarp gives to Alice, Barbara and Cerene correspondingly) can be 0.
 
-As soon as Brain is a photographer not programmer now, he asks you to help him determine for a single photo whether it is colored or black-and-white.
+Your task is to find out if it is possible to distribute all n
+ coins between sisters in a way described above.
 
-Photo can be represented as a matrix sized n × m, and each element of the matrix stores a symbol indicating corresponding pixel color. There are only 6 colors:
-
-'C' (cyan)
-'M' (magenta)
-'Y' (yellow)
-'W' (white)
-'G' (grey)
-'B' (black)
-The photo is considered black-and-white if it has only white, black and grey pixels in it. If there are any of cyan, magenta or yellow pixels in the photo then it is considered colored.
+You have to answer t
+ independent test cases.
 
 Input
-The first line of the input contains two integers n and m (1 ≤ n, m ≤ 100) — the number of photo pixel matrix rows and columns respectively.
+The first line of the input contains one integer t
+ (1≤t≤104
+) — the number of test cases.
 
-Then n lines describing matrix rows follow. Each of them contains m space-separated characters describing colors of pixels in a row. Each character in the line is one of the 'C', 'M', 'Y', 'W', 'G' or 'B'.
+The next t
+ lines describe test cases. Each test case is given on a new line and consists of four space-separated integers a,b,c
+ and n
+ (1≤a,b,c,n≤108
+) — the number of coins Alice has, the number of coins Barbara has, the number of coins Cerene has and the number of coins Polycarp has.
 
 Output
-Print the "#Black&White" (without quotes), if the photo is black-and-white and "#Color" (without quotes), if it is colored, in the only line.
+For each test case, print "YES" if Polycarp can distribute all n
+ coins between his sisters and "NO" otherwise.
 
-Examples
+Example
 InputCopy
-2 2
-C M
-Y Y
+5
+5 3 2 8
+100 101 102 105
+3 2 1 100000000
+10 20 15 14
+101 101 101 3
 OutputCopy
-#Color
-InputCopy
-3 2
-W W
-W W
-B B
-OutputCopy
-#Black&White
-InputCopy
-1 1
-W
-OutputCopy
-#Black&White
+YES
+YES
+NO
+NO
+YES
 */
-
 import java.util.*;
 
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        sc.nextLine();
-        boolean isColored = false;
-        for(int i = 0;i<n;i++){
-            String colorline = sc.nextLine();
-            for(int j=0;j<colorline.length();j++){
-                if(colorline.charAt(j)== 'C' || colorline.charAt(j) == 'M' || colorline.charAt(j) == 'Y'){
-                    isColored = true;
-                    break;
-                }
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            long a = sc.nextLong();
+            long b = sc.nextLong();
+            long c = sc.nextLong();
+            long n = sc.nextLong();
+
+            long max = Math.max(a, Math.max(b, c));
+            long codeNeeded = (max-a) + (max-b) + (max-c);
+            if (codeNeeded <= n && (n - codeNeeded) % 3 == 0) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
             }
-            if(isColored){
-                break;
-            }
-        }
-        if(isColored){
-            System.out.println("#Color");
-        }else{
-            System.out.println("#Black&White");
         }
     }
 }
+
 
 
