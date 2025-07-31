@@ -5,10 +5,7 @@
       "label": "Run Java with input/output redirection",
       "type": "shell",
       "command": "javac CodeForces.java && java CodeForces < input.txt > output.txt",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
+      "group": "build",
       "problemMatcher": [],
       "presentation": {
         "echo": true,
@@ -16,6 +13,21 @@
         "focus": false,
         "panel": "shared",
         "showReuseMessage": false
+      }
+    },
+    {
+      "label": "Run C++ with input/output redirection",
+      "type": "shell",
+      "command": "g++ CodeForces.cpp -o CodeForces && ./CodeForces < input.txt > output.txt",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
       }
     }
   ]
