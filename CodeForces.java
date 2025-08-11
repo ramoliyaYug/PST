@@ -1,116 +1,87 @@
 /*
-Given a string x
- of length n
- and a string s
- of length m
- (n⋅m≤25
-), consisting of lowercase Latin letters, you can apply any number of operations to the string x
+You are given a permutation†
+ a
+ of size n
+. You can do the following operation
+
+Select an index i
+ from 2
+ to n−1
+ such that ai−1<ai
+ and ai>ai+1
+. Swap ai
+ and ai+1
 .
+Determine whether it is possible to sort the permutation after a finite number of operations.
 
-In one operation, you append the current value of x
- to the end of the string x
-. Note that the value of x
- will change after this.
-
-For example, if x=
-"aba", then after applying operations, x
- will change as follows: "aba" →
- "abaaba" →
- "abaabaabaaba".
-
-After what minimum number of operations s
- will appear in x
- as a substring? A substring of a string is defined as a contiguous segment of it.
+†
+ A permutation is an array consisting of n
+ distinct integers from 1
+ to n
+ in arbitrary order. For example, [2,3,1,5,4]
+ is a permutation, but [1,2,2]
+ is not a permutation (2
+ appears twice in the array) and [1,3,4]
+ is also not a permutation (n=3
+ but there is 4
+ in the array).
 
 Input
-The first line of the input contains a single integer t
- (1≤t≤104
-) — the number of test cases.
+Each test contains multiple test cases. The first line contains the number of test cases t
+ (1≤t≤5000
+). Description of the test cases follows.
 
-The first line of each test case contains two numbers n
- and m
- (1≤n⋅m≤25
-) — the lengths of strings x
- and s
-, respectively.
+The first line of each test case contains a single integer n
+ (3≤n≤10
+) — the size of the permutation.
 
-The second line of each test case contains the string x
- of length n
-.
-
-The third line of each test case contains the string s
- of length m
+The second line of each test case contains n
+ integers a1,a2,…,an
+ (1≤ai≤n
+) — the elements of permutation a
 .
 
 Output
-For each test case, output a single number — the minimum number of operations after which s
- will appear in x
- as a substring. If this is not possible, output −1
-.
+For each test case, print "YES" if it is possible to sort the permutation, and "NO" otherwise.
+
+You may print each letter in any case (for example, "YES", "Yes", "yes", "yEs" will all be recognized as positive answer).
 
 Example
 InputCopy
-12
-1 5
-a
-aaaaa
-5 5
-eforc
-force
-2 5
-ab
-ababa
-3 5
-aba
-ababa
-4 3
-babb
-bbb
-5 1
-aaaaa
-a
-4 2
-aabb
-ba
-2 8
-bk
-kbkbkbkb
-12 2
-fjdgmujlcont
-tf
-2 2
-aa
-aa
-3 5
-abb
-babba
-1 19
-m
-mmmmmmmmmmmmmmmmmmm
-OutputCopy
+6
 3
-1
-2
--1
-1
-0
-1
-3
-1
-0
-2
+1 2 3
 5
+1 3 2 5 4
+5
+5 4 3 2 1
+3
+3 1 2
+4
+2 3 1 4
+5
+5 1 2 3 4
+OutputCopy
+YES
+YES
+NO
+NO
+NO
+NO
 Note
-In the first test case of the example, after 2
- operations, the string will become "aaaa", and after 3
- operations, it will become "aaaaaaaa", so the answer is 3
+In the first test case, the permutation is already sorted.
+
+In the second test case, we can choose index i=2
+ as 1<3
+ and 3>2
+ to form [1,2,3,5,4]
+. Then, we can choose index i=4
+ as 3<5
+ and 5>4
+ to form [1,2,3,4,5]
 .
 
-In the second test case of the example, after applying 1
- operation, the string will become "eforceforc
-", where the substring is highlighted in red.
-
-In the fourth test case of the example, it can be shown that it is impossible to obtain the desired string as a substring.
+In the third test case, it can be proven that it is impossible to sort the permutation.
 
 
 
@@ -127,9 +98,27 @@ import java.time.*;
 public class CodeForces {
 
     static void solve(Scanner sc) {
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        System.out.println(a + b);
+        int n = sc.nextInt();
+            int m = sc.nextInt();
+            String x = sc.next();
+            String s = sc.next();
+ 
+            int maxOps = 6;
+            StringBuilder current = new StringBuilder(x);
+            int count = 0;
+ 
+            while (count <= maxOps) {
+                if (current.indexOf(s) != -1) {
+                    System.out.println(count);
+                    break;
+                }
+                current.append(current);
+                count++;
+            }
+ 
+            if (count > maxOps) {
+                System.out.println(-1);
+            }
     }
 
     public static void main(String[] args) {

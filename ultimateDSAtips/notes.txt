@@ -1,0 +1,10 @@
+count set bits
+ - std::bitset<32>(n).count()
+ - __builtin_popcount(n)
+ - __builtin_popcountl(n)
+ - __builtin_popcountll(n)
+ - std::popcount(n) (c++20)
+
+
+covert binary to decimal
+ - std::stoi(binaryString, nullptr, 2)

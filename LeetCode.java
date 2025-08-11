@@ -1,37 +1,37 @@
 /*
-You are given an n x n grid where we place some 1 x 1 x 1 cubes that are axis-aligned with the x, y, and z axes.
-
-Each value v = grid[i][j] represents a tower of v cubes placed on top of the cell (i, j).
-
-We view the projection of these cubes onto the xy, yz, and zx planes.
-
-A projection is like a shadow, that maps our 3-dimensional figure to a 2-dimensional plane. We are viewing the "shadow" when looking at the cubes from the top, the front, and the side.
-
-Return the total area of all three projections.
-
+Given three integer arrays nums1, nums2, and nums3, return a distinct array containing all the values that are present in at least two out of the three arrays. You may return the values in any order.
  
 
 Example 1:
 
-
-Input: grid = [[1,2],[3,4]]
-Output: 17
-Explanation: Here are the three projections ("shadows") of the shape made with each axis-aligned plane.
+Input: nums1 = [1,1,3,2], nums2 = [2,3], nums3 = [3]
+Output: [3,2]
+Explanation: The values that are present in at least two arrays are:
+- 3, in all three arrays.
+- 2, in nums1 and nums2.
 Example 2:
 
-Input: grid = [[2]]
-Output: 5
+Input: nums1 = [3,1], nums2 = [2,3], nums3 = [1,2]
+Output: [2,3,1]
+Explanation: The values that are present in at least two arrays are:
+- 2, in nums2 and nums3.
+- 3, in nums1 and nums2.
+- 1, in nums1 and nums3.
 Example 3:
 
-Input: grid = [[1,0],[0,2]]
-Output: 8
+Input: nums1 = [1,2,2], nums2 = [4,3,3], nums3 = [5]
+Output: []
+Explanation: No value is present in at least two arrays.
  
 
 Constraints:
 
-n == grid.length == grid[i].length
-1 <= n <= 50
-0 <= grid[i][j] <= 50
+1 <= nums1.length, nums2.length, nums3.length <= 100
+1 <= nums1[i], nums2[j], nums3[k] <= 100
+Hint 1
+What data structure can we use to help us quickly find whether an element belongs in an array?
+Hint 2
+Can we count the frequencies of the elements in each array?
 */
 import java.util.*;
 import java.io.*;
@@ -44,27 +44,36 @@ import java.lang.reflect.Array;
 import java.time.*;
 
 public class LeetCode {
-    public int projectionArea(int[][] grid) {
-        int n = grid.length;
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            int max = 0;
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] > 0) {
-                    sum++;
-                }
-                max = Math.max(max, grid[i][j]);
+    public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        Set<Integer> set3 = new HashSet<>();
+        
+        for (int num : nums1) set1.add(num);
+        for (int num : nums2) set2.add(num);
+        for (int num : nums3) set3.add(num);
+        
+        Set<Integer> result = new HashSet<>();
+        
+        for (int num : set1) {
+            if (set2.contains(num) || set3.contains(num)) {
+                result.add(num);
             }
-            sum += max;
         }
-        for (int j = 0; j < n; j++) {
-            int max = 0;
-            for (int i = 0; i < n; i++) {
-                max = Math.max(max, grid[i][j]);
+        
+        for (int num : set2) {
+            if (set1.contains(num) || set3.contains(num)) {
+                result.add(num);
             }
-            sum += max;
         }
-        return sum;
+        
+        for (int num : set3) {
+            if (set1.contains(num) || set2.contains(num)) {
+                result.add(num);
+            }
+        }
+        
+        return new ArrayList<>(result);
     }
 
 
