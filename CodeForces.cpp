@@ -1,106 +1,68 @@
 /*
-Chef has a binary string 
-S
-S of length 
-N
-N. Chef can perform the following operation on 
-S
-S:
+An array b1,b2,…,bn
+ of positive integers is good if all the sums of two adjacent elements are equal to the same value. More formally, the array is good if there exists a k
+ such that b1+b2=b2+b3=…=bn−1+bn=k
+.
 
-Insert any character (
-0
-0 or 
-1
-1) at any position in 
-S
-S.
-Find the minimum number of operations Chef needs to perform so that no two consecutive characters are same in 
-S
-S.
+Doremy has an array a
+ of length n
+. Now Doremy can permute its elements (change their order) however she wants. Determine if she can make the array good.
 
-Input Format
-The first line contains a single integer 
-T
-T — the number of test cases. Then the test cases follow.
-The first line of each test case contains an integer 
-N
-N — the length of the binary string 
-S
-S.
-The second line of each test case contains a binary string 
-S
-S of length 
-N
-N containing 
-0
-0s and 
-1
-1s only.
-Output Format
-For each test case, output on a new line the minimum number of operations Chef needs to perform so that no two consecutive characters are same in 
-S
-S.
-
-Constraints
-1
-≤
-T
-≤
-100
-1≤T≤100
-1
-≤
-N
-≤
-1000
-1≤N≤1000
-Sample 1:
 Input
+The input consists of multiple test cases. The first line contains a single integer t
+ (1≤t≤100
+) — the number of test cases. The description of the test cases follows.
+
+The first line of each test case contains a single integer n
+ (2≤n≤100
+) — the length of the array a
+.
+
+The second line of each test case contains n
+ integers a1,a2,…,an
+ (1≤ai≤105
+).
+
+There are no constraints on the sum of n
+ over all test cases.
+
 Output
-3
-2
-11
-4
-0101
+For each test case, print "Yes" (without quotes), if it is possible to make the array good, and "No" (without quotes) otherwise.
+
+You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+
+Example
+InputCopy
 5
-00100
-1
-0
 2
-Explanation:
-Test case 1: We can perform the following operations: 
-11
-→
-1
-0
-‾
-1
-11→1 
-0
-​
- 1.
+8 9
+3
+1 1 2
+4
+1 1 4 5
+5
+2 3 3 3 3
+4
+100000 100000 100000 100000
+OutputCopy
+Yes
+Yes
+No
+No
+Yes
+Note
+In the first test case, [8,9]
+ and [9,8]
+ are good.
 
-Test case 2: We do not need to perform any operations.
+In the second test case, [1,2,1]
+ is good because a1+a2=a2+a3=3
+.
 
-Test case 3: We can perform the following operations: 
-00100
-→
-0
-1
-‾
-0100
-→
-01010
-1
-‾
-0
-00100→0 
-1
-​
- 0100→01010 
-1
-​
- 0.
+In the third test case, it can be shown that no permutation is good.
+
+
+
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -108,15 +70,23 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    string s;
-    cin >> s;
-    int ans = 0;
-    for(int i = 0; i < n - 1; i++) {
-        if(s[i] == s[i + 1]) {
-            ans++;
+    vector<int> arr;
+    map<int,int> map;
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        arr.push_back(x);
+        map[x]++;
+    }
+    if(map.size()>=3){
+        cout<<"No"<<endl;
+    }else{
+        if(abs(map.begin()->second-map.rbegin()->second)<=1){
+            cout<<"Yes"<<endl;
+        }else{
+            cout<<"No"<<endl;
         }
     }
-    cout << ans << endl;
 }
 
 int main() {

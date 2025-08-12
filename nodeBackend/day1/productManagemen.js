@@ -23,6 +23,41 @@ const server = http.createServer((req,res)=>{
             products.push(JSON.parse(completeData));
             res.end(JSON.stringify(products));
         })
+    }else if(req.url.includes('/products/') && req.method === 'DELETE'){
+        const id = req.url.split('/')[2];
+        products = products.filter(product => product.id !== parseInt(id));
+        res.end(JSON.stringify(products));
+    }else if(req.url.includes('/products/') && req.method === 'PUT'){
+        const id = req.url.split('/')[2];
+        let completeData = '';
+        req.on('data', (chunks)=>{
+            console.log(chunks);
+            console.log(chunks.toString());
+            completeData += chunks.toString();
+        })
+        req.on('end', ()=>{
+            console.log(completeData);
+            products = products.map(product => product.id === parseInt(id) ? JSON.parse(completeData) : product);
+            res.end(JSON.stringify(products));
+        })
+    }else if(req.url.includes('/products/') && req.method === 'PATCH'){
+        const id = req.url.split('/')[2];
+        let completeData = '';
+        req.on('data', (chunks)=>{
+            console.log(chunks);
+            console.log(chunks.toString());
+            completeData += chunks.toString();
+        })
+        req.on('end', ()=>{
+            console.log(completeData);
+            products = products.map(product => product.id === parseInt(id) ? {...product, ...JSON.parse(completeData)} : product);
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(products));
+        })
+    }else if(req.url.includes('/products') && req.method === 'GET'){
+        const id = req.url.split('/')[2];
+        const product = products.find(product => product.id === parseInt(id));
+        res.end(JSON.stringify(product));
     }
 });
 

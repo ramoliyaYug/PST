@@ -88,7 +88,20 @@ public class binarySearch {
         return -1; // Target not found
     }
 
-    public static double findMedianofTwoSortedArrays(int[] nums1,int[] nums2){
-        
+    public static int findMinimuminRotatedSortedArray(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            // If mid is greater than the rightmost element, the minimum is in the right half
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else { // Otherwise, the minimum is in the left half or at mid
+                right = mid;
+            }
+        }
+        return nums[left]; // The minimum element
     }
 }
