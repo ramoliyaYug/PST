@@ -1,37 +1,39 @@
 /*
-Given three integer arrays nums1, nums2, and nums3, return a distinct array containing all the values that are present in at least two out of the three arrays. You may return the values in any order.
+Given a positive integer n, there exists a 0-indexed array called powers, composed of the minimum number of powers of 2 that sum to n. The array is sorted in non-decreasing order, and there is only one way to form the array.
+
+You are also given a 0-indexed 2D integer array queries, where queries[i] = [lefti, righti]. Each queries[i] represents a query where you have to find the product of all powers[j] with lefti <= j <= righti.
+
+Return an array answers, equal in length to queries, where answers[i] is the answer to the ith query. Since the answer to the ith query may be too large, each answers[i] should be returned modulo 109 + 7.
+
  
 
 Example 1:
 
-Input: nums1 = [1,1,3,2], nums2 = [2,3], nums3 = [3]
-Output: [3,2]
-Explanation: The values that are present in at least two arrays are:
-- 3, in all three arrays.
-- 2, in nums1 and nums2.
+Input: n = 15, queries = [[0,1],[2,2],[0,3]]
+Output: [2,4,64]
+Explanation:
+For n = 15, powers = [1,2,4,8]. It can be shown that powers cannot be a smaller size.
+Answer to 1st query: powers[0] * powers[1] = 1 * 2 = 2.
+Answer to 2nd query: powers[2] = 4.
+Answer to 3rd query: powers[0] * powers[1] * powers[2] * powers[3] = 1 * 2 * 4 * 8 = 64.
+Each answer modulo 109 + 7 yields the same answer, so [2,4,64] is returned.
 Example 2:
 
-Input: nums1 = [3,1], nums2 = [2,3], nums3 = [1,2]
-Output: [2,3,1]
-Explanation: The values that are present in at least two arrays are:
-- 2, in nums2 and nums3.
-- 3, in nums1 and nums2.
-- 1, in nums1 and nums3.
-Example 3:
-
-Input: nums1 = [1,2,2], nums2 = [4,3,3], nums3 = [5]
-Output: []
-Explanation: No value is present in at least two arrays.
+Input: n = 2, queries = [[0,0]]
+Output: [2]
+Explanation:
+For n = 2, powers = [2].
+The answer to the only query is powers[0] = 2. The answer modulo 109 + 7 is the same, so [2] is returned.
  
 
 Constraints:
 
-1 <= nums1.length, nums2.length, nums3.length <= 100
-1 <= nums1[i], nums2[j], nums3[k] <= 100
-Hint 1
-What data structure can we use to help us quickly find whether an element belongs in an array?
+1 <= n <= 109
+1 <= queries.length <= 105
+0 <= starti <= endi < powers.length
+The powers array can be created using the binary representation of n.
 Hint 2
-Can we count the frequencies of the elements in each array?
+Once powers is formed, the products can be taken using brute force.
 */
 import java.util.*;
 import java.io.*;
@@ -44,36 +46,30 @@ import java.lang.reflect.Array;
 import java.time.*;
 
 public class LeetCode {
-    public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
-        Set<Integer> set1 = new HashSet<>();
-        Set<Integer> set2 = new HashSet<>();
-        Set<Integer> set3 = new HashSet<>();
-        
-        for (int num : nums1) set1.add(num);
-        for (int num : nums2) set2.add(num);
-        for (int num : nums3) set3.add(num);
-        
-        Set<Integer> result = new HashSet<>();
-        
-        for (int num : set1) {
-            if (set2.contains(num) || set3.contains(num)) {
-                result.add(num);
+    public int[] productQueries(int n, int[][] queries) {
+        ArrayList<Integer> powers = new ArrayList<>();
+        int mod = 1000000007;
+        int pow = 1;
+        while (n>0) {
+            if(n%2 == 1) {
+                powers.add(pow);
             }
+            n /= 2;
+            pow *= 2;
         }
-        
-        for (int num : set2) {
-            if (set1.contains(num) || set3.contains(num)) {
-                result.add(num);
+        ArrayList<Long> ans = new ArrayList<>();
+        for (int i = 0; i < queries.length; i++) {
+            long product = 1;
+            for (int j = queries[i][0]; j <= queries[i][1]; j++) {
+                product = (product * powers.get(j)) % mod;
             }
+            ans.add(product);
         }
-        
-        for (int num : set3) {
-            if (set1.contains(num) || set2.contains(num)) {
-                result.add(num);
-            }
+        int[] result = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            result[i] = (int) (ans.get(i) % mod);
         }
-        
-        return new ArrayList<>(result);
+        return result;
     }
 
 

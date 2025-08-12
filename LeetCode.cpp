@@ -1,45 +1,64 @@
 /*
-There are numBottles water bottles that are initially full of water. You can exchange numExchange empty water bottles from the market with one full water bottle.
+Given a positive integer n, there exists a 0-indexed array called powers, composed of the minimum number of powers of 2 that sum to n. The array is sorted in non-decreasing order, and there is only one way to form the array.
 
-The operation of drinking a full water bottle turns it into an empty bottle.
+You are also given a 0-indexed 2D integer array queries, where queries[i] = [lefti, righti]. Each queries[i] represents a query where you have to find the product of all powers[j] with lefti <= j <= righti.
 
-Given the two integers numBottles and numExchange, return the maximum number of water bottles you can drink.
+Return an array answers, equal in length to queries, where answers[i] is the answer to the ith query. Since the answer to the ith query may be too large, each answers[i] should be returned modulo 109 + 7.
 
  
 
 Example 1:
 
-
-Input: numBottles = 9, numExchange = 3
-Output: 13
-Explanation: You can exchange 3 empty bottles to get 1 full water bottle.
-Number of water bottles you can drink: 9 + 3 + 1 = 13.
+Input: n = 15, queries = [[0,1],[2,2],[0,3]]
+Output: [2,4,64]
+Explanation:
+For n = 15, powers = [1,2,4,8]. It can be shown that powers cannot be a smaller size.
+Answer to 1st query: powers[0] * powers[1] = 1 * 2 = 2.
+Answer to 2nd query: powers[2] = 4.
+Answer to 3rd query: powers[0] * powers[1] * powers[2] * powers[3] = 1 * 2 * 4 * 8 = 64.
+Each answer modulo 109 + 7 yields the same answer, so [2,4,64] is returned.
 Example 2:
 
-
-Input: numBottles = 15, numExchange = 4
-Output: 19
-Explanation: You can exchange 4 empty bottles to get 1 full water bottle. 
-Number of water bottles you can drink: 15 + 3 + 1 = 19.
+Input: n = 2, queries = [[0,0]]
+Output: [2]
+Explanation:
+For n = 2, powers = [2].
+The answer to the only query is powers[0] = 2. The answer modulo 109 + 7 is the same, so [2] is returned.
  
 
 Constraints:
 
-1 <= numBottles <= 100
-2 <= numExchange <= 100
+1 <= n <= 109
+1 <= queries.length <= 105
+0 <= starti <= endi < powers.length
+The powers array can be created using the binary representation of n.
+Hint 2
+Once powers is formed, the products can be taken using brute force.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    int numWaterBottles(int numBottles, int numExchange) {
-        int res = 0;
-        while (numBottles > 0) {
-            res += numBottles;
-            numBottles = numBottles / numExchange + numBottles % numExchange;
+    vector<int> productQueries(int n, vector<vector<int>>& queries) {
+        int modulo = 1e9 + 7;
+        vector<int> powers;
+        int power = 1;
+        while(power <= n){
+            powers.push_back(power);
+            power *= 2;
         }
-        return res;
+        vector<int> ans;
+        for(int i = 0; i < queries.size(); i++){
+            int l = queries[i][0];
+            int r = queries[i][1];
+            int product = 1;
+            for(int j = l; j <= r; j++){
+                product *= powers[j];
+            }
+            ans.push_back(product % modulo);
+        }
+        return ans;
     }
 };
 
