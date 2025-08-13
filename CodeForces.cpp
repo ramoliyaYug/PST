@@ -1,68 +1,70 @@
 /*
-An array b1,b2,…,bn
- of positive integers is good if all the sums of two adjacent elements are equal to the same value. More formally, the array is good if there exists a k
- such that b1+b2=b2+b3=…=bn−1+bn=k
+You are given an array consisting of n
+ integers. Your task is to determine whether it is possible to color all its elements in two colors in such a way that the sums of the elements of both colors have the same parity and each color has at least one element colored.
+
+For example, if the array is [1,2,4,3,2,3,5,4
+], we can color it as follows: [1,2,4,3,2,3,5,4
+], where the sum of the blue elements is 6
+ and the sum of the red elements is 18
 .
 
-Doremy has an array a
- of length n
-. Now Doremy can permute its elements (change their order) however she wants. Determine if she can make the array good.
-
 Input
-The input consists of multiple test cases. The first line contains a single integer t
- (1≤t≤100
-) — the number of test cases. The description of the test cases follows.
+The first line contains an integer t
+ (1≤t≤1000
+) — the number of test cases.
 
-The first line of each test case contains a single integer n
- (2≤n≤100
+Each test case begins with a line containing an integer n
+ (2≤n≤50
 ) — the length of the array a
 .
 
-The second line of each test case contains n
+The next line contains n
  integers a1,a2,…,an
- (1≤ai≤105
-).
-
-There are no constraints on the sum of n
- over all test cases.
+ (1≤ai≤50
+) — the elements of the array a
+.
 
 Output
-For each test case, print "Yes" (without quotes), if it is possible to make the array good, and "No" (without quotes) otherwise.
+For each test case, output "YES" (without quotes) if it is possible to color the array in two colors in such a way that the sums of the elements of both colors have the same parity and each color has at least one element colored, and "NO" otherwise.
 
-You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+You can output "Yes" and "No" in any case (for example, the strings "yES", "yes", and "Yes" will be recognized as correct answers).
 
 Example
 InputCopy
-5
+7
+8
+1 2 4 3 2 3 5 4
 2
-8 9
+4 7
 3
-1 1 2
-4
-1 1 4 5
+3 9 8
+2
+1 7
 5
-2 3 3 3 3
+5 4 3 2 1
 4
-100000 100000 100000 100000
+4 3 4 5
+2
+50 48
 OutputCopy
-Yes
-Yes
-No
-No
-Yes
+YES
+NO
+YES
+YES
+NO
+YES
+YES
 Note
-In the first test case, [8,9]
- and [9,8]
- are good.
+The first sample is described in the statement.
 
-In the second test case, [1,2,1]
- is good because a1+a2=a2+a3=3
-.
+In the second sample, there are only two colorings [4,7]
+ and [4,7]
+ , but in both cases the parity of sums is different.
 
-In the third test case, it can be shown that no permutation is good.
-
-
-
+In the third sample, you can color [3,9,8]
+ and 12
+ and 8
+ are both even.
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -70,22 +72,9 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> arr;
-    map<int,int> map;
+    vector<int> arr(n);
     for (int i = 0; i < n; i++) {
-        int x;
-        cin >> x;
-        arr.push_back(x);
-        map[x]++;
-    }
-    if(map.size()>=3){
-        cout<<"No"<<endl;
-    }else{
-        if(abs(map.begin()->second-map.rbegin()->second)<=1){
-            cout<<"Yes"<<endl;
-        }else{
-            cout<<"No"<<endl;
-        }
+        cin >> arr[i];
     }
 }
 
