@@ -1,8 +1,1 @@
-{
-  "todos": [
-    { "id": 1, "task": "task 1", "status": "not started" },
-    { "id": 2, "task": "task 2", "status": "completed" },
-    { "id": 3, "task": "task 3", "status": "ongoing" },
-    { "id": 4, "task": "task 4", "status": "not started" }
-  ]
-}
+{"todos":[{"id":1,"task":"learn http","status":"chalu kar diya hai"},{"id":2,"task":"learn express","status":"completed"},{"id":3,"task":" Learn Auth","status":"completed"},{"id":4,"task":" Learn Auth2","status":"not started"},{"id":5,"task":" Learn sockets","status":"not started"},{"id":6,"task":" Learn Nodejs","status":"not started"},{"id":1,"taskwefwe":"learn http","status":"chalu kar diya hai"}]}

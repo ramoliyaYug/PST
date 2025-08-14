@@ -1,22 +1,30 @@
 const fs = require("fs");
 
-const data = JSON.parse(fs.readFileSync("./db.json","utf-8"))
-console.log(data)
-console.log(data.todos);
+// read the file : db.json
+// let data = JSON.parse(fs.readFileSync("./db.json", "utf-8"));
+// console.log(data);
+// console.log('Todos are ', data.todos);
 
 
-const newTask = {"id" : 4, "task" : "task 4", "status": "not started"};
-data.todos.push(newTask);
-fs.writeFileSync("./db.json",JSON.stringify(data));
+// const newTask = {id: 4, task:"Learn Express", status:"ongoing"};
+// // write the file: db.json
+// data.todos.push(newTask)
+// fs.writeFileSync("./db.json", JSON.stringify(data));
 
+// // read the file : db.json
+// data = JSON.parse(fs.readFileSync("./db.json", "utf-8"));
+// console.log(data);
+// console.log('Todos are ', data.todos);
 
-export function getTasks(){
-    var data = JSON.parse(fs.readFileSync("./db.json","utf-8"));
-    return data.todos;
+function getTasks(){
+    let data = JSON.parse(fs.readFileSync("./db.json", "utf-8"));
+    // console.log(data);
+    // console.log('Todos are ', data.todos);
+    return data;
 }
 
-function addTask(task){
-    var data = JSON.parse(fs.readFileSync("./db.json","utf-8"));
-    data.todos.push(task);
-    fs.writeFileSync("./db.json",JSON.stringify(data));
+function setTasks(data){
+    fs.writeFileSync("./db.json", JSON.stringify(data));
 }
+
+module.exports = {getTasks, setTasks};
