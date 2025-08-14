@@ -1,54 +1,53 @@
 /*
-You are given an array of characters letters that is sorted in non-decreasing order, and a character target. There are at least two different characters in letters.
+You are given a string num representing a large integer. An integer is good if it meets the following conditions:
 
-Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters.
+It is a substring of num with length 3.
+It consists of only one unique digit.
+Return the maximum good integer as a string or an empty string "" if no such integer exists.
 
+Note:
+
+A substring is a contiguous sequence of characters within a string.
+There may be leading zeroes in num or a good integer.
  
 
 Example 1:
 
-Input: letters = ["c","f","j"], target = "a"
-Output: "c"
-Explanation: The smallest character that is lexicographically greater than 'a' in letters is 'c'.
+Input: num = "6777133339"
+Output: "777"
+Explanation: There are two distinct good integers: "777" and "333".
+"777" is the largest, so we return "777".
 Example 2:
 
-Input: letters = ["c","f","j"], target = "c"
-Output: "f"
-Explanation: The smallest character that is lexicographically greater than 'c' in letters is 'f'.
+Input: num = "2300019"
+Output: "000"
+Explanation: "000" is the only good integer.
 Example 3:
 
-Input: letters = ["x","x","y","y"], target = "z"
-Output: "x"
-Explanation: There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].
+Input: num = "42352338"
+Output: ""
+Explanation: No substring of length 3 consists of only one unique digit. Therefore, there are no good integers.
  
 
 Constraints:
 
-2 <= letters.length <= 104
-letters[i] is a lowercase English letter.
-letters is sorted in non-decreasing order.
-letters contains at least two different characters.
-target is a lowercase English letter.
-
+3 <= num.length <= 1000
+num only consists of digits.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    char nextGreatestLetter(vector<char>& letters, char target) {
-        int n = letters.size();
-        int left = 0;
-        int right = n-1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (letters[mid] > target) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
+    string largestGoodInteger(string num) {
+        int n = num.size();
+        string res = "";
+        for (int i = 0; i < n - 2; i++) {
+            if (num[i] == num[i + 1] && num[i] == num[i + 2]) {
+                res = max(res, num.substr(i, 3));
             }
         }
-        return letters[left % n];
+        return res;
     }
 };
 
