@@ -1,0 +1,11 @@
+js -> single threaded
+node js is a software which has v8 engine which can run js
+js is able to run on browser due to chrome engine / v8 engine.
+
+v8 was removed frombrowser and created as seperate software
+so how it runs:
+- all syncronous code run
+- then all async code run
+
+event loop in nodejs
+- when all sync code is executed in the v8 engine call stack

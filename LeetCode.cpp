@@ -1,56 +1,37 @@
 /*
-You are given a string num representing a large integer. An integer is good if it meets the following conditions:
+You are given a number x and array arr[]. Your task is to rearrange the elements of the array according to the absolute difference with x, i.e., an element having minimum difference comes first, and so on.
+Note: If two or more elements are at equal distances arrange them in the same sequence as in the given array.
 
-It is a substring of num with length 3.
-It consists of only one unique digit.
-Return the maximum good integer as a string or an empty string "" if no such integer exists.
+Examples:
 
-Note:
-
-A substring is a contiguous sequence of characters within a string.
-There may be leading zeroes in num or a good integer.
- 
-
-Example 1:
-
-Input: num = "6777133339"
-Output: "777"
-Explanation: There are two distinct good integers: "777" and "333".
-"777" is the largest, so we return "777".
-Example 2:
-
-Input: num = "2300019"
-Output: "000"
-Explanation: "000" is the only good integer.
-Example 3:
-
-Input: num = "42352338"
-Output: ""
-Explanation: No substring of length 3 consists of only one unique digit. Therefore, there are no good integers.
- 
-
+Input: x = 7, arr[] = [10, 5, 3, 9, 2]
+Output: [5, 9, 10, 3, 2]
+Explanation: Sorting the numbers according to the absolute difference with 7, we have array elements as 5, 9, 10, 3, 2.
+Input: x = 6, arr[] = [1, 2, 3, 4, 5]
+Output: [5, 4, 3, 2, 1]
+Explanation: Sorting the numbers according to the absolute difference with 6, we have array elements as 5, 4, 3, 2, 1.
 Constraints:
-
-3 <= num.length <= 1000
-num only consists of digits.
+1 ≤ x ≤ 105
+1 ≤ arr.size() ≤ 105
+1 ≤ arr[i] ≤ 105
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    string largestGoodInteger(string num) {
-        int n = num.size();
-        string res = "";
-        for (int i = 0; i < n - 2; i++) {
-            if (num[i] == num[i + 1] && num[i] == num[i + 2]) {
-                res = max(res, num.substr(i, 3));
-            }
-        }
-        return res;
+    void rearrange(vector<int> &arr, int x) {
+        // code here
+        int n = arr.size();
+
+        sort(arr.begin(), arr.end(), [x](int a, int b) {
+            return abs(a - x) < abs(b - x);
+        });
     }
 };
 
 int main() {
     LeetCode solution;
+
+    return 0;
 }

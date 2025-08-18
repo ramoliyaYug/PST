@@ -27,4 +27,4 @@ function setTasks(data){
     fs.writeFileSync("./db.json", JSON.stringify(data));
 }
 
-module.exports = {getTasks, setTasks};
+module.exports = {getTasks, setTasks}; 
