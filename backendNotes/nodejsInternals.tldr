@@ -229,12 +229,12 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 0,
-			"y": 0,
-			"lastActivityTimestamp": 0,
-			"meta": {},
 			"id": "pointer:pointer",
-			"typeName": "pointer"
+			"typeName": "pointer",
+			"x": -777.5143343875634,
+			"y": -363.47033905388156,
+			"lastActivityTimestamp": 0,
+			"meta": {}
 		},
 		{
 			"x": 1485.9514903727695,
@@ -10946,7 +10946,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1311.6666259765625,
+				"w": 1551.6666259765625,
 				"h": 763.3333129882812
 			},
 			"insets": [

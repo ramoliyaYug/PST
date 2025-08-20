@@ -1,32 +1,68 @@
 /*
-You are given a number x and array arr[]. Your task is to rearrange the elements of the array according to the absolute difference with x, i.e., an element having minimum difference comes first, and so on.
-Note: If two or more elements are at equal distances arrange them in the same sequence as in the given array.
+Given two strings s and t, determine if they are isomorphic.
 
-Examples:
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
 
-Input: x = 7, arr[] = [10, 5, 3, 9, 2]
-Output: [5, 9, 10, 3, 2]
-Explanation: Sorting the numbers according to the absolute difference with 7, we have array elements as 5, 9, 10, 3, 2.
-Input: x = 6, arr[] = [1, 2, 3, 4, 5]
-Output: [5, 4, 3, 2, 1]
-Explanation: Sorting the numbers according to the absolute difference with 6, we have array elements as 5, 4, 3, 2, 1.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+ 
+
+Example 1:
+
+Input: s = "egg", t = "add"
+
+Output: true
+
+Explanation:
+
+The strings s and t can be made identical by:
+
+Mapping 'e' to 'a'.
+Mapping 'g' to 'd'.
+Example 2:
+
+Input: s = "foo", t = "bar"
+
+Output: false
+
+Explanation:
+
+The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Example 3:
+
+Input: s = "paper", t = "title"
+
+Output: true
+
+ 
+
 Constraints:
-1 ≤ x ≤ 105
-1 ≤ arr.size() ≤ 105
-1 ≤ arr[i] ≤ 105
+
+1 <= s.length <= 5 * 104
+t.length == s.length
+s and t consist of any valid ascii character.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    void rearrange(vector<int> &arr, int x) {
-        // code here
-        int n = arr.size();
-
-        sort(arr.begin(), arr.end(), [x](int a, int b) {
-            return abs(a - x) < abs(b - x);
-        });
+    bool isIsomorphic(string s, string t) {
+        int sLen = s.size();
+        int tLen = t.size();
+        if(sLen != tLen) return false;
+        map<char, char> mapST;
+        map<char, char> mapTS;
+        for(int i = 0; i < sLen; i++){
+            char sChar = s[i];
+            char tChar = t[i];
+            if(mapST.find(sChar) != mapST.end() && mapST[sChar] != tChar) return false;
+            if(mapTS.find(tChar) != mapTS.end() && mapTS[tChar] != sChar) return false;
+            mapST[sChar] = tChar;
+            mapTS[tChar] = sChar;
+        }
+        return true;
     }
 };
 

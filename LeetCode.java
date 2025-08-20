@@ -1,100 +1,72 @@
 /*
-You are given a string s and a positive integer k.
+Given two strings s and t, determine if they are isomorphic.
 
-Let vowels and consonants be the number of vowels and consonants in a string.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
 
-A string is beautiful if:
-
-vowels == consonants.
-(vowels * consonants) % k == 0, in other terms the multiplication of vowels and consonants is divisible by k.
-Return the number of non-empty beautiful substrings in the given string s.
-
-A substring is a contiguous sequence of characters in a string.
-
-Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
-
-Consonant letters in English are every letter except vowels.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
 
  
 
 Example 1:
 
-Input: s = "baeyh", k = 2
-Output: 2
-Explanation: There are 2 beautiful substrings in the given string.
-- Substring "baeyh", vowels = 2 (["a",e"]), consonants = 2 (["y","h"]).
-You can see that string "aeyh" is beautiful as vowels == consonants and vowels * consonants % k == 0.
-- Substring "baeyh", vowels = 2 (["a",e"]), consonants = 2 (["b","y"]). 
-You can see that string "baey" is beautiful as vowels == consonants and vowels * consonants % k == 0.
-It can be shown that there are only 2 beautiful substrings in the given string.
+Input: s = "egg", t = "add"
+
+Output: true
+
+Explanation:
+
+The strings s and t can be made identical by:
+
+Mapping 'e' to 'a'.
+Mapping 'g' to 'd'.
 Example 2:
 
-Input: s = "abba", k = 1
-Output: 3
-Explanation: There are 3 beautiful substrings in the given string.
-- Substring "abba", vowels = 1 (["a"]), consonants = 1 (["b"]). 
-- Substring "abba", vowels = 1 (["a"]), consonants = 1 (["b"]).
-- Substring "abba", vowels = 2 (["a","a"]), consonants = 2 (["b","b"]).
-It can be shown that there are only 3 beautiful substrings in the given string.
+Input: s = "foo", t = "bar"
+
+Output: false
+
+Explanation:
+
+The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
 Example 3:
 
-Input: s = "bcdf", k = 1
-Output: 0
-Explanation: There are no beautiful substrings in the given string.
+Input: s = "paper", t = "title"
+
+Output: true
+
  
 
 Constraints:
 
-1 <= s.length <= 1000
-1 <= k <= 1000
-s consists of only English lowercase letters.
+1 <= s.length <= 5 * 104
+t.length == s.length
+s and t consist of any valid ascii character.
 */
-import java.util.*;
-import java.io.*;
-import java.math.*;
-import java.util.stream.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.lang.*;
-import java.lang.reflect.Array;
-import java.time.*;
+import java.util.*;
 
 public class LeetCode {
-    public int beautifulSubstrings(String s, int k) {
-        StringBuilder sb = new StringBuilder(s);
-        int[] counts = countVowelsAndConsonants(sb.toString());
-        int vowels = counts[0];
-        int consonants = counts[1];
-        int res = 0;
-        for(int i = 0; i < sb.length();i++){
-            for(int j = i + 1; j <= sb.length();j++){
-                String substr = sb.substring(i, j);
-                int[] subCounts = countVowelsAndConsonants(substr);
-                int subVowels = subCounts[0];
-                int subConsonants = subCounts[1];
-                if(isBeautiful(subVowels, subConsonants, k)){
-                    res++;
-                }
+    public boolean isIsomorphic(String s, String t) {
+        int sLen = s.length();
+        int tLen = t.length();
+        if (sLen != tLen) return false;
+        Map<Character, Character> mapST = new HashMap<>();
+        Map<Character, Character> mapTS = new HashMap<>();
+        for(int i = 0;i<sLen;i++){
+            char sChar = s.charAt(i);
+            char tChar = t.charAt(i);
+            if (mapST.containsKey(sChar) && mapST.get(sChar) != tChar) {
+                return false;
             }
-        }
-        return res;
-    }
-
-    public static boolean isBeautiful(int vowels, int consonants, int k) {
-        return vowels == consonants && (vowels * consonants) % k == 0;
-    }
-    public static int[] countVowelsAndConsonants(String s) {
-        int[] counts = new int[2];
-        for (char c : s.toCharArray()) {
-            if ("aeiou".indexOf(c) >= 0) {
-                counts[0]++;
-            } else {
-                counts[1]++;
+            if (mapTS.containsKey(tChar) && mapTS.get(tChar) != sChar) {
+                return false;
             }
+            mapST.put(sChar, tChar);
+            mapTS.put(tChar, sChar);
         }
-        return counts;
+        return true;
     }
-
 
     public static void main(String[] args) {
         LeetCode solution = new LeetCode();
