@@ -1,54 +1,50 @@
 /*
-You are given a string s consisting only lowercase alphabets and an integer k. Your task is to find the length of the longest substring that contains exactly k distinct characters.
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
-Note : If no such substring exists, return -1. 
+ 
 
-Examples:
+Example 1:
 
-Input: s = "aabacbebebe", k = 3
-Output: 7
-Explanation: The longest substring with exactly 3 distinct characters is "cbebebe", which includes 'c', 'b', and 'e'.
-Input: s = "aaaa", k = 2
-Output: -1
-Explanation: There's no substring with 2 distinct characters.
-Input: s = "aabaaab", k = 2
-Output: 7
-Explanation: The entire string "aabaaab" has exactly 2 unique characters 'a' and 'b', making it the longest valid substring.
+
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+Example 2:
+
+Input: head = [1], n = 1
+Output: []
+Example 3:
+
+Input: head = [1,2], n = 1
+Output: [1]
+ 
+
 Constraints:
-1 ≤ s.size() ≤ 105
-1 ≤ k ≤ 26
+
+The number of nodes in the list is sz.
+1 <= sz <= 30
+0 <= Node.val <= 100
+1 <= n <= sz
 */
+import java.lang.classfile.components.ClassPrinter.ListNode;
 import java.util.*;
 
 public class LeetCode {
-    public int longestKSubstr(String s, int k) {
-        // code here
-        int n = s.length();
-        if (k > 26) return -1;
-        Map<Character, Integer> charCount = new HashMap<>();
-        int i = 0;
-        int j = 0;
-        int maxLength = -1;
-        int count = 0;
-        while (j < n) {
-            charCount.put(s.charAt(j), charCount.getOrDefault(s.charAt(j), 0) + 1);
-            if (charCount.get(s.charAt(j)) == 1) {
-                count++;
-            }
-            while (count > k) {
-                charCount.put(s.charAt(i), charCount.get(s.charAt(i)) - 1);
-                if (charCount.get(s.charAt(i)) == 0) {
-                    charCount.remove(s.charAt(i));
-                    count--;
-                }
-                i++;
-            }
-            if (count == k) {
-                maxLength = Math.max(maxLength, j - i + 1);
-            }
-            j++;
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+
+        for(int i = 0;i<=n;i++){
+            fast = fast.next;
         }
-        return maxLength;
+        while(fast != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return dummy.next;
     }
 
     public static void main(String[] args) {
