@@ -1,68 +1,58 @@
 /*
-Given two strings s and t, determine if they are isomorphic.
+You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
 
-Two strings s and t are isomorphic if the characters in s can be replaced to get t.
-
-All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+A substring is a contiguous sequence of characters within a string.
 
  
 
 Example 1:
 
-Input: s = "egg", t = "add"
-
-Output: true
-
-Explanation:
-
-The strings s and t can be made identical by:
-
-Mapping 'e' to 'a'.
-Mapping 'g' to 'd'.
+Input: num = "52"
+Output: "5"
+Explanation: The only non-empty substrings are "5", "2", and "52". "5" is the only odd number.
 Example 2:
 
-Input: s = "foo", t = "bar"
-
-Output: false
-
-Explanation:
-
-The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
-
+Input: num = "4206"
+Output: ""
+Explanation: There are no odd numbers in "4206".
 Example 3:
 
-Input: s = "paper", t = "title"
-
-Output: true
-
+Input: num = "35427"
+Output: "35427"
+Explanation: "35427" is already an odd number.
  
 
 Constraints:
 
-1 <= s.length <= 5 * 104
-t.length == s.length
-s and t consist of any valid ascii character.
+1 <= num.length <= 105
+num only consists of digits and does not contain any leading zeros.
+Hint 1
+In what order should you iterate through the digits?
+Hint 2
+If an odd number exists, where must the number start from?
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    bool isIsomorphic(string s, string t) {
-        int sLen = s.size();
-        int tLen = t.size();
-        if(sLen != tLen) return false;
-        map<char, char> mapST;
-        map<char, char> mapTS;
-        for(int i = 0; i < sLen; i++){
-            char sChar = s[i];
-            char tChar = t[i];
-            if(mapST.find(sChar) != mapST.end() && mapST[sChar] != tChar) return false;
-            if(mapTS.find(tChar) != mapTS.end() && mapTS[tChar] != sChar) return false;
-            mapST[sChar] = tChar;
-            mapTS[tChar] = sChar;
+    string largestOddNumber(string num) {
+        int n = num.size();
+        string revNum = num;
+        reverse(revNum.begin(), revNum.end());
+        string ans = "";
+        for (int i = 0; i < n; i++) {
+            if ( (revNum[i] - '0') % 2 == 1 ) {
+                string curr = "";
+                for (int j = i; j < n; j++) {
+                    curr += revNum[j];
+                }
+                ans = curr;
+                break;
+            }
         }
-        return true;
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
 

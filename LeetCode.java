@@ -1,71 +1,54 @@
 /*
-Given two strings s and t, determine if they are isomorphic.
+You are given a string s consisting only lowercase alphabets and an integer k. Your task is to find the length of the longest substring that contains exactly k distinct characters.
 
-Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+Note : If no such substring exists, return -1. 
 
-All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+Examples:
 
- 
-
-Example 1:
-
-Input: s = "egg", t = "add"
-
-Output: true
-
-Explanation:
-
-The strings s and t can be made identical by:
-
-Mapping 'e' to 'a'.
-Mapping 'g' to 'd'.
-Example 2:
-
-Input: s = "foo", t = "bar"
-
-Output: false
-
-Explanation:
-
-The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
-
-Example 3:
-
-Input: s = "paper", t = "title"
-
-Output: true
-
- 
-
+Input: s = "aabacbebebe", k = 3
+Output: 7
+Explanation: The longest substring with exactly 3 distinct characters is "cbebebe", which includes 'c', 'b', and 'e'.
+Input: s = "aaaa", k = 2
+Output: -1
+Explanation: There's no substring with 2 distinct characters.
+Input: s = "aabaaab", k = 2
+Output: 7
+Explanation: The entire string "aabaaab" has exactly 2 unique characters 'a' and 'b', making it the longest valid substring.
 Constraints:
-
-1 <= s.length <= 5 * 104
-t.length == s.length
-s and t consist of any valid ascii character.
+1 ≤ s.size() ≤ 105
+1 ≤ k ≤ 26
 */
-import java.lang.*;
 import java.util.*;
 
 public class LeetCode {
-    public boolean isIsomorphic(String s, String t) {
-        int sLen = s.length();
-        int tLen = t.length();
-        if (sLen != tLen) return false;
-        Map<Character, Character> mapST = new HashMap<>();
-        Map<Character, Character> mapTS = new HashMap<>();
-        for(int i = 0;i<sLen;i++){
-            char sChar = s.charAt(i);
-            char tChar = t.charAt(i);
-            if (mapST.containsKey(sChar) && mapST.get(sChar) != tChar) {
-                return false;
+    public int longestKSubstr(String s, int k) {
+        // code here
+        int n = s.length();
+        if (k > 26) return -1;
+        Map<Character, Integer> charCount = new HashMap<>();
+        int i = 0;
+        int j = 0;
+        int maxLength = -1;
+        int count = 0;
+        while (j < n) {
+            charCount.put(s.charAt(j), charCount.getOrDefault(s.charAt(j), 0) + 1);
+            if (charCount.get(s.charAt(j)) == 1) {
+                count++;
             }
-            if (mapTS.containsKey(tChar) && mapTS.get(tChar) != sChar) {
-                return false;
+            while (count > k) {
+                charCount.put(s.charAt(i), charCount.get(s.charAt(i)) - 1);
+                if (charCount.get(s.charAt(i)) == 0) {
+                    charCount.remove(s.charAt(i));
+                    count--;
+                }
+                i++;
             }
-            mapST.put(sChar, tChar);
-            mapTS.put(tChar, sChar);
+            if (count == k) {
+                maxLength = Math.max(maxLength, j - i + 1);
+            }
+            j++;
         }
-        return true;
+        return maxLength;
     }
 
     public static void main(String[] args) {
