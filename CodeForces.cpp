@@ -1,56 +1,65 @@
 /*
-YunQian is standing on an infinite plane with the Cartesian coordinate system on it. In one move, she can move to the diagonally adjacent point on the top right or the adjacent point on the left.
+Alica and Bob are playing a game.
 
-That is, if she is standing on point (x,y)
-, she can either move to point (x+1,y+1)
- or point (x−1,y)
+Initially they have a binary string s
+ consisting of only characters 0 and 1.
+
+Alice and Bob make alternating moves: Alice makes the first move, Bob makes the second move, Alice makes the third one, and so on. During each move, the current player must choose two different adjacent characters of string s
+ and delete them. For example, if s=1011001
+ then the following moves are possible:
+
+delete s1
+ and s2
+: 1011001→11001
+;
+delete s2
+ and s3
+: 1011001→11001
+;
+delete s4
+ and s5
+: 1011001→10101
+;
+delete s6
+ and s7
+: 1011001→10110
 .
-
-YunQian initially stands at point (a,b)
- and wants to move to point (c,d)
-. Find the minimum number of moves she needs to make or declare that it is impossible.
+If a player can't make any move, they lose. Both players play optimally. You have to determine if Alice can win.
 
 Input
-The first line contains a single integer t
- (1≤t≤104
-) — the number of test cases. The description of test cases follows.
+First line contains one integer t
+ (1≤t≤1000
+) — the number of test cases.
 
-The first line and only line of each test case contain four integers a
-, b
-, c
-, d
- (−108≤a,b,c,d≤108
-).
+Only line of each test case contains one string s
+ (1≤|s|≤100
+), consisting of only characters 0 and 1.
 
 Output
-For each test case, if it is possible to move from point (a,b)
- to point (c,d)
-, output the minimum number of moves. Otherwise, output −1
-.
+For each test case print answer in the single line.
+
+If Alice can win print DA (YES in Russian) in any register. Otherwise print NET (NO in Russian) in any register.
 
 Example
 InputCopy
-6
--1 0 -1 2
-0 0 4 5
--2 -1 1 1
--3 2 -3 2
-2 -1 -1 -1
-1 1 0 2
+3
+01
+1111
+0011
 OutputCopy
-4
-6
--1
-0
-3
-3
+DA
+NET
+NET
 Note
-In the first test case, one possible way using 4
- moves is (−1,0)→(0,1)→(−1,1)→(0,2)→(−1,2)
-. It can be proven that it is impossible to move from point (−1,0)
- to point (−1,2)
- in less than 4
- moves.
+In the first test case after Alice's move string s
+ become empty and Bob can not make any move.
+
+In the second test case Alice can not make any move initially.
+
+In the third test case after Alice's move string s
+ turn into 01
+. Then, after Bob's move string s
+ become empty and Alice can not make any move.
 
 
 
@@ -59,12 +68,19 @@ In the first test case, one possible way using 4
 using namespace std;
 
 void solve() {
-    int a,b,c,d;
-    cin >> a >> b >> c >> d;
-    if(b<=d && c <= a+d-b){
-        cout << (d-b)+(a+d-b-c) << endl;
-    }else{
-        cout << -1 << endl;
+    string s;
+    cin >> s;
+    int n = s.size();
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        if (s[i] == '1') {
+            count++;
+        }
+    }
+    if (count % 2 == 0) {
+        cout << "NET" << endl;
+    } else {
+        cout << "DA" << endl;
     }
 }
 

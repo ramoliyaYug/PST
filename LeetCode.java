@@ -1,50 +1,58 @@
 /*
-Given the head of a linked list, remove the nth node from the end of the list and return its head.
+Given the head of a linked list, rotate the list to the right by k places.
 
  
 
 Example 1:
 
 
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
 Example 2:
 
-Input: head = [1], n = 1
-Output: []
-Example 3:
 
-Input: head = [1,2], n = 1
-Output: [1]
+Input: head = [0,1,2], k = 4
+Output: [2,0,1]
  
 
 Constraints:
 
-The number of nodes in the list is sz.
-1 <= sz <= 30
-0 <= Node.val <= 100
-1 <= n <= sz
+The number of nodes in the list is in the range [0, 500].
+-100 <= Node.val <= 100
+0 <= k <= 2 * 109
 */
-import java.lang.classfile.components.ClassPrinter.ListNode;
-import java.util.*;
 
+class ListNode {
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ }
 public class LeetCode {
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-
-        ListNode slow = dummy;
-        ListNode fast = dummy;
-
-        for(int i = 0;i<=n;i++){
-            fast = fast.next;
+    public ListNode rotateRight(ListNode head, int k) {
+        int size = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            size++;
+            temp = temp.next;
         }
-        while(fast != null){
-            slow = slow.next;
-            fast = fast.next;
+        if (size == 0 || size == 1 || k % size == 0) {
+            return head;
         }
-        slow.next = slow.next.next;
-        return dummy.next;
+        k = k % size;
+        while(k-- > 0){
+            ListNode first = head;
+            ListNode last = null;
+            while (first.next != null) {
+                last = first;
+                first = first.next;
+            }
+            first.next = head;
+            head = first; 
+            last.next = null;
+        }
+        return head;
     }
 
     public static void main(String[] args) {
