@@ -1,97 +1,98 @@
 /*
-Welcome to Rockport City!
+You are given a string s
+ of length n
+, where each character is either < or >.
 
-It is time for your first ever race in the game against Ronnie. To make the race interesting, you have bet a
- dollars and Ronnie has bet b
- dollars. But the fans seem to be disappointed. The excitement of the fans is given by gcd(a,b)
-, where gcd(x,y)
- denotes the greatest common divisor (GCD) of integers x
- and y
-. To make the race more exciting, you can perform two types of operations:
+An array a
+ consisting of n+1
+ elements is compatible with the string s
+ if, for every i
+ from 1
+ to n
+, the character si
+ represents the result of comparing ai
+ and ai+1
+, i. e.:
 
-Increase both a
- and b
- by 1
+si
+ is < if and only if ai<ai+1
+;
+si
+ is > if and only if ai>ai+1
 .
-Decrease both a
- and b
- by 1
-. This operation can only be performed if both a
- and b
- are greater than 0
+For example, the array [1,2,5,4,2]
+ is compatible with the string <<>>. There are other arrays with are compatible with that string, for example, [13,37,42,37,13]
 .
-In one move, you can perform any one of these operations. You can perform arbitrary (possibly zero) number of moves. Determine the maximum excitement the fans can get and the minimum number of moves required to achieve it.
 
-Note that gcd(x,0)=x
- for any x≥0
+The cost of the array is the number of different elements in it. For example, the cost of [1,2,5,4,2]
+ is 4
+; the cost of [13,37,42,37,13]
+ is 3
+.
+
+You have to calculate the minimum cost among all arrays which are compatible with the given string s
 .
 
 Input
-The first line of input contains a single integer t
- (1≤t≤5⋅103
+The first line contains one integer t
+ (1≤t≤500
 ) — the number of test cases.
 
-The first and the only line of each test case contains two integers a
- and b
- (0≤a,b≤1018
-).
+Each test case consists of two lines:
 
+the first line contains one integer n
+ (1≤n≤100
+);
+the second line contains the string s
+, consisting of n
+ characters. Each character of s
+ is either < or >.
 Output
-For each test case, print a single line containing two integers.
-
-If the fans can get infinite excitement, print 0 0.
-
-Otherwise, the first integer must be the maximum excitement the fans can get, and the second integer must be the minimum number of moves required to achieve that excitement.
+For each test case, print one integer — the minimum cost among all arrays which are compatible with the given string s
+.
 
 Example
 InputCopy
 4
-8 5
-1 2
-4 4
-3 9
+4
+<<>>
+4
+>><<
+5
+>>>>>
+7
+<><><><
 OutputCopy
-3 1
-1 0
-0 0
-6 3
+3
+3
+6
+2
 Note
-For the first test case, you can apply the first operation 1
- time to get a=9
- and b=6
-. It can be shown that 3
- is the maximum excitement possible.
-
-For the second test case, no matter how many operations you apply, the fans will always have an excitement equal to 1
-. Since the initial excitement is also 1
-, you don't need to apply any operation.
-
-For the third case, the fans can get infinite excitement by applying the first operation an infinite amount of times.
-
-For the fourth test case, you can apply the second operation 3
- times to get a=0
- and b=6
-. Since, gcd(0,6)=6
-, the fans will get an excitement of 6
+In the first test case of the example, the array can be [13,37,42,37,13]
 .
 
-
-
+In the second test case of the example, the array can be [42,37,13,37,42]
+.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int a,b;
-    cin >> a >> b;
-    if(a==b){
-        cout<<0<<" "<<0<<endl;
-    }else{
-        int g = abs(a - b);
-        int r = a % g;
-        int minOps = min(r, g - r);
-        cout << g << " " << minOps << endl;
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int ans = 1;
+    int curr = 1;
+    for(int i = 1;i<=n;i++){
+        if(s[i] != s[i-1]){
+            curr = 1;
+        }else{
+            curr++;
+        }
+        ans = max(ans,curr);
     }
+    cout << ans+1 << endl;
 }
 
 int main() {
@@ -102,29 +103,3 @@ int main() {
     }
     return 0;
 }
-
-// int ansFromTheOperation1 = INT_MIN;
-    // int ansFromTheOperation2 = INT_MIN;
-    // int numberOfOperations1 = 0;
-    // int numberOfOperations2 = 0;
-    // int aCopy = a;
-    // int bCopy = b;
-    // while(a>0 && b>0){
-    //     ansFromTheOperation1 = max(ansFromTheOperation1,gcd(a,b));
-    //     numberOfOperations1++;
-    //     a++;
-    //     b++;
-    // }
-    // while(aCopy>0 && bCopy>0){
-    //     ansFromTheOperation2 = max(ansFromTheOperation2,gcd(aCopy,bCopy));
-    //     numberOfOperations2++;
-    //     aCopy--;
-    //     bCopy--;
-    // }
-    // int finalAnswer = max(ansFromTheOperation1,ansFromTheOperation2);
-    // int finalNumberOfOperations = min(numberOfOperations1,numberOfOperations2);
-    // if(finalAnswer==INT_MIN){
-    //     cout<<0<<" "<<0<<endl;
-    // }else{
-    //     cout<<finalAnswer<<" "<<finalNumberOfOperations<<endl;
-    // }

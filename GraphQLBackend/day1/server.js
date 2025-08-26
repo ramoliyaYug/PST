@@ -30,7 +30,7 @@ const USERS = [
 ];
 
 
-const POSTS = [                                                                                                                                                                                          
+const POSTS = [                                       
   {
     id: 1,
     title: "Mastering JavaScript Closures",
@@ -123,6 +123,22 @@ const typeDefs = gql`
         getPosts : [Post!]!
         getPost(id : ID!) : Post!
     }
+
+    input CreateUserInput{
+        name : String!
+        email : String!
+    }
+
+    input CreatePostInput{
+        title : String!
+        content : String!
+        authorId : ID!
+    }
+
+    type Mutation{
+        createUser(input : CreateUserInput) : User!
+        createPost(input : CreatePostInput) : Post!
+    }
 `
 
 const resolvers = {
@@ -149,6 +165,24 @@ const resolvers = {
     Post: {
         author: (post) => {
             return USERS.find((user) => user.id === post.authorId);
+        }
+    },
+
+    Mutation : {
+        createUser : (_,{input})=>{
+            const id = USERS.length + 1;
+            const user = {...input, id};
+            USERS.push(user);
+            return user
+        },
+        createPost : (_,{input})=>{
+            const newPost = {
+              ...input,
+              id: POSTS.length + 1,
+              authorId: parseInt(input.authorId)
+            };
+            POSTS.push(newPost);
+            return newPost;
         }
     }
 };
