@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>simple chat app using websockets</h1>
+    <div>
+        <input type="text" placeholder="Enter Message"/>
+        <button id="send-btn">Send</button>
+    </div>
+    <div>
+        <ul id="messages"></ul>
+    </div>
+    <script>
+        console.log("hi");
+        const socket = io("http://localhost:5555");
+        const messageInput = document.querySelector("input");
+        const sendBtn = document.querySelector("#send-btn");
+        const messages = document.querySelector("#messages");
+
+        socket.on("chat:new", (data)=>{
+            console.log(data);
+            messages.innerHTML += `<li>${data.text}</li>`;
+        })
+        sendBtn.addEventListener("click", () => {
+            const message = messageInput.value;
+            socket.emit("chat:send", message);
+            messageInput.value = "";
+        })
+    </script>
+</body>
+</html>
