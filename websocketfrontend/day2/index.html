@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Socket.IO Chat Test</title>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Socket.IO Chat Test</h2>
+
+  <!-- Input for Room -->
+  <input id="roomInput" type="text" placeholder="Enter room name" />
+  <button onclick="joinRoom()">Join Room</button>
+  <br><br>
+
+  <!-- Chat Messages -->
+  <div id="chatBox" style="width:400px;height:200px;border:1px solid #333;overflow:auto;padding:5px;">
+    <p><i>No messages yet</i></p>
+  </div>
+
+  <!-- Input for Message -->
+  <input id="msgInput" type="text" placeholder="Enter message" />
+  <button onclick="sendMsg()">Send</button>
+
+  <script>
+    // Connect to backend
+    const socket = io("http://localhost:5555");
+
+    socket.on("connect", () => {
+      console.log("Connected to server with id:", socket.id);
+    });
+
+    socket.on("room:joined", (room) => {
+      addMessage(`✅ You joined room: ${room}`);
+    });
+
+    socket.on("chat:new", (data) => {
+      addMessage(`${data.id}: ${data.text}`);
+    });
+
+    function joinRoom() {
+      const room = document.getElementById("roomInput").value;
+      if (room.trim() !== "") {
+        socket.emit("room:join", room);
+      }
+    }
+
+    function sendMsg() {
+      const room = document.getElementById("roomInput").value;
+      const msg = document.getElementById("msgInput").value;
+      if (room.trim() !== "" && msg.trim() !== "") {
+        socket.emit("chat:send", { room, msg });
+        document.getElementById("msgInput").value = "";
+      }
+    }
+
+    function addMessage(message) {
+      const chatBox = document.getElementById("chatBox");
+      const p = document.createElement("p");
+      p.textContent = message;
+      chatBox.appendChild(p);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>

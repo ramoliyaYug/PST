@@ -64,46 +64,23 @@ In the third test case, it can be shown that no permutation is good.
 
 
 */
-import java.util.*;
-import java.io.*;
-import java.math.*;
-import java.util.stream.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.lang.*;
-import java.time.*;
+import java.util.*;
 
 public class CodeForces {
 
     static void solve(Scanner sc) {
-        int n = sc.nextInt();
-        List<Integer> arr = new ArrayList<>();
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-
-        for (int i = 0; i < n; i++) {
-            int x = sc.nextInt();
-            arr.add(x);
-            map.put(x, map.getOrDefault(x, 0) + 1);
-        }
-
-        if (map.size() >= 3) {
-            System.out.println("No");
-        } else {
-            int firstCount = map.get(map.firstKey());
-            int lastCount = map.get(map.lastKey());
-            if (Math.abs(firstCount - lastCount) <= 1) {
-                System.out.println("Yes");
-            } else {
-                System.out.println("No");
-            }
-        }
+        int a,b;
+        a = sc.nextInt();
+        b = sc.nextInt();
+        System.out.println(a+b);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
         int t = 1;
-        if (sc.hasNextInt()) {t = sc.nextInt();}
+        // if (sc.hasNextInt()) {t = sc.nextInt();}
         while (t-- > 0) {
             solve(sc);
         }
