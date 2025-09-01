@@ -1,145 +1,98 @@
 /*
-You have an array a1,a2,…,an
-. Answer q
- queries of the following form:
+Given an array a
+ of n
+ elements, print any value that appears at least three times or print -1 if there is no such value.
 
-If we change all elements in the range al,al+1,…,ar
- of the array to k
-, will the sum of the entire array be odd?
-Note that queries are independent and do not affect future queries.
 Input
-Each test contains multiple test cases. The first line contains the number of test cases t
+The first line contains an integer t
  (1≤t≤104
-). The description of the test cases follows.
+) — the number of test cases.
 
-The first line of each test case consists of 2
- integers n
- and q
+The first line of each test case contains an integer n
  (1≤n≤2⋅105
-; 1≤q≤2⋅105
-) — the length of the array and the number of queries.
+) — the length of the array.
 
-The second line of each test case consists of n
- integers ai
- (1≤ai≤109
-) — the array a
-.
-
-The next q
- lines of each test case consists of 3
- integers l,r,k
- (1≤l≤r≤n
-; 1≤k≤109
-) — the queries.
+The second line of each test case contains n
+ integers a1,a2,…,an
+ (1≤ai≤n
+) — the elements of the array.
 
 It is guaranteed that the sum of n
- over all test cases doesn't exceed 2⋅105
-, and the sum of q
- doesn't exceed 2⋅105
+ over all test cases does not exceed 2⋅105
 .
 
 Output
-For each query, output "YES" if the sum of the entire array becomes odd, and "NO" otherwise.
-
-You can output the answer in any case (upper or lower). For example, the strings "yEs", "yes", "Yes", and "YES" will be recognized as positive responses.
+For each test case, print any value that appears at least three times or print -1 if there is no such value.
 
 Example
 InputCopy
-2
-5 5
-2 2 1 3 2
-2 3 3
-2 3 4
-1 5 5
-1 4 9
-2 4 3
-10 5
-1 1 1 1 1 1 1 1 1 1
-3 8 13
-2 5 10
-3 8 10
-1 10 2
-1 9 100
+7
+1
+1
+3
+2 2 2
+7
+2 2 3 3 4 2 2
+8
+1 4 3 4 3 2 4 1
+9
+1 1 1 2 2 2 3 3 3
+5
+1 5 2 4 3
+4
+4 4 4 4
 OutputCopy
-YES
-YES
-YES
-NO
-YES
-NO
-NO
-NO
-NO
-YES
+-1
+2
+2
+4
+3
+-1
+4
 Note
-For the first test case:
+In the first test case there is just a single element, so it can't occur at least three times and the answer is -1.
 
-If the elements in the range (2,3)
- would get set to 3
- the array would become {2,3,3,3,2}
-, the sum would be 2+3+3+3+2=13
- which is odd, so the answer is "YES".
-If the elements in the range (2,3)
- would get set to 4
- the array would become {2,4,4,3,2}
-, the sum would be 2+4+4+3+2=15
- which is odd, so the answer is "YES".
-If the elements in the range (1,5)
- would get set to 5
- the array would become {5,5,5,5,5}
-, the sum would be 5+5+5+5+5=25
- which is odd, so the answer is "YES".
-If the elements in the range (1,4)
- would get set to 9
- the array would become {9,9,9,9,2}
-, the sum would be 9+9+9+9+2=38
- which is even, so the answer is "NO".
-If the elements in the range (2,4)
- would get set to 3
- the array would become {2,3,3,3,2}
-, the sum would be 2+3+3+3+2=13
- which is odd, so the answer is "YES".
- Note that for each question, the resulting array is
-[a1,a2,…,al−1,k,…,k,ar+1,ar+2,…,an].
-
-So, the sum of the elements of the new array after each question is
-a1+⋯+al−1+(r−l+1)⋅k+ar+1+⋯+an.
-
-We can compute a1+⋯+al−1
- and ar+1+⋯+an
- in O(1)
- time by precomputing the sum of all prefixes and suffixes, or alternatively by using the prefix sums technique. So we can find the sum each time in O(1)
- per question, and just check if it's odd or not. The time complexity is O(n+q)
+In the second test case, all three elements of the array are equal to 2
+, so 2
+ occurs three times, and so the answer is 2
 .
+
+For the third test case, 2
+ occurs four times, so the answer is 2
+.
+
+For the fourth test case, 4
+ occurs three times, so the answer is 4
+.
+
+For the fifth test case, 1
+, 2
+ and 3
+ all occur at least three times, so they are all valid outputs.
+
+For the sixth test case, all elements are distinct, so none of them occurs at least three times and the answer is -1.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-
-    vector<long long> arr(n+1);
-    vector<long long> prefix(n+1, 0);
-
-    for (int i = 1; i <= n; i++) {
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
-        prefix[i] = prefix[i-1] + arr[i];
     }
-
-    long long totalSum = prefix[n];
-
-    while (q--) {
-        int l, r, k;
-        cin >> l >> r >> k;
-
-        long long oldRangeSum = prefix[r] - prefix[l-1];
-
-        long long newSum = totalSum - oldRangeSum + 1LL * (r-l+1) * k;
-
-        if (newSum % 2 == 1) cout << "YES\n";
-        else cout << "NO\n";
+    map<int, int> m;
+    for (int i = 0; i < n; i++) {
+        m[arr[i]]++;
     }
+    for (auto it : m) {
+        if (it.second >= 3) {
+            cout << it.first << endl;
+            return;
+        }
+    }
+    cout << -1 << endl;
 }
 
 int main() {

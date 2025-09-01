@@ -1,48 +1,79 @@
 /*
-Given a string s, return the length of the longest substring between two equal characters, excluding the two characters. If there is no such substring return -1.
+There is a school that has classes of students and each class will be having a final exam. You are given a 2D integer array classes, where classes[i] = [passi, totali]. You know beforehand that in the ith class, there are totali total students, but only passi number of students will pass the exam.
 
-A substring is a contiguous sequence of characters within a string.
+You are also given an integer extraStudents. There are another extraStudents brilliant students that are guaranteed to pass the exam of any class they are assigned to. You want to assign each of the extraStudents students to a class in a way that maximizes the average pass ratio across all the classes.
+
+The pass ratio of a class is equal to the number of students of the class that will pass the exam divided by the total number of students of the class. The average pass ratio is the sum of pass ratios of all the classes divided by the number of the classes.
+
+Return the maximum possible average pass ratio after assigning the extraStudents students. Answers within 10-5 of the actual answer will be accepted.
 
  
 
 Example 1:
 
-Input: s = "aa"
-Output: 0
-Explanation: The optimal substring here is an empty substring between the two 'a's.
+Input: classes = [[1,2],[3,5],[2,2]], extraStudents = 2
+Output: 0.78333
+Explanation: You can assign the two extra students to the first class. The average pass ratio will be equal to (3/4 + 3/5 + 2/2) / 3 = 0.78333.
 Example 2:
 
-Input: s = "abca"
-Output: 2
-Explanation: The optimal substring here is "bc".
-Example 3:
-
-Input: s = "cbzxy"
-Output: -1
-Explanation: There are no characters that appear twice in s.
+Input: classes = [[2,4],[3,9],[4,5],[2,10]], extraStudents = 4
+Output: 0.53485
  
 
 Constraints:
 
-1 <= s.length <= 300
-s contains only lowercase English letters.
+1 <= classes.length <= 105
+classes[i].length == 2
+1 <= passi <= totali <= 105
+1 <= extraStudents <= 105
+ 
+Seen this question in a real interview before?
+1/5
+Yes
+No
+Accepted
+123,991/170.4K
+Acceptance Rate
+72.8%
+Topics
+Array
+Greedy
+Heap (Priority Queue)
+Weekly Contest 232
+icon
+Companies
+Hint 1
+Pay attention to how much the pass ratio changes when you add a student to the class. If you keep adding students, what happens to the change in pass ratio? The more students you add to a class, the smaller the change in pass ratio becomes.
+Hint 2
+Since the change in the pass ratio is always decreasing with the more students you add, then the very first student you add to each class is the one that makes the biggest change in the pass ratio.
+Hint 3
+Because each class's pass ratio is weighted equally, it's always optimal to put the student in the class that makes the biggest change among all the other classes.
+Hint 4
+Keep a max heap of the current class sizes and order them by the change in pass ratio. For each extra student, take the top of the heap, update the class size, and put it back in the heap.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    int maxLengthBetweenEqualCharacters(string s) {
-        int n = s.size();
-        int ans = -1;
-        for(int i = 0;i<n;i++){
-            for(int j = i+1;j<n;j++){
-                if(s[i] == s[j]){
-                    ans = max(ans,j-i-1);
-                }
-            }
+    double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
+        int n = classes.size();
+        priority_queue<double> pq;
+        for (int i = 0; i < n; i++) {
+            pq.push((double)classes[i][0] / classes[i][1]);
         }
-        return ans;
+        for (int i = 0; i < extraStudents; i++) {
+            double ratio = pq.top();
+            pq.pop();
+            ratio = (ratio + 1) / 2;
+            pq.push(ratio);
+        }
+        double ans = 0;
+        while (!pq.empty()) {
+            ans += pq.top();
+            pq.pop();
+        }
+        return ans / n;
     }
 };
 

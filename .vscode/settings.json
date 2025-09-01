@@ -3,6 +3,7 @@
         "string": "cpp",
         "string_view": "cpp",
         "regex": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "format": "cpp"
     }
 }

@@ -1,34 +1,45 @@
 /*
-You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+You are given a binary tree, and your task is to return its top view. The top view of a binary tree is the set of nodes visible when the tree is viewed from the top.
 
-You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Note: 
 
+Return the nodes from the leftmost node to the rightmost node.
+If two nodes are at the same position (horizontal distance) and are outside the shadow of the tree, consider the leftmost node only. 
+Examples:
+
+Input: root[] = [1, 2, 3] 
  
-
-Example 1:
-
-
-Input: l1 = [7,2,4,3], l2 = [5,6,4]
-Output: [7,8,0,7]
-Example 2:
-
-Input: l1 = [2,4,3], l2 = [5,6,4]
-Output: [8,0,7]
-Example 3:
-
-Input: l1 = [0], l2 = [0]
-Output: [0]
+Output: [2, 1, 3]
+Input: root[] = [10, 20, 30, 40, 60, 90, 100]
  
-
+Output: [40, 20, 10, 30, 100]
+Explanation: The root 10 is visible.
+On the left, 40 is the leftmost node and visible, followed by 20.
+On the right, 30 and 100 are visible. Thus, the top view is 40 20 10 30 100.
+Input: root[] = [1, 2, 3, N, 4, N, N, N, 5, N, 6]
+       1
+     /   \
+    2     3
+     \   
+      4
+       \
+        5
+         \
+          6
+Output: [2, 1, 3, 6]
+Explanation: Node 1 is the root and visible.
+Node 2 is the left child and visible from the left side.
+Node 3 is the right child and visible from the right side.
+Nodes 4, 5, and 6 are vertically aligned, but only the lowest node 6 is visible from the top view. Thus, the top view is 2 1 3 6.
 Constraints:
+1 ≤ number of nodes ≤ 105
+1 ≤ node->data ≤ 105
 
-The number of nodes in each linked list is in the range [1, 100].
-0 <= Node.val <= 9
-It is guaranteed that the list represents a number that does not have leading zeros.
+
 */
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 class ListNode {
       int val;
@@ -37,40 +48,53 @@ class ListNode {
       ListNode(int val) { this.val = val; }
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  }
- class Node {
-    public int val;
-    public Node prev;
-    public Node next;
-    public Node child;
-};
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode() {}
+      TreeNode(int val) { this.val = val; }
+      TreeNode(int val, TreeNode left, TreeNode right) {
+          this.val = val;
+          this.left = left;
+          this.right = right;
+      }
+}
 public class LeetCode {
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ArrayList<Integer> listA = convertLinkedListToArrayList(list1);
-        ArrayList<Integer> listB = convertLinkedListToArrayList(list2);
-        ArrayList<Integer> mergedList = new ArrayList<>();
-        mergedList.addAll(listA);
-        mergedList.addAll(listB);
-        Collections.sort(mergedList);
-        return convertArrayListToLinkedList(mergedList);
-
-    }
-    public static ArrayList<Integer> convertLinkedListToArrayList(ListNode head) {
-        ArrayList<Integer> list = new ArrayList<>();
-        ListNode current = head;
-        while (current != null) {
-            list.add(current.val);
-            current = current.next;
+    static ArrayList<Integer> topView(Node root) {
+        // code here
+        if(root == null) return new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        List<Node> leftView = new ArrayList<>();
+        List<Node> rightView = new ArrayList<>();
+        Node curr = root;
+        while(curr != null){
+            leftView.add(curr);
+            curr = curr.left;
         }
-        return list;
-    }
-    public static ListNode convertArrayListToLinkedList(ArrayList<Integer> list){
-        ListNode dummy = new ListNode(0);
-        ListNode current = dummy;
-        for (int val : list) {
-            current.next = new ListNode(val);
-            current = current.next;
+        curr = root.right;
+        while(curr != null){
+            rightView.add(curr);
+            curr = curr.right;
         }
-        return dummy.next;
+        for(int i=leftView.size()-1; i>=0; i--){
+            result.add(leftView.get(i).data);
+        }
+        result.add(root.data);
+        for(int i=0; i<rightView.size(); i++){
+            result.add(rightView.get(i).data);
+        }
+        return result;
     }
     
 
