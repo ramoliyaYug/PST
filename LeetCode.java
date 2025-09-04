@@ -1,102 +1,77 @@
 /*
-You are given a binary tree, and your task is to return its top view. The top view of a binary tree is the set of nodes visible when the tree is viewed from the top.
+You are given the head of a Singly linked list. You have to reverse every k node in the linked list and return the head of the modified list.
+Note: If the number of nodes is not a multiple of k then the left-out nodes at the end, should be considered as a group and must be reversed.
 
-Note: 
-
-Return the nodes from the leftmost node to the rightmost node.
-If two nodes are at the same position (horizontal distance) and are outside the shadow of the tree, consider the leftmost node only. 
 Examples:
 
-Input: root[] = [1, 2, 3] 
- 
-Output: [2, 1, 3]
-Input: root[] = [10, 20, 30, 40, 60, 90, 100]
- 
-Output: [40, 20, 10, 30, 100]
-Explanation: The root 10 is visible.
-On the left, 40 is the leftmost node and visible, followed by 20.
-On the right, 30 and 100 are visible. Thus, the top view is 40 20 10 30 100.
-Input: root[] = [1, 2, 3, N, 4, N, N, N, 5, N, 6]
-       1
-     /   \
-    2     3
-     \   
-      4
-       \
-        5
-         \
-          6
-Output: [2, 1, 3, 6]
-Explanation: Node 1 is the root and visible.
-Node 2 is the left child and visible from the left side.
-Node 3 is the right child and visible from the right side.
-Nodes 4, 5, and 6 are vertically aligned, but only the lowest node 6 is visible from the top view. Thus, the top view is 2 1 3 6.
+Input: k = 2,
+   
+Output: 2 -> 1 -> 4 -> 3 -> 6 -> 5
+Explanation: Linked List is reversed in a group of size k = 2.
+   
+Input: k = 4,
+   
+Output: 4 -> 3 -> 2 -> 1 -> 6 -> 5
+Explanation: Linked List is reversed in a group of size k = 4.
+   
 Constraints:
-1 ≤ number of nodes ≤ 105
-1 ≤ node->data ≤ 105
-
-
+1 ≤ size of linked list ≤ 105
+0 ≤ node->data ≤ 106
+1 ≤ k ≤ size of linked list 
 */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-class ListNode {
-      int val;
-      ListNode next;
-      ListNode() {}
-      ListNode(int val) { this.val = val; }
-      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- }
-class Node{
+class Node
+{
     int data;
-    Node left;
-    Node right;
-    Node(int data){
-        this.data = data;
-        left=null;
-        right=null;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
     }
 }
-class TreeNode {
-      int val;
-      TreeNode left;
-      TreeNode right;
-      TreeNode() {}
-      TreeNode(int val) { this.val = val; }
-      TreeNode(int val, TreeNode left, TreeNode right) {
-          this.val = val;
-          this.left = left;
-          this.right = right;
-      }
-}
 public class LeetCode {
-    static ArrayList<Integer> topView(Node root) {
+    public Node reverseKGroup(Node head, int k) {
         // code here
-        if(root == null) return new ArrayList<>();
+        ArrayList<Integer> list = convertLinkedListToArrayList(head);
+        for (int i = 0; i < list.size(); i += k) {
+            int left = i;
+            int right = Math.min(i + k - 1, list.size() - 1);
+            while (left < right) {
+                int temp = list.get(left);
+                list.set(left, list.get(right));
+                list.set(right, temp);
+                left++;
+                right--;
+            }
+        }
+        return convertArrayListToLinkedList(list);
+    }
+
+    public static ArrayList<Integer> convertLinkedListToArrayList(Node head) {
         ArrayList<Integer> result = new ArrayList<>();
-        List<Node> leftView = new ArrayList<>();
-        List<Node> rightView = new ArrayList<>();
-        Node curr = root;
-        while(curr != null){
-            leftView.add(curr);
-            curr = curr.left;
-        }
-        curr = root.right;
-        while(curr != null){
-            rightView.add(curr);
-            curr = curr.right;
-        }
-        for(int i=leftView.size()-1; i>=0; i--){
-            result.add(leftView.get(i).data);
-        }
-        result.add(root.data);
-        for(int i=0; i<rightView.size(); i++){
-            result.add(rightView.get(i).data);
+        Node current = head;
+        while (current != null) {
+            result.add(current.data);
+            current = current.next;
         }
         return result;
     }
-    
+
+    public static Node convertArrayListToLinkedList(ArrayList<Integer> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        Node head = new Node(list.get(0));
+        Node current = head;
+        for (int i = 1; i < list.size(); i++) {
+            current.next = new Node(list.get(i));
+            current = current.next;
+        }
+        return head;
+    }
 
     public static void main(String[] args) {
         LeetCode solution = new LeetCode();

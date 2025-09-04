@@ -1,98 +1,119 @@
 /*
-Given an array a
- of n
- elements, print any value that appears at least three times or print -1 if there is no such value.
+As a computer science student, Alex faces a hard challenge — showering. He tries to shower daily, but despite his best efforts there are always challenges. He takes s
+ minutes to shower and a day only has m
+ minutes!
+
+He already has n
+ tasks planned for the day. Task i
+ is represented as an interval (li
+, ri)
+, which means that Alex is busy and can not take a shower in that time interval (at any point in time strictly between li
+ and ri
+). No two tasks overlap.
+
+Given all n
+ time intervals, will Alex be able to shower that day? In other words, will Alex have a free time interval of length at least s
+?
+
+
+In the first test case, Alex can shower for the first 3
+ minutes of the day and not miss any of the tasks.
 
 Input
-The first line contains an integer t
+The first line contains a single integer t
  (1≤t≤104
 ) — the number of test cases.
 
-The first line of each test case contains an integer n
+The first line of each test case contains three integers n
+, s
+, and m
  (1≤n≤2⋅105
-) — the length of the array.
+; 1≤s,m≤109
+) — the number of time intervals Alex already has planned, the amount of time Alex takes to take a shower, and the amount of minutes a day has.
 
-The second line of each test case contains n
- integers a1,a2,…,an
- (1≤ai≤n
-) — the elements of the array.
+Then n
+ lines follow, the i
+-th of which contains two integers li
+ and ri
+ (0≤li<ri≤m
+) — the time interval of the i
+-th task. No two tasks overlap.
 
-It is guaranteed that the sum of n
+Additional constraint on the input: li>ri−1
+ for every i>1
+.
+
+The sum of n
  over all test cases does not exceed 2⋅105
 .
 
 Output
-For each test case, print any value that appears at least three times or print -1 if there is no such value.
+For each test case output "YES" (without quotes) if Alex can take a shower for that given test case, and "NO" (also without quotes) otherwise.
+
+You can output "YES" and "NO" in any case (for example, strings "yEs", "yes", and "Yes" will be recognized as a positive response).
 
 Example
 InputCopy
-7
-1
-1
-3
-2 2 2
-7
-2 2 3 3 4 2 2
-8
-1 4 3 4 3 2 4 1
-9
-1 1 1 2 2 2 3 3 3
-5
-1 5 2 4 3
 4
-4 4 4 4
+3 3 10
+3 5
+6 8
+9 10
+3 3 10
+1 2
+3 5
+6 7
+3 3 10
+1 2
+3 5
+6 8
+3 4 10
+1 2
+6 7
+8 9
 OutputCopy
--1
-2
-2
-4
-3
--1
-4
-Note
-In the first test case there is just a single element, so it can't occur at least three times and the answer is -1.
+YES
+YES
+NO
+YES
 
-In the second test case, all three elements of the array are equal to 2
-, so 2
- occurs three times, and so the answer is 2
-.
 
-For the third test case, 2
- occurs four times, so the answer is 2
-.
-
-For the fourth test case, 4
- occurs three times, so the answer is 4
-.
-
-For the fifth test case, 1
-, 2
- and 3
- all occur at least three times, so they are all valid outputs.
-
-For the sixth test case, all elements are distinct, so none of them occurs at least three times and the answer is -1.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
+    int n,s,m;
+    cin >> n >> s >> m;
+    vector<pair<int,int>> intervals;
     for (int i = 0; i < n; i++) {
-        cin >> arr[i];
+        int l,r;
+        cin >> l >> r;
+        intervals.push_back({l,r});
     }
-    map<int, int> m;
-    for (int i = 0; i < n; i++) {
-        m[arr[i]]++;
+    sort(intervals.begin(), intervals.end());
+    vector<int> gaps;
+    if (intervals[0].first > 0) {
+        gaps.push_back(intervals[0].first - 0);
     }
-    for (auto it : m) {
-        if (it.second >= 3) {
-            cout << it.first << endl;
-            return;
+    for (int i = 1; i < n; i++) {
+        gaps.push_back(intervals[i].first - intervals[i-1].second);
+    }
+    if (intervals[n-1].second < m) {
+        gaps.push_back(m - intervals[n-1].second);
+    }
+    bool foundInterval = false;
+    for (int i = 0; i < gaps.size(); i++) {
+        if (gaps[i] >= s) {
+            foundInterval = true;
+            break;
         }
     }
-    cout << -1 << endl;
+    if (foundInterval) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
 }
 
 int main() {
