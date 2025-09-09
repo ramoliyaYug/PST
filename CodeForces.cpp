@@ -1,118 +1,86 @@
 /*
-As a computer science student, Alex faces a hard challenge — showering. He tries to shower daily, but despite his best efforts there are always challenges. He takes s
- minutes to shower and a day only has m
- minutes!
+Today, Sakurako has a math exam. The teacher gave the array, consisting of a
+ ones and b
+ twos.
 
-He already has n
- tasks planned for the day. Task i
- is represented as an interval (li
-, ri)
-, which means that Alex is busy and can not take a shower in that time interval (at any point in time strictly between li
- and ri
-). No two tasks overlap.
+In an array, Sakurako must place either a '+' or a '-' in front of each element so that the sum of all elements in the array equals 0
+.
 
-Given all n
- time intervals, will Alex be able to shower that day? In other words, will Alex have a free time interval of length at least s
-?
-
-
-In the first test case, Alex can shower for the first 3
- minutes of the day and not miss any of the tasks.
+Sakurako is not sure if it is possible to solve this problem, so determine whether there is a way to assign signs such that the sum of all elements in the array equals 0
+.
 
 Input
 The first line contains a single integer t
- (1≤t≤104
-) — the number of test cases.
+ (1≤t≤100
+)  — the number of test cases.
 
-The first line of each test case contains three integers n
-, s
-, and m
- (1≤n≤2⋅105
-; 1≤s,m≤109
-) — the number of time intervals Alex already has planned, the amount of time Alex takes to take a shower, and the amount of minutes a day has.
-
-Then n
- lines follow, the i
--th of which contains two integers li
- and ri
- (0≤li<ri≤m
-) — the time interval of the i
--th task. No two tasks overlap.
-
-Additional constraint on the input: li>ri−1
- for every i>1
-.
-
-The sum of n
- over all test cases does not exceed 2⋅105
-.
+The only line of each test case contains two integers a
+ and b
+ (0≤a,b<10
+)  — the number of '1's and the number of '2's in the array.
 
 Output
-For each test case output "YES" (without quotes) if Alex can take a shower for that given test case, and "NO" (also without quotes) otherwise.
+For each test case, output "Yes" if you can make the sum of the entire array equal to 0
+, and "No" otherwise.
 
-You can output "YES" and "NO" in any case (for example, strings "yEs", "yes", and "Yes" will be recognized as a positive response).
+You can output each letter in any case (lowercase or uppercase). For example, the strings "yEs", "yes", "Yes", and "YES" will be accepted as a positive answer.
 
 Example
 InputCopy
-4
-3 3 10
-3 5
-6 8
-9 10
-3 3 10
-1 2
-3 5
-6 7
-3 3 10
-1 2
-3 5
-6 8
-3 4 10
-1 2
-6 7
-8 9
+5
+0 1
+0 3
+2 0
+2 3
+3 1
 OutputCopy
+NO
+NO
 YES
 YES
 NO
-YES
-
-
+Note
+a=0
+, b=1
+: This means the array is [2]
+ — it is impossible to add the signs '+' or '-' to get 0
+ as a result;
+a=0
+, b=3
+: This means the array is [2,2,2]
+ — it is impossible to add the signs '+' or '-' to get 0
+ as a result;
+a=2
+, b=0
+: This means the array is [1,1]
+ — it is possible to add the signs '+' or '-' to get 0
+ as a result (+1−1=0
+);
+a=2
+, b=3
+: This means the array is [1,1,2,2,2]
+ — it is possible to add the signs '+' or '-' to get 0
+ as a result (+1+1−2−2+2=0
+);
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int n,s,m;
-    cin >> n >> s >> m;
-    vector<pair<int,int>> intervals;
-    for (int i = 0; i < n; i++) {
-        int l,r;
-        cin >> l >> r;
-        intervals.push_back({l,r});
-    }
-    sort(intervals.begin(), intervals.end());
-    vector<int> gaps;
-    if (intervals[0].first > 0) {
-        gaps.push_back(intervals[0].first - 0);
-    }
-    for (int i = 1; i < n; i++) {
-        gaps.push_back(intervals[i].first - intervals[i-1].second);
-    }
-    if (intervals[n-1].second < m) {
-        gaps.push_back(m - intervals[n-1].second);
-    }
-    bool foundInterval = false;
-    for (int i = 0; i < gaps.size(); i++) {
-        if (gaps[i] >= s) {
-            foundInterval = true;
-            break;
-        }
-    }
-    if (foundInterval) {
-        cout << "YES" << endl;
-    } else {
+    int a,b;
+    cin >> a >> b;
+    if(a%2!=0){
         cout << "NO" << endl;
+    }else{
+        if(b%2==0){
+            cout << "YES" << endl;
+        }else{
+            if(a==0){
+                cout << "NO" << endl;
+            }else{
+                cout << "YES" << endl;
+            }
+        }
     }
 }
 

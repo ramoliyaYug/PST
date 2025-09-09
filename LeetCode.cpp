@@ -1,63 +1,80 @@
 /*
-You are given a 0-indexed 2D integer array nums representing the coordinates of the cars parking on a number line. For any index i, nums[i] = [starti, endi] where starti is the starting point of the ith car and endi is the ending point of the ith car.
+A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase. For example, "abABB" is nice because 'A' and 'a' appear, and 'B' and 'b' appear. However, "abA" is not because 'b' appears, but 'B' does not.
 
-Return the number of integer points on the line that are covered with any part of a car.
+Given a string s, return the longest substring of s that is nice. If there are multiple, return the substring of the earliest occurrence. If there are none, return an empty string.
 
  
 
 Example 1:
 
-Input: nums = [[3,6],[1,5],[4,7]]
-Output: 7
-Explanation: All the points from 1 to 7 intersect at least one car, therefore the answer would be 7.
+Input: s = "YazaAay"
+Output: "aAa"
+Explanation: "aAa" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear.
+"aAa" is the longest nice substring.
 Example 2:
 
-Input: nums = [[1,3],[5,8]]
-Output: 7
-Explanation: Points intersecting at least one car are 1, 2, 3, 5, 6, 7, 8. There are a total of 7 points, therefore the answer would be 7.
+Input: s = "Bb"
+Output: "Bb"
+Explanation: "Bb" is a nice string because both 'B' and 'b' appear. The whole string is a substring.
+Example 3:
+
+Input: s = "c"
+Output: ""
+Explanation: There are no nice substrings.
  
 
 Constraints:
 
-1 <= nums.length <= 100
-nums[i].length == 2
-1 <= starti <= endi <= 100
+1 <= s.length <= 100
+s consists of uppercase and lowercase English letters.
  
-Seen this question in a real interview before?
-1/5
-Yes
-No
-Accepted
-67,413/92.4K
-Acceptance Rate
-73.0%
-Topics
-icon
-Companies
 Hint 1
-Sort the array according to first element and then starting from the 0th index remove the overlapping parts and return the count of non-overlapping points. 
-
+Brute force and check each substring to see if it is nice.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    int numberOfPoints(vector<vector<int>>& nums) {
-        sort(nums.begin(), nums.end());
-        int ans = 0;
-        int start = nums[0][0];
-        int end = nums[0][1];
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums[i][0] <= end) {
-                end = max(end, nums[i][1]);
-            } else {
-                ans += (end - start + 1);
-                start = nums[i][0];
-                end = nums[i][1];
+    bool isNice(string s){
+        unordered_map<char,int> lowerMap;
+        unordered_map<char,int> upperMap;
+        for(int i=0; i<s.size(); i++){
+            if(islower(s[i])){
+                lowerMap[s[i]]++;
+            }else{
+                upperMap[s[i]]++;
             }
         }
-        ans += (end - start + 1);
+        for(int i=0; i<s.size();i++){
+            char ch = s[i];
+            char lower = tolower(ch);
+            char upper = toupper(ch);
+            if(lowerMap[lower] == 0 || upperMap[upper] == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+    string longestNiceSubstring(string s) {
+        int n = s.size();
+        vector<string> substrings;
+        for(int i=0; i<n; i++){
+            for(int j=i+1; j<=n; j++){
+                string substr = s.substr(i,j-i);
+                if(isNice(substr)){
+                    substrings.push_back(substr);
+                }
+            }
+        }
+        int maxLen = 0;
+        string ans = "";
+        for(int i=0; i<substrings.size(); i++){
+            if(substrings[i].size() > maxLen){
+                maxLen = substrings[i].size();
+                ans = substrings[i];
+            }
+        }
         return ans;
     }
 };

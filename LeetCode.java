@@ -33,20 +33,10 @@ class Node
     }
 }
 public class LeetCode {
-    public Node reverseKGroup(Node head, int k) {
+    public Node segregate(Node head) {
         // code here
         ArrayList<Integer> list = convertLinkedListToArrayList(head);
-        for (int i = 0; i < list.size(); i += k) {
-            int left = i;
-            int right = Math.min(i + k - 1, list.size() - 1);
-            while (left < right) {
-                int temp = list.get(left);
-                list.set(left, list.get(right));
-                list.set(right, temp);
-                left++;
-                right--;
-            }
-        }
+        Collections.sort(list);
         return convertArrayListToLinkedList(list);
     }
 
