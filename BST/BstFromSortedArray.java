@@ -58,6 +58,38 @@ public class BstFromSortedArray {
         }
     }
 
+    //delete value from BST
+    public static Node deleteFromBST(Node root, int value){
+        if(root == null) return null;
+        if(value < root.data){
+            root.left = deleteFromBST(root.left,value);
+        }else if(value > root.data){
+            root.right = deleteFromBST(root.right,value);
+        }else{
+            // Node with only one child or no child
+            if(root.left == null) return root.right;
+            else if(root.right == null) return root.left;
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
+            Node successor = minValueNode(root.right);
+
+            // Replace root's data with successor's data
+            root.data = successor.data;
+
+            // Delete the inorder successor
+            root.right = deleteFromBST(root.right, successor.data);
+        }
+        return root;
+    }
+
+    // Function to find the node with minimum value in a given BST
+    public static Node minValueNode(Node node) {
+        Node current = node;
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current;
+    }
+
     //generate random bst
     public static Node generateRandomBST(int n, int range){
         Node root = null;
@@ -69,17 +101,24 @@ public class BstFromSortedArray {
         return root;
     }
     public static void main(String[] args) {
-        int arr1[] = {1,2,3,4,5,6,7};
-        Node root = sortedArrayToBST(arr1);
+        int[] arr = {1,2,3,4,5,6,7};
+        Node root = sortedArrayToBST(arr);
         inorder(root);
         System.out.println();
-        int arr2[] = {7,3,1,4,6,2,5};
-        Node root2 = unsortedArrayToBST(arr2);
+        System.out.println("--------------------------------");
+        int[] unsortedArr = {7,3,1,5,2,4,6};
+        Node root2 = unsortedArrayToBST(unsortedArr);
         inorder(root2);
         System.out.println();
-        Node root3 = generateRandomBST(10,100);
-        inorder(root3);
+        System.out.println("--------------------------------");
+        System.out.println(searchInBST(root2,5)); // true
+        System.out.println(searchInBST(root2,10)); // false
+        root2 = deleteFromBST(root2,3);
+        inorder(root2);
         System.out.println();
-        System.out.println(searchInBST(root3,50));
+        System.out.println("--------------------------------");
+        Node randomBST = generateRandomBST(10,100);
+        inorder(randomBST);
+        System.out.println();
     }    
 }

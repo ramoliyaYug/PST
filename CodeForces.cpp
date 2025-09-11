@@ -1,87 +1,94 @@
 /*
-Today, Sakurako has a math exam. The teacher gave the array, consisting of a
- ones and b
- twos.
+Given the time in 24-hour format, output the equivalent time in 12-hour format.
 
-In an array, Sakurako must place either a '+' or a '-' in front of each element so that the sum of all elements in the array equals 0
+24-hour format divides the day into 24 hours from 00
+ to 23
+, each of which has 60 minutes from 00
+ to 59
 .
-
-Sakurako is not sure if it is possible to solve this problem, so determine whether there is a way to assign signs such that the sum of all elements in the array equals 0
+12-hour format divides the day into two halves: the first half is AM
+, and the second half is PM
+. In each half, the hours are numbered in the order 12,01,02,03,…,11
+. Each hour has 60 minutes numbered from 00
+ to 59
 .
-
 Input
 The first line contains a single integer t
- (1≤t≤100
-)  — the number of test cases.
+ (1≤t≤1440
+) — the number of test cases.
 
-The only line of each test case contains two integers a
- and b
- (0≤a,b<10
-)  — the number of '1's and the number of '2's in the array.
+The only line of each test case contains a string s
+ of length 5
+ with format hh:mm representing a valid time in the 24-hour format. hh represents the hour from 00
+ to 23
+, and mm represents the minute from 00
+ to 59
+.
+
+The input will always be a valid time in 24-hour format.
 
 Output
-For each test case, output "Yes" if you can make the sum of the entire array equal to 0
-, and "No" otherwise.
+For each test case, output two strings separated by a space ("hh:mm AM" or "hh:mm PM"), which are the 12-hour equivalent to the time provided in the test case (without quotes).
 
-You can output each letter in any case (lowercase or uppercase). For example, the strings "yEs", "yes", "Yes", and "YES" will be accepted as a positive answer.
+You should output the time exactly as indicated; in particular, you should not remove leading zeroes.
 
 Example
 InputCopy
-5
-0 1
-0 3
-2 0
-2 3
-3 1
+11
+09:41
+18:06
+12:14
+00:59
+00:00
+14:34
+01:01
+19:07
+11:59
+12:00
+21:37
 OutputCopy
-NO
-NO
-YES
-YES
-NO
-Note
-a=0
-, b=1
-: This means the array is [2]
- — it is impossible to add the signs '+' or '-' to get 0
- as a result;
-a=0
-, b=3
-: This means the array is [2,2,2]
- — it is impossible to add the signs '+' or '-' to get 0
- as a result;
-a=2
-, b=0
-: This means the array is [1,1]
- — it is possible to add the signs '+' or '-' to get 0
- as a result (+1−1=0
-);
-a=2
-, b=3
-: This means the array is [1,1,2,2,2]
- — it is possible to add the signs '+' or '-' to get 0
- as a result (+1+1−2−2+2=0
-);
+09:41 AM
+06:06 PM
+12:14 PM
+12:59 AM
+12:00 AM
+02:34 PM
+01:01 AM
+07:07 PM
+11:59 AM
+12:00 PM
+09:37 PM
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int a,b;
-    cin >> a >> b;
-    if(a%2!=0){
-        cout << "NO" << endl;
-    }else{
-        if(b%2==0){
-            cout << "YES" << endl;
-        }else{
-            if(a==0){
-                cout << "NO" << endl;
-            }else{
-                cout << "YES" << endl;
-            }
-        }
+    string s;
+    cin >> s;
+    int hourIn24 = stoi(s.substr(0, 2));
+    string finalMinutes = s.substr(3, 2);
+    if(finalMinutes.size() == 1){
+        finalMinutes = "0" + finalMinutes;
     }
+    string meridian;
+    if(hourIn24 >= 12){
+        meridian = "PM";
+    }else{
+        meridian = "AM";
+    }
+
+    if(hourIn24 > 12){
+        hourIn24 -= 12;
+    }
+    if(hourIn24 == 0){
+        hourIn24 = 12;
+    }
+    string zeroFixStr = to_string(hourIn24);
+    if(zeroFixStr.size() == 1){
+        zeroFixStr = "0" + zeroFixStr;
+    }
+    string finalHour = zeroFixStr;
+    cout << finalHour << ":" << finalMinutes << " " << meridian << endl;
 }
 
 int main() {

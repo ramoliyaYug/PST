@@ -1,81 +1,49 @@
 /*
-A string s is nice if, for every letter of the alphabet that s contains, it appears both in uppercase and lowercase. For example, "abABB" is nice because 'A' and 'a' appear, and 'B' and 'b' appear. However, "abA" is not because 'b' appears, but 'B' does not.
+You are given an array arr[] of non-negative numbers. Each number tells you the maximum number of steps you can jump forward from that position.
 
-Given a string s, return the longest substring of s that is nice. If there are multiple, return the substring of the earliest occurrence. If there are none, return an empty string.
+For example:
 
- 
+If arr[i] = 3, you can jump to index i + 1, i + 2, or i + 3 from position i.
+If arr[i] = 0, you cannot jump forward from that position.
+Your task is to find the minimum number of jumps needed to move from the first position in the array to the last position.
 
-Example 1:
+Note:  Return -1 if you can't reach the end of the array.
 
-Input: s = "YazaAay"
-Output: "aAa"
-Explanation: "aAa" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear.
-"aAa" is the longest nice substring.
-Example 2:
+Examples : 
 
-Input: s = "Bb"
-Output: "Bb"
-Explanation: "Bb" is a nice string because both 'B' and 'b' appear. The whole string is a substring.
-Example 3:
-
-Input: s = "c"
-Output: ""
-Explanation: There are no nice substrings.
- 
-
+Input: arr[] = [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
+Output: 3 
+Explanation: First jump from 1st element to 2nd element with value 3. From here we jump to 5th element with value 9, and from here we will jump to the last. 
+Input: arr = [1, 4, 3, 2, 6, 7]
+Output: 2 
+Explanation: First we jump from the 1st to 2nd element and then jump to the last element.
+Input: arr = [0, 10, 20]
+Output: -1
+Explanation: We cannot go anywhere from the 1st element.
 Constraints:
+2 ≤ arr.size() ≤ 105
+0 ≤ arr[i] ≤ 105
 
-1 <= s.length <= 100
-s consists of uppercase and lowercase English letters.
- 
-Hint 1
-Brute force and check each substring to see if it is nice.
+
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    bool isNice(string s){
-        unordered_map<char,int> lowerMap;
-        unordered_map<char,int> upperMap;
-        for(int i=0; i<s.size(); i++){
-            if(islower(s[i])){
-                lowerMap[s[i]]++;
-            }else{
-                upperMap[s[i]]++;
-            }
-        }
-        for(int i=0; i<s.size();i++){
-            char ch = s[i];
-            char lower = tolower(ch);
-            char upper = toupper(ch);
-            if(lowerMap[lower] == 0 || upperMap[upper] == 0){
-                return false;
-            }
-        }
-        return true;
-    }
-    string longestNiceSubstring(string s) {
-        int n = s.size();
-        vector<string> substrings;
-        for(int i=0; i<n; i++){
-            for(int j=i+1; j<=n; j++){
-                string substr = s.substr(i,j-i);
-                if(isNice(substr)){
-                    substrings.push_back(substr);
+    int minJumps(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        vector<int> dp(n, INT_MAX);
+        dp[0] = 0;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[j] + j >= i) {
+                    dp[i] = min(dp[i], dp[j] + 1);
                 }
             }
         }
-        int maxLen = 0;
-        string ans = "";
-        for(int i=0; i<substrings.size(); i++){
-            if(substrings[i].size() > maxLen){
-                maxLen = substrings[i].size();
-                ans = substrings[i];
-            }
-        }
-        return ans;
+        return dp[n - 1] == INT_MAX ? -1 : dp[n - 1];
     }
 };
 

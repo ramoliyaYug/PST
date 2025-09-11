@@ -80,7 +80,7 @@ public class CodeForces {
         Scanner sc = new Scanner(System.in);
         
         int t = 1;
-        // if (sc.hasNextInt()) {t = sc.nextInt();}
+        if (sc.hasNextInt()) {t = sc.nextInt();}
         while (t-- > 0) {
             solve(sc);
         }
