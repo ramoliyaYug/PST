@@ -34,16 +34,21 @@ public:
     int minJumps(vector<int>& arr) {
         // code here
         int n = arr.size();
-        vector<int> dp(n, INT_MAX);
-        dp[0] = 0;
+        if (n <= 1) return 0;
+        int jumps = 0;
+        int maxReach = arr[0];
+        int steps = arr[0];
         for (int i = 1; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (arr[j] + j >= i) {
-                    dp[i] = min(dp[i], dp[j] + 1);
-                }
+            if (i == n - 1) return jumps + 1;
+            maxReach = max(maxReach, i + arr[i]);
+            steps--;
+            if (steps == 0) {
+                jumps++;
+                if (i >= maxReach) return -1;
+                steps = maxReach - i;
             }
         }
-        return dp[n - 1] == INT_MAX ? -1 : dp[n - 1];
+        return -1;
     }
 };
 

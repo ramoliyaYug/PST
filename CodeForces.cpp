@@ -1,94 +1,136 @@
 /*
-Given the time in 24-hour format, output the equivalent time in 12-hour format.
+You have n
+ gifts and you want to give all of them to children. Of course, you don't want to offend anyone, so all gifts should be equal between each other. The i
+-th gift consists of ai
+ candies and bi
+ oranges.
 
-24-hour format divides the day into 24 hours from 00
- to 23
-, each of which has 60 minutes from 00
- to 59
-.
-12-hour format divides the day into two halves: the first half is AM
-, and the second half is PM
-. In each half, the hours are numbered in the order 12,01,02,03,…,11
-. Each hour has 60 minutes numbered from 00
- to 59
-.
+During one move, you can choose some gift 1≤i≤n
+ and do one of the following operations:
+
+eat exactly one candy from this gift (decrease ai
+ by one);
+eat exactly one orange from this gift (decrease bi
+ by one);
+eat exactly one candy and exactly one orange from this gift (decrease both ai
+ and bi
+ by one).
+Of course, you can not eat a candy or orange if it's not present in the gift (so neither ai
+ nor bi
+ can become less than zero).
+
+As said above, all gifts should be equal. This means that after some sequence of moves the following two conditions should be satisfied: a1=a2=⋯=an
+ and b1=b2=⋯=bn
+ (and ai
+ equals bi
+ is not necessary).
+
+Your task is to find the minimum number of moves required to equalize all the given gifts.
+
+You have to answer t
+ independent test cases.
+
 Input
-The first line contains a single integer t
- (1≤t≤1440
-) — the number of test cases.
+The first line of the input contains one integer t
+ (1≤t≤1000
+) — the number of test cases. Then t
+ test cases follow.
 
-The only line of each test case contains a string s
- of length 5
- with format hh:mm representing a valid time in the 24-hour format. hh represents the hour from 00
- to 23
-, and mm represents the minute from 00
- to 59
-.
-
-The input will always be a valid time in 24-hour format.
+The first line of the test case contains one integer n
+ (1≤n≤50
+) — the number of gifts. The second line of the test case contains n
+ integers a1,a2,…,an
+ (1≤ai≤109
+), where ai
+ is the number of candies in the i
+-th gift. The third line of the test case contains n
+ integers b1,b2,…,bn
+ (1≤bi≤109
+), where bi
+ is the number of oranges in the i
+-th gift.
 
 Output
-For each test case, output two strings separated by a space ("hh:mm AM" or "hh:mm PM"), which are the 12-hour equivalent to the time provided in the test case (without quotes).
-
-You should output the time exactly as indicated; in particular, you should not remove leading zeroes.
+For each test case, print one integer: the minimum number of moves required to equalize all the given gifts.
 
 Example
 InputCopy
-11
-09:41
-18:06
-12:14
-00:59
-00:00
-14:34
-01:01
-19:07
-11:59
-12:00
-21:37
+5
+3
+3 5 6
+3 2 3
+5
+1 2 3 4 5
+5 4 3 2 1
+3
+1 1 1
+2 2 2
+6
+1 1000000000 1000000000 1000000000 1000000000 1000000000
+1 1 1 1 1 1
+3
+10 12 8
+7 5 4
 OutputCopy
-09:41 AM
-06:06 PM
-12:14 PM
-12:59 AM
-12:00 AM
-02:34 PM
-01:01 AM
-07:07 PM
-11:59 AM
-12:00 PM
-09:37 PM
+6
+16
+0
+4999999995
+7
+Note
+In the first test case of the example, we can perform the following sequence of moves:
+
+choose the first gift and eat one orange from it, so a=[3,5,6]
+ and b=[2,2,3]
+;
+choose the second gift and eat one candy from it, so a=[3,4,6]
+ and b=[2,2,3]
+;
+choose the second gift and eat one candy from it, so a=[3,3,6]
+ and b=[2,2,3]
+;
+choose the third gift and eat one candy and one orange from it, so a=[3,3,5]
+ and b=[2,2,2]
+;
+choose the third gift and eat one candy from it, so a=[3,3,4]
+ and b=[2,2,2]
+;
+choose the third gift and eat one candy from it, so a=[3,3,3]
+ and b=[2,2,2]
+.
+
+
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    string s;
-    cin >> s;
-    int hourIn24 = stoi(s.substr(0, 2));
-    string finalMinutes = s.substr(3, 2);
-    if(finalMinutes.size() == 1){
-        finalMinutes = "0" + finalMinutes;
+    int n;
+    cin >> n;
+    vector<long long> a(n);
+    vector<long long> b(n);
+    for (long long i = 0; i < n; i++) {
+        cin >> a[i];
     }
-    string meridian;
-    if(hourIn24 >= 12){
-        meridian = "PM";
-    }else{
-        meridian = "AM";
+    for (long long i = 0; i < n; i++) {
+        cin >> b[i];
     }
-
-    if(hourIn24 > 12){
-        hourIn24 -= 12;
+    vector<pair<long long,long long>> v(n);
+    for (int i = 0; i < n; i++) {
+        v[i] = {a[i], b[i]};
     }
-    if(hourIn24 == 0){
-        hourIn24 = 12;
+    sort(v.begin(),v.end());
+    long long candyTarget = *min_element(a.begin(),a.end());
+    long long orangeTarget = *min_element(b.begin(),b.end());
+    long long moves = 0;
+    for(int i = 0;i<n;i++){
+        long long candy = v[i].first;
+        long long orange = v[i].second;
+        int currEatingCandy = candy-candyTarget;
+        int currEatingOrange = orange-orangeTarget;
+        moves += max(currEatingCandy,currEatingOrange);
     }
-    string zeroFixStr = to_string(hourIn24);
-    if(zeroFixStr.size() == 1){
-        zeroFixStr = "0" + zeroFixStr;
-    }
-    string finalHour = zeroFixStr;
-    cout << finalHour << ":" << finalMinutes << " " << meridian << endl;
+    cout << moves << endl;
 }
 
 int main() {
