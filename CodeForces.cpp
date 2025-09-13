@@ -1,141 +1,87 @@
 /*
-You have n
- gifts and you want to give all of them to children. Of course, you don't want to offend anyone, so all gifts should be equal between each other. The i
--th gift consists of ai
- candies and bi
- oranges.
+Polycarp plays "Game 23". Initially he has a number n
+ and his goal is to transform it to m
+. In one move, he can multiply n
+ by 2
+ or multiply n
+ by 3
+. He can perform any number of moves.
 
-During one move, you can choose some gift 1≤i≤n
- and do one of the following operations:
+Print the number of moves needed to transform n
+ to m
+. Print -1 if it is impossible to do so.
 
-eat exactly one candy from this gift (decrease ai
- by one);
-eat exactly one orange from this gift (decrease bi
- by one);
-eat exactly one candy and exactly one orange from this gift (decrease both ai
- and bi
- by one).
-Of course, you can not eat a candy or orange if it's not present in the gift (so neither ai
- nor bi
- can become less than zero).
-
-As said above, all gifts should be equal. This means that after some sequence of moves the following two conditions should be satisfied: a1=a2=⋯=an
- and b1=b2=⋯=bn
- (and ai
- equals bi
- is not necessary).
-
-Your task is to find the minimum number of moves required to equalize all the given gifts.
-
-You have to answer t
- independent test cases.
+It is easy to prove that any way to transform n
+ to m
+ contains the same number of moves (i.e. number of moves doesn't depend on the way of transformation).
 
 Input
-The first line of the input contains one integer t
- (1≤t≤1000
-) — the number of test cases. Then t
- test cases follow.
-
-The first line of the test case contains one integer n
- (1≤n≤50
-) — the number of gifts. The second line of the test case contains n
- integers a1,a2,…,an
- (1≤ai≤109
-), where ai
- is the number of candies in the i
--th gift. The third line of the test case contains n
- integers b1,b2,…,bn
- (1≤bi≤109
-), where bi
- is the number of oranges in the i
--th gift.
+The only line of the input contains two integers n
+ and m
+ (1≤n≤m≤5⋅108
+).
 
 Output
-For each test case, print one integer: the minimum number of moves required to equalize all the given gifts.
+Print the number of moves to transform n
+ to m
+, or -1 if there is no solution.
 
-Example
+Examples
 InputCopy
-5
-3
-3 5 6
-3 2 3
-5
-1 2 3 4 5
-5 4 3 2 1
-3
-1 1 1
-2 2 2
-6
-1 1000000000 1000000000 1000000000 1000000000 1000000000
-1 1 1 1 1 1
-3
-10 12 8
-7 5 4
+120 51840
 OutputCopy
-6
-16
-0
-4999999995
 7
+InputCopy
+42 42
+OutputCopy
+0
+InputCopy
+48 72
+OutputCopy
+-1
 Note
-In the first test case of the example, we can perform the following sequence of moves:
+In the first example, the possible sequence of moves is: 120→240→720→1440→4320→12960→25920→51840.
+ The are 7
+ steps in total.
 
-choose the first gift and eat one orange from it, so a=[3,5,6]
- and b=[2,2,3]
-;
-choose the second gift and eat one candy from it, so a=[3,4,6]
- and b=[2,2,3]
-;
-choose the second gift and eat one candy from it, so a=[3,3,6]
- and b=[2,2,3]
-;
-choose the third gift and eat one candy and one orange from it, so a=[3,3,5]
- and b=[2,2,2]
-;
-choose the third gift and eat one candy from it, so a=[3,3,4]
- and b=[2,2,2]
-;
-choose the third gift and eat one candy from it, so a=[3,3,3]
- and b=[2,2,2]
+In the second example, no moves are needed. Thus, the answer is 0
 .
 
-
+In the third example, it is impossible to transform 48
+ to 72
+.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<long long> a(n);
-    vector<long long> b(n);
-    for (long long i = 0; i < n; i++) {
-        cin >> a[i];
+    long long n,m;
+    cin >> n >> m;
+    if(m%n!=0){
+        cout << -1 << endl;
+        return;
     }
-    for (long long i = 0; i < n; i++) {
-        cin >> b[i];
+    long long ans = 0;
+    int d = m/n;
+    while(d%2==0){
+        d/=2;
+        ans++;
     }
-    vector<pair<long long,long long>> v(n);
-    for (int i = 0; i < n; i++) {
-        v[i] = {a[i], b[i]};
+    while(d%3==0){
+        d/=3;
+        ans++;
     }
-    sort(v.begin(),v.end());
-    long long candyTarget = *min_element(a.begin(),a.end());
-    long long orangeTarget = *min_element(b.begin(),b.end());
-    long long moves = 0;
-    for(int i = 0;i<n;i++){
-        long long candy = v[i].first;
-        long long orange = v[i].second;
-        int currEatingCandy = candy-candyTarget;
-        int currEatingOrange = orange-orangeTarget;
-        moves += max(currEatingCandy,currEatingOrange);
+    if(d==1){
+        cout << ans << endl;
     }
-    cout << moves << endl;
+    else{
+        cout << -1 << endl;
+    }
 }
 
 int main() {
     int t=1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

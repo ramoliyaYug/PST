@@ -1,54 +1,64 @@
 /*
-You are given an array arr[] of non-negative numbers. Each number tells you the maximum number of steps you can jump forward from that position.
+You are given a 0-indexed 1-dimensional (1D) integer array original, and two integers, m and n. You are tasked with creating a 2-dimensional (2D) array with  m rows and n columns using all the elements from original.
 
-For example:
+The elements from indices 0 to n - 1 (inclusive) of original should form the first row of the constructed 2D array, the elements from indices n to 2 * n - 1 (inclusive) should form the second row of the constructed 2D array, and so on.
 
-If arr[i] = 3, you can jump to index i + 1, i + 2, or i + 3 from position i.
-If arr[i] = 0, you cannot jump forward from that position.
-Your task is to find the minimum number of jumps needed to move from the first position in the array to the last position.
+Return an m x n 2D array constructed according to the above procedure, or an empty 2D array if it is impossible.
 
-Note:  Return -1 if you can't reach the end of the array.
+ 
 
-Examples : 
+Example 1:
 
-Input: arr[] = [1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9]
-Output: 3 
-Explanation: First jump from 1st element to 2nd element with value 3. From here we jump to 5th element with value 9, and from here we will jump to the last. 
-Input: arr = [1, 4, 3, 2, 6, 7]
-Output: 2 
-Explanation: First we jump from the 1st to 2nd element and then jump to the last element.
-Input: arr = [0, 10, 20]
-Output: -1
-Explanation: We cannot go anywhere from the 1st element.
+
+Input: original = [1,2,3,4], m = 2, n = 2
+Output: [[1,2],[3,4]]
+Explanation: The constructed 2D array should contain 2 rows and 2 columns.
+The first group of n=2 elements in original, [1,2], becomes the first row in the constructed 2D array.
+The second group of n=2 elements in original, [3,4], becomes the second row in the constructed 2D array.
+Example 2:
+
+Input: original = [1,2,3], m = 1, n = 3
+Output: [[1,2,3]]
+Explanation: The constructed 2D array should contain 1 row and 3 columns.
+Put all three elements in original into the first row of the constructed 2D array.
+Example 3:
+
+Input: original = [1,2], m = 1, n = 1
+Output: []
+Explanation: There are 2 elements in original.
+It is impossible to fit 2 elements in a 1x1 2D array, so return an empty 2D array.
+ 
+
 Constraints:
-2 ≤ arr.size() ≤ 105
-0 ≤ arr[i] ≤ 105
 
-
+1 <= original.length <= 5 * 104
+1 <= original[i] <= 105
+1 <= m, n <= 4 * 104
+Hint 1
+When is it possible to convert original into a 2D array and when is it impossible?
+Hint 2
+It is possible if and only if m * n == original.length
+Hint 3
+If it is possible to convert original to a 2D array, keep an index i such that original[i] is the next element to add to the 2D array.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
 public:
-    int minJumps(vector<int>& arr) {
-        // code here
-        int n = arr.size();
-        if (n <= 1) return 0;
-        int jumps = 0;
-        int maxReach = arr[0];
-        int steps = arr[0];
-        for (int i = 1; i < n; i++) {
-            if (i == n - 1) return jumps + 1;
-            maxReach = max(maxReach, i + arr[i]);
-            steps--;
-            if (steps == 0) {
-                jumps++;
-                if (i >= maxReach) return -1;
-                steps = maxReach - i;
+    vector<vector<int>> construct2DArray(vector<int>& original, int m, int n) {
+        int size = original.size();
+        if (m * n != size) {
+            return {};
+        }
+        vector<vector<int>> ans(m, vector<int>(n));
+        int index = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans[i][j] = original[index++];
             }
         }
-        return -1;
+        return ans;
     }
 };
 
