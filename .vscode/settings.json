@@ -5,6 +5,7 @@
         "regex": "cpp",
         "ostream": "cpp",
         "format": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "bitset": "cpp"
     }
 }

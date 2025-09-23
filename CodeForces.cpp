@@ -1,156 +1,169 @@
 /*
-Drawing Chances
-Alice and Bob are playing a tournament which consists of 
-N
-N matches.
+Divisible and not divisible
+In order to beat the evil monster, you need to answer 
+T
+T of its queries. In each query, the monster gives you 3 positive integers 
+X
+X, 
+Y
+Y and 
+Z
+Z. For each of the monsters query you need to find the smallest positive integer 
+K
+K such that:
 
-Right now, they have completed 
-M
-M (
-1
-≤
-M
-≤
-N
-1≤M≤N) matches already, and you have the results from those matches. You are given a binary string 
-S
-S of length 
-M
-M, where 
-S
-i
-=
-1
-S 
-i
-​
- =1 means that Alice won the 
-i
-i-th match and 
-S
-i
-=
-0
-S 
-i
-​
- =0 if Bob won the 
-i
-i-th match.
-
-At the end, whoever has won more matches wins the tournament. However, if both of them win equal number of matches, the tournament ends in a tie instead.
-
-Given the matches that have already been played, is it still possible for the tournament to end in a tie? Print 
-Yes
-Yes if it is possible, and 
-No
-No otherwise.
+K
+K is strictly greater than 
+X
+X
+K
+K is divisible by 
+Y
+Y
+K
+K is not divisible by 
+Z
+Z
+Or determine that there is no such 
+K
+K
 
 Input Format
-The first line of input will contain a single integer 
+The first line contains 
 T
-T, denoting the number of test cases.
-Each test case consists of multiple lines of input.
-The first line of each test case contains 
-2
-2 integers - 
-N
-N and 
-M
-M, the number of total matches to play, and the matches already played.
-The second line contains a binary string 
-S
-S.
+T - number of queries. Then the queries follow.
+The first and only line of each query contains three space-separated positive integers 
+X
+X, 
+Y
+Y and 
+Z
+Z
 Output Format
-For each test case, output on a new line 
-Yes
-Yes if is it possible to still have a draw and 
-No
-No otherwise.
+For each query output the smallest positive integer 
+K
+K, described as in the statement.
+
+If no such 
+K
+K exists, output -1.
 
 Constraints
 1
 ≤
 T
 ≤
-100
-1≤T≤100
+500
+1≤T≤500
 1
 ≤
-M
-≤
-N
-≤
-100
-1≤M≤N≤100
-S
-i
-∈
-{
-0
+X
 ,
+Y
+,
+Z
+≤
+10
+18
+1≤X,Y,Z≤10 
+18
+ 
+Subtasks
+20 points : 
 1
-}
-S 
-i
-​
- ∈{0,1}
+≤
+X
+,
+Y
+,
+Z
+≤
+1000
+1≤X,Y,Z≤1000
+60 points : 
+1
+≤
+X
+,
+Y
+,
+Z
+≤
+10
+9
+1≤X,Y,Z≤10 
+9
+ 
+20 points : original constraints
 Sample 1:
 Input
 Output
-5
-2 2
-10
-4 3
-111
-3 2
-10
-6 5
-00100
-6 4
-0001
-Yes
-No
-No
-No
-Yes
+3
+5 2 3
+4 2 3
+10 7 1
+8
+8
+-1
 Explanation:
-Test Case 1 : The tournament has already completed all the matches, and it was a 
+In the first query:
+
+6
+6 is divisible by 
+2
+2, but it is also divisible by 
+3
+3 - so it's not an answer
+7
+7 is not divisible by 
+2
+2 - so it’s not an answer
+8
+8 is divisible by 
+2
+2 and it is not divisible by 
+3
+3 - so it is the answer
+In the second query: The trick here is to see that 
+4
+4 is divisible by 
+2
+2 and not divisible by 
+3
+3. However, 
+4
+4 is not strictly greater than 
+X
+=
+4
+X=4 - so it’s not an answer. The answer is the same as in the first query - 
+8
+8.
+
+In the third query: Every positive integer number is divisible by 
 1
+1, so the answer surely doesn’t exist - therefore we output 
 −
 1
-1−1 tie.
-
-Test Case 2 : Alice has won 
-3
-3 matches, there is no way for Bob to tie now.
+−1.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
+bool validNum(int num, int x, int y, int z) {
+    return num > x && num % y == 0 && num % z != 0;
+}
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    string s;
-    cin >> s;
-
-    int alice = 0, bob = 0;
-    for (char c : s) {
-        if (c == '1') alice++;
-        else bob++;
-    }
-
-    int rem = n - m;
-    int diff = bob + rem - alice;
-
-    if (diff % 2 == 0) {
-        int x = diff / 2;
-        if (0 <= x && x <= rem) {
-            cout << "Yes\n";
+    int x,y,z;
+    cin >> x >> y >> z;
+    int num = x + 1;
+    while (true) {
+        if (validNum(num, x, y, z)) {
+            cout << num << endl;
             return;
         }
+        num++;
     }
-    cout << "No\n";
 }
 
 int main() {
