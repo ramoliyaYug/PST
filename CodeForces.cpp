@@ -1,168 +1,106 @@
 /*
-Divisible and not divisible
-In order to beat the evil monster, you need to answer 
-T
-T of its queries. In each query, the monster gives you 3 positive integers 
-X
-X, 
-Y
-Y and 
-Z
-Z. For each of the monsters query you need to find the smallest positive integer 
-K
-K such that:
+For the New Year, Polycarp decided to send postcards to all his n
+ friends. He wants to make postcards with his own hands. For this purpose, he has a sheet of paper of size w×h
+, which can be cut into pieces.
 
-K
-K is strictly greater than 
-X
-X
-K
-K is divisible by 
-Y
-Y
-K
-K is not divisible by 
-Z
-Z
-Or determine that there is no such 
-K
-K
+Polycarp can cut any sheet of paper w×h
+ that he has in only two cases:
 
-Input Format
-The first line contains 
-T
-T - number of queries. Then the queries follow.
-The first and only line of each query contains three space-separated positive integers 
-X
-X, 
-Y
-Y and 
-Z
-Z
-Output Format
-For each query output the smallest positive integer 
-K
-K, described as in the statement.
+If w
+ is even, then he can cut the sheet in half and get two sheets of size w2×h
+;
+If h
+ is even, then he can cut the sheet in half and get two sheets of size w×h2
+;
+If w
+ and h
+ are even at the same time, then Polycarp can cut the sheet according to any of the rules above.
 
-If no such 
-K
-K exists, output -1.
+After cutting a sheet of paper, the total number of sheets of paper is increased by 1
+.
 
-Constraints
-1
-≤
-T
-≤
-500
-1≤T≤500
-1
-≤
-X
-,
-Y
-,
-Z
-≤
-10
-18
-1≤X,Y,Z≤10 
-18
- 
-Subtasks
-20 points : 
-1
-≤
-X
-,
-Y
-,
-Z
-≤
-1000
-1≤X,Y,Z≤1000
-60 points : 
-1
-≤
-X
-,
-Y
-,
-Z
-≤
-10
-9
-1≤X,Y,Z≤10 
-9
- 
-20 points : original constraints
-Sample 1:
+Help Polycarp to find out if he can cut his sheet of size w×h
+ at into n
+ or more pieces, using only the rules described above.
+
 Input
+The first line contains one integer t
+ (1≤t≤104
+) — the number of test cases. Then t
+ test cases follow.
+
+Each test case consists of one line containing three integers w
+, h
+, n
+ (1≤w,h≤104,1≤n≤109
+) — the width and height of the sheet Polycarp has and the number of friends he needs to send a postcard to.
+
 Output
-3
-5 2 3
-4 2 3
-10 7 1
-8
-8
--1
-Explanation:
-In the first query:
+For each test case, output on a separate line:
 
-6
-6 is divisible by 
-2
-2, but it is also divisible by 
-3
-3 - so it's not an answer
-7
-7 is not divisible by 
-2
-2 - so it’s not an answer
-8
-8 is divisible by 
-2
-2 and it is not divisible by 
-3
-3 - so it is the answer
-In the second query: The trick here is to see that 
-4
-4 is divisible by 
-2
-2 and not divisible by 
-3
-3. However, 
-4
-4 is not strictly greater than 
-X
-=
-4
-X=4 - so it’s not an answer. The answer is the same as in the first query - 
-8
-8.
+"YES", if it is possible to cut a sheet of size w×h
+ into at least n
+ pieces;
+"NO" otherwise.
+You can output "YES" and "NO" in any case (for example, the strings yEs, yes, Yes and YES will be recognized as positive).
 
-In the third query: Every positive integer number is divisible by 
-1
-1, so the answer surely doesn’t exist - therefore we output 
-−
-1
-−1.
+Example
+InputCopy
+5
+2 2 3
+3 3 2
+5 10 2
+11 13 1
+1 4 4
+OutputCopy
+YES
+NO
+YES
+YES
+YES
+Note
+In the first test case, you can first cut the 2×2
+ sheet into two 2×1
+ sheets, and then cut each of them into two more sheets. As a result, we get four sheets 1×1
+. We can choose any three of them and send them to our friends.
+
+In the second test case, a 3×3
+ sheet cannot be cut, so it is impossible to get two sheets.
+
+In the third test case, you can cut a 5×10
+ sheet into two 5×5
+ sheets.
+
+In the fourth test case, there is no need to cut the sheet, since we only need one sheet.
+
+In the fifth test case, you can first cut the 1×4
+ sheet into two 1×2
+ sheets, and then cut each of them into two more sheets. As a result, we get four sheets 1×1
+.
+
+
+
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
-bool validNum(int num, int x, int y, int z) {
-    return num > x && num % y == 0 && num % z != 0;
-}
 void solve() {
-    int x,y,z;
-    cin >> x >> y >> z;
-    int num = x + 1;
-    while (true) {
-        if (validNum(num, x, y, z)) {
-            cout << num << endl;
-            return;
-        }
-        num++;
+    int w,h,n;
+    cin >> w >> h >> n;
+    int count = 1;
+    while(w%2 == 0){
+        count *= 2;
+        w /= 2;
+    }
+    while(h%2 == 0){
+        count *= 2;
+        h /= 2;
+    }
+    if(count >= n){
+        cout << "YES" << endl;
+    }
+    else{
+        cout << "NO" << endl;
     }
 }
 

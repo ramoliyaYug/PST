@@ -3,7 +3,7 @@
 	"schema": {
 		"schemaVersion": 2,
 		"sequences": {
-			"com.tldraw.store": 4,
+			"com.tldraw.store": 5,
 			"com.tldraw.asset": 1,
 			"com.tldraw.camera": 1,
 			"com.tldraw.document": 2,
@@ -112,12 +112,12 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 0,
-			"y": 0,
-			"lastActivityTimestamp": 0,
-			"meta": {},
 			"id": "pointer:pointer",
-			"typeName": "pointer"
+			"typeName": "pointer",
+			"x": -1518.464731646964,
+			"y": -1300.45746985563,
+			"lastActivityTimestamp": 1758784215112,
+			"meta": {}
 		},
 		{
 			"meta": {},
@@ -978,9 +978,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 1675.0243957306761,
-			"y": 710.716129104288,
-			"z": 0.24986808734888544,
+			"x": 1669.4112450727748,
+			"y": 1556.6091290024603,
+			"z": 0.21862048517085683,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -1247,7 +1247,7 @@
 				}
 			},
 			"parentId": "page:page",
-			"index": "ak0P0",
+			"index": "ak0PiP8",
 			"typeName": "shape"
 		},
 		{
@@ -3362,8 +3362,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1388.0372314453125,
-				"h": 649.3457641601562
+				"w": 1212,
+				"h": 938
 			},
 			"insets": [
 				false,
@@ -3378,7 +3378,7 @@
 			"isChatting": false,
 			"highlightedUserIds": [],
 			"isFocused": true,
-			"devicePixelRatio": 2.6750001907348633,
+			"devicePixelRatio": 1,
 			"isCoarsePointer": false,
 			"isHoveringCanvas": true,
 			"openMenus": [],
@@ -3426,7 +3426,7 @@
 				}
 			},
 			"parentId": "page:page",
-			"index": "ab5H0",
+			"index": "ab5Ho1e",
 			"typeName": "shape"
 		},
 		{

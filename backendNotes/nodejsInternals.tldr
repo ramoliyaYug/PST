@@ -3,7 +3,7 @@
 	"schema": {
 		"schemaVersion": 2,
 		"sequences": {
-			"com.tldraw.store": 4,
+			"com.tldraw.store": 5,
 			"com.tldraw.asset": 1,
 			"com.tldraw.camera": 1,
 			"com.tldraw.document": 2,
@@ -231,9 +231,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": -777.5143343875634,
-			"y": -363.47033905388156,
-			"lastActivityTimestamp": 0,
+			"x": 1220.433457156025,
+			"y": -552.5905053188067,
+			"lastActivityTimestamp": 1758784224091,
 			"meta": {}
 		},
 		{
@@ -1261,9 +1261,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 777.5143343875634,
-			"y": 363.47033905388156,
-			"z": 0.32606918809398366,
+			"x": 795.5620794830725,
+			"y": 763.5667824089447,
+			"z": 0.29861177222822877,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -10946,8 +10946,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1551.6666259765625,
-				"h": 763.3333129882812
+				"w": 1212,
+				"h": 938
 			},
 			"insets": [
 				false,
@@ -10962,9 +10962,9 @@
 			"isChatting": false,
 			"highlightedUserIds": [],
 			"isFocused": true,
-			"devicePixelRatio": 1.2000000476837158,
+			"devicePixelRatio": 1,
 			"isCoarsePointer": false,
-			"isHoveringCanvas": null,
+			"isHoveringCanvas": true,
 			"openMenus": [],
 			"isChangingStyle": false,
 			"isReadonly": false,
