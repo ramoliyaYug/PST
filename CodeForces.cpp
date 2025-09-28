@@ -1,107 +1,129 @@
 /*
-For the New Year, Polycarp decided to send postcards to all his n
- friends. He wants to make postcards with his own hands. For this purpose, he has a sheet of paper of size w×h
-, which can be cut into pieces.
+Maple wants to bake some cakes for Chocola and Vanilla.
 
-Polycarp can cut any sheet of paper w×h
- that he has in only two cases:
+One day, she discovers n
+ magical cake ovens. The i
+-th oven bakes ai
+ cakes every second. The cakes remain in their respective ovens until they are collected.
 
-If w
- is even, then he can cut the sheet in half and get two sheets of size w2×h
-;
-If h
- is even, then he can cut the sheet in half and get two sheets of size w×h2
-;
-If w
- and h
- are even at the same time, then Polycarp can cut the sheet according to any of the rules above.
+At the end of each second, she may teleport to any oven (including the one she is currently at) and collect all the cakes that have accumulated in that oven up to that point.
 
-After cutting a sheet of paper, the total number of sheets of paper is increased by 1
-.
-
-Help Polycarp to find out if he can cut his sheet of size w×h
- at into n
- or more pieces, using only the rules described above.
+Your task is to determine the maximum number of cakes Maple can collect in m
+ seconds.
 
 Input
-The first line contains one integer t
- (1≤t≤104
-) — the number of test cases. Then t
- test cases follow.
+Each test contains multiple test cases. The first line contains the number of test cases t
+ (1≤t≤1000
+). The description of the test cases follows.
 
-Each test case consists of one line containing three integers w
-, h
-, n
- (1≤w,h≤104,1≤n≤109
-) — the width and height of the sheet Polycarp has and the number of friends he needs to send a postcard to.
+The first line of each test case contains two integers n
+ and m
+ (1≤n≤105
+, 1≤m≤108
+) — the number of magical ovens and the number of seconds during which Maple will collect cakes.
+
+The second line of each test case contains n
+ integers a1,a2,…,an
+ (1≤ai≤105
+) — the number of cakes the i
+-th oven bakes every second.
+
+It is guaranteed that the sum of n
+ over all test cases does not exceed 2⋅105
+.
 
 Output
-For each test case, output on a separate line:
-
-"YES", if it is possible to cut a sheet of size w×h
- into at least n
- pieces;
-"NO" otherwise.
-You can output "YES" and "NO" in any case (for example, the strings yEs, yes, Yes and YES will be recognized as positive).
+For each test case, output a single integer representing the maximum number of cakes Maple can collect in m
+ seconds.
 
 Example
 InputCopy
-5
-2 2 3
-3 3 2
-5 10 2
-11 13 1
-1 4 4
+3
+3 4
+1 2 3
+3 2
+1 2 3
+1 1000
+100000
 OutputCopy
-YES
-NO
-YES
-YES
-YES
+20
+8
+100000000
 Note
-In the first test case, you can first cut the 2×2
- sheet into two 2×1
- sheets, and then cut each of them into two more sheets. As a result, we get four sheets 1×1
-. We can choose any three of them and send them to our friends.
+For the first test case, one optimal solution is as follows:
 
-In the second test case, a 3×3
- sheet cannot be cut, so it is impossible to get two sheets.
+At the end of the first second, the ovens contain 1
+, 2
+, and 3
+ cakes respectively. Maple teleports to oven 3
+ and collects all 3
+ cakes. Oven 3
+ now has 0
+ cakes remaining.
+At the end of the second second, the ovens contain 2
+, 4
+, and 3
+ cakes respectively. Maple teleports to oven 1
+ and collects all 2
+ cakes. Oven 1
+ now has 0
+ cakes remaining.
+At the end of the third second, the ovens contain 1
+, 6
+, and 6
+ cakes respectively. Maple teleports to oven 2
+ and collects all 6
+ cakes. Oven 2
+ now has 0
+ cakes remaining.
+At the end of the fourth second, the ovens contain 2
+, 2
+, and 9
+ cakes respectively. Maple teleports to oven 3
+ and collects all 9
+ cakes. Oven 3
+ now has 0
+ cakes remaining.
+In total, Maple collects 3+2+6+9=20
+ cakes.
 
-In the third test case, you can cut a 5×10
- sheet into two 5×5
- sheets.
+For the second test case, one optimal solution is as follows:
 
-In the fourth test case, there is no need to cut the sheet, since we only need one sheet.
-
-In the fifth test case, you can first cut the 1×4
- sheet into two 1×2
- sheets, and then cut each of them into two more sheets. As a result, we get four sheets 1×1
-.
-
-
-
+At the end of the first second, the ovens contain 1
+, 2
+, and 3
+ cakes respectively. Maple teleports to oven 2
+ and collects all 2
+ cakes. Oven 2
+ now has 0
+ cakes remaining.
+At the end of the second second, the ovens contain 2
+, 2
+, and 6
+ cakes respectively. Maple teleports to oven 3
+ and collects all 6
+ cakes. Oven 3
+ now has 0
+ cakes remaining.
+In total, Maple collects 2+6=8
+ cakes.
 */ 
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
-    int w,h,n;
-    cin >> w >> h >> n;
-    int count = 1;
-    while(w%2 == 0){
-        count *= 2;
-        w /= 2;
+    int n,t;
+    cin >> n >> t;
+    long long ans = 0;
+    vector<int> a(n);
+    for(int i = 0;i<n;i++){
+        cin >> a[i];
     }
-    while(h%2 == 0){
-        count *= 2;
-        h /= 2;
+    sort(a.begin(),a.begin()+n,greater<int>());
+    for(int i = 0;i<n;i++){
+        ans += 1ll * a[i] * max(0,t-i);
     }
-    if(count >= n){
-        cout << "YES" << endl;
-    }
-    else{
-        cout << "NO" << endl;
-    }
+    cout << ans << endl;
 }
 
 int main() {

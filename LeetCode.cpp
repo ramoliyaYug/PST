@@ -1,50 +1,44 @@
 /*
-You are given a deque dq[] (double-ended queue) containing non-negative integers, along with two positive integer type and k. The task is to rotate the deque circularly by k positions.
-There are two types of rotation operations:
-
-
-Right Rotation (Clockwise): If type = 1, rotate the deque to the right. This means moving the last element to the front, and repeating the process k times.
-
-Left Rotation (Anti-Clockwise): If type = 2, rotate the deque to the left. This means moving the first element to the back, and repeating the process k times.
+Given an integer array coins[ ] representing different denominations of currency and an integer sum, find the number of ways you can make sum by using different combinations from coins[ ]. 
+Note: Assume that you have an infinite supply of each type of coin. Therefore, you can use any coin as many times as you want.
+Answers are guaranteed to fit into a 32-bit integer. 
 
 Examples:
 
-Input: dq = [1, 2, 3, 4, 5, 6], type = 1, k = 2
-Output: [5, 6, 1, 2, 3, 4] 
-Explanation: The type is 1 and k is 2. So, we need to right rotate dequeue by 2 times.
-In first right rotation we get [6, 1, 2, 3, 4, 5].
-In second right rotation we get [5, 6, 1, 2, 3, 4].
-Input: dq = [10, 20, 30, 40, 50], type = 2, k = 3 
-Output: [40, 50, 10, 20, 30] 
-Explanation: The type is 2 and k is 3. So, we need to left rotate dequeue by 3 times.
-In first left rotation we get [20, 30, 40, 50, 10]. 
-In second left rotation we get [30, 40, 50, 10, 20].
-In third left rotation we get [40, 50, 10, 20, 30].
+Input: coins[] = [1, 2, 3], sum = 4
+Output: 4
+Explanation: Four Possible ways are: [1, 1, 1, 1], [1, 1, 2], [2, 2], [1, 3].
+Input: coins[] = [2, 5, 3, 6], sum = 10
+Output: 5
+Explanation: Five Possible ways are: [2, 2, 2, 2, 2], [2, 2, 3, 3], [2, 2, 6], [2, 3, 5] and [5, 5].
+Input: coins[] = [5, 10], sum = 3
+Output: 0
+Explanation: Since all coin denominations are greater than sum, no combination can make the target sum.
 Constraints:
-1 ≤ dq.size() ≤ 105 
-1 ≤ k ≤ 105 
-1 ≤ type ≤ 2
+1 <= sum <= 103
+1 <= coins[i] <= 104
+1 <= coins.size() <= 103
+
+
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
-public:
-    void rotateDeque(deque<int>& dq, int type, int k) {
-        // code here
-        if (type == 1) {
-            for (int i = 0; i < k; i++) {
-                int temp = dq.back();
-                dq.pop_back();
-                dq.push_front(temp);
-            }
-        } else if (type == 2) {
-            for (int i = 0; i < k; i++) {
-                int temp = dq.front();
-                dq.pop_front();
-                dq.push_back(temp);
+    public:
+    int count(vector<int>& coins, int sum) {
+        // code here.
+        int n = coins.size();
+        vector<int> dp(sum+1, 0);
+        dp[0] = 1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<=sum;j++){
+                if(j-coins[i]>=0){
+                    dp[j] += dp[j-coins[i]];
+                }
             }
         }
+        return dp[sum];
     }
 };
 
