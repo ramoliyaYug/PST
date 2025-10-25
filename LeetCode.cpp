@@ -1,44 +1,72 @@
 /*
-Given an integer array coins[ ] representing different denominations of currency and an integer sum, find the number of ways you can make sum by using different combinations from coins[ ]. 
-Note: Assume that you have an infinite supply of each type of coin. Therefore, you can use any coin as many times as you want.
-Answers are guaranteed to fit into a 32-bit integer. 
+You are given a string s consisting of lowercase English letters ('a' to 'z').
 
-Examples:
+Your task is to:
 
-Input: coins[] = [1, 2, 3], sum = 4
-Output: 4
-Explanation: Four Possible ways are: [1, 1, 1, 1], [1, 1, 2], [2, 2], [1, 3].
-Input: coins[] = [2, 5, 3, 6], sum = 10
-Output: 5
-Explanation: Five Possible ways are: [2, 2, 2, 2, 2], [2, 2, 3, 3], [2, 2, 6], [2, 3, 5] and [5, 5].
-Input: coins[] = [5, 10], sum = 3
-Output: 0
-Explanation: Since all coin denominations are greater than sum, no combination can make the target sum.
+Find the vowel (one of 'a', 'e', 'i', 'o', or 'u') with the maximum frequency.
+Find the consonant (all other letters excluding vowels) with the maximum frequency.
+Return the sum of the two frequencies.
+
+Note: If multiple vowels or consonants have the same maximum frequency, you may choose any one of them. If there are no vowels or no consonants in the string, consider their frequency as 0.
+
+The frequency of a letter x is the number of times it occurs in the string.
+ 
+
+Example 1:
+
+Input: s = "successes"
+
+Output: 6
+
+Explanation:
+
+The vowels are: 'u' (frequency 1), 'e' (frequency 2). The maximum frequency is 2.
+The consonants are: 's' (frequency 4), 'c' (frequency 2). The maximum frequency is 4.
+The output is 2 + 4 = 6.
+Example 2:
+
+Input: s = "aeiaeia"
+
+Output: 3
+
+Explanation:
+
+The vowels are: 'a' (frequency 3), 'e' ( frequency 2), 'i' (frequency 2). The maximum frequency is 3.
+There are no consonants in s. Hence, maximum consonant frequency = 0.
+The output is 3 + 0 = 3.
+ 
+
 Constraints:
-1 <= sum <= 103
-1 <= coins[i] <= 104
-1 <= coins.size() <= 103
 
-
+1 <= s.length <= 100
+s consists of lowercase English letters only.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    int count(vector<int>& coins, int sum) {
-        // code here.
-        int n = coins.size();
-        vector<int> dp(sum+1, 0);
-        dp[0] = 1;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<=sum;j++){
-                if(j-coins[i]>=0){
-                    dp[j] += dp[j-coins[i]];
-                }
+    int maxFreqSum(string s) {
+        int n = s.length();
+        unordered_map<char, int> vowelCount;
+        unordered_map<char, int> consonantCount;
+        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+        for(int i = 0; i < n; i++) {
+            char ch = s[i];
+            if(vowels.find(ch) != vowels.end()) {
+                vowelCount[ch]++;
+            } else {
+                consonantCount[ch]++;
             }
         }
-        return dp[sum];
+        int maxVowelFreq = 0, maxConsonantFreq = 0;
+        for(auto it : vowelCount) {
+            maxVowelFreq = max(maxVowelFreq, it.second);
+        }
+        for(auto it : consonantCount) {
+            maxConsonantFreq = max(maxConsonantFreq, it.second);
+        }
+        return maxVowelFreq + maxConsonantFreq;
     }
 };
 

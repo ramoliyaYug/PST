@@ -1,134 +1,55 @@
 /*
-Maple wants to bake some cakes for Chocola and Vanilla.
+Xenia lives in a city that has n houses built along the main ringroad. The ringroad houses are numbered 1 through n in the clockwise order. The ringroad traffic is one way and also is clockwise.
 
-One day, she discovers n
- magical cake ovens. The i
--th oven bakes ai
- cakes every second. The cakes remain in their respective ovens until they are collected.
-
-At the end of each second, she may teleport to any oven (including the one she is currently at) and collect all the cakes that have accumulated in that oven up to that point.
-
-Your task is to determine the maximum number of cakes Maple can collect in m
- seconds.
+Xenia has recently moved into the ringroad house number 1. As a result, she's got m things to do. In order to complete the i-th task, she needs to be in the house number ai and complete all tasks with numbers less than i. Initially, Xenia is in the house number 1, find the minimum time she needs to complete all her tasks if moving from a house to a neighboring one along the ringroad takes one unit of time.
 
 Input
-Each test contains multiple test cases. The first line contains the number of test cases t
- (1≤t≤1000
-). The description of the test cases follows.
-
-The first line of each test case contains two integers n
- and m
- (1≤n≤105
-, 1≤m≤108
-) — the number of magical ovens and the number of seconds during which Maple will collect cakes.
-
-The second line of each test case contains n
- integers a1,a2,…,an
- (1≤ai≤105
-) — the number of cakes the i
--th oven bakes every second.
-
-It is guaranteed that the sum of n
- over all test cases does not exceed 2⋅105
-.
+The first line contains two integers n and m (2 ≤ n ≤ 105, 1 ≤ m ≤ 105). The second line contains m integers a1, a2, ..., am (1 ≤ ai ≤ n). Note that Xenia can have multiple consecutive tasks in one house.
 
 Output
-For each test case, output a single integer representing the maximum number of cakes Maple can collect in m
- seconds.
+Print a single integer — the time Xenia needs to complete all tasks.
 
-Example
+Please, do not use the %lld specifier to read or write 64-bit integers in С++. It is preferred to use the cin, cout streams or the %I64d specifier.
+
+Examples
 InputCopy
-3
-3 4
-1 2 3
-3 2
-1 2 3
-1 1000
-100000
+4 3
+3 2 3
 OutputCopy
-20
-8
-100000000
+6
+InputCopy
+4 3
+2 3 3
+OutputCopy
+2
 Note
-For the first test case, one optimal solution is as follows:
-
-At the end of the first second, the ovens contain 1
-, 2
-, and 3
- cakes respectively. Maple teleports to oven 3
- and collects all 3
- cakes. Oven 3
- now has 0
- cakes remaining.
-At the end of the second second, the ovens contain 2
-, 4
-, and 3
- cakes respectively. Maple teleports to oven 1
- and collects all 2
- cakes. Oven 1
- now has 0
- cakes remaining.
-At the end of the third second, the ovens contain 1
-, 6
-, and 6
- cakes respectively. Maple teleports to oven 2
- and collects all 6
- cakes. Oven 2
- now has 0
- cakes remaining.
-At the end of the fourth second, the ovens contain 2
-, 2
-, and 9
- cakes respectively. Maple teleports to oven 3
- and collects all 9
- cakes. Oven 3
- now has 0
- cakes remaining.
-In total, Maple collects 3+2+6+9=20
- cakes.
-
-For the second test case, one optimal solution is as follows:
-
-At the end of the first second, the ovens contain 1
-, 2
-, and 3
- cakes respectively. Maple teleports to oven 2
- and collects all 2
- cakes. Oven 2
- now has 0
- cakes remaining.
-At the end of the second second, the ovens contain 2
-, 2
-, and 6
- cakes respectively. Maple teleports to oven 3
- and collects all 6
- cakes. Oven 3
- now has 0
- cakes remaining.
-In total, Maple collects 2+6=8
- cakes.
-*/ 
+In the first test example the sequence of Xenia's moves along the ringroad looks as follows: 1 → 2 → 3 → 4 → 1 → 2 → 3. This is optimal sequence. So, she needs 6 time units.
+*/
 #include <bits/stdc++.h>
 using namespace std;
-
 void solve() {
-    int n,t;
-    cin >> n >> t;
-    long long ans = 0;
-    vector<int> a(n);
-    for(int i = 0;i<n;i++){
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(m);
+    for (int i = 0; i < m; i++) {
         cin >> a[i];
     }
-    sort(a.begin(),a.begin()+n,greater<int>());
-    for(int i = 0;i<n;i++){
-        ans += 1ll * a[i] * max(0,t-i);
+    long long time = 0;
+    int curr = 1;
+    for (int i = 0; i < m; i++) {
+        if (a[i] >= curr) {
+            time += a[i] - curr;
+        } else {
+            time += n - (curr - a[i]);
+        }
+        curr = a[i];
     }
-    cout << ans << endl;
+    cout << time << endl;
 }
 
 int main() {
     int t=1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }

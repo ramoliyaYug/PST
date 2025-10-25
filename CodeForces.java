@@ -6,13 +6,7 @@ import java.util.*;
 public class CodeForces {
 
     static void solve(Scanner sc) {
-        int x = sc.nextInt();
-        int n = sc.nextInt();
-        if(n%2==0){
-            System.out.println(0);
-        }else{
-            System.out.println(x);
-        }
+        System.out.println("hi");
     }
 
     public static void main(String[] args) {
