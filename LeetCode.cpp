@@ -1,72 +1,67 @@
 /*
-You are given a string s consisting of lowercase English letters ('a' to 'z').
+You are given an integer array nums. You may rearrange the elements in any order.
 
-Your task is to:
+The alternating score of an array arr is defined as:
 
-Find the vowel (one of 'a', 'e', 'i', 'o', or 'u') with the maximum frequency.
-Find the consonant (all other letters excluding vowels) with the maximum frequency.
-Return the sum of the two frequencies.
+score = arr[0]2 - arr[1]2 + arr[2]2 - arr[3]2 + ...
+Return an integer denoting the maximum possible alternating score of nums after rearranging its elements.
 
-Note: If multiple vowels or consonants have the same maximum frequency, you may choose any one of them. If there are no vowels or no consonants in the string, consider their frequency as 0.
-
-The frequency of a letter x is the number of times it occurs in the string.
  
 
 Example 1:
 
-Input: s = "successes"
+Input: nums = [1,2,3]
 
-Output: 6
+Output: 12
 
 Explanation:
 
-The vowels are: 'u' (frequency 1), 'e' (frequency 2). The maximum frequency is 2.
-The consonants are: 's' (frequency 4), 'c' (frequency 2). The maximum frequency is 4.
-The output is 2 + 4 = 6.
+A possible rearrangement for nums is [2,1,3], which gives the maximum alternating score among all possible rearrangements.
+
+The alternating score is calculated as:
+
+score = 22 - 12 + 32 = 4 - 1 + 9 = 12
+
 Example 2:
 
-Input: s = "aeiaeia"
+Input: nums = [1,-1,2,-2,3,-3]
 
-Output: 3
+Output: 16
 
 Explanation:
 
-The vowels are: 'a' (frequency 3), 'e' ( frequency 2), 'i' (frequency 2). The maximum frequency is 3.
-There are no consonants in s. Hence, maximum consonant frequency = 0.
-The output is 3 + 0 = 3.
+A possible rearrangement for nums is [-3,-1,-2,1,3,2], which gives the maximum alternating score among all possible rearrangements.
+
+The alternating score is calculated as:
+
+score = (-3)2 - (-1)2 + (-2)2 - (1)2 + (3)2 - (2)2 = 9 - 1 + 4 - 1 + 9 - 4 = 16
+
  
 
 Constraints:
 
-1 <= s.length <= 100
-s consists of lowercase English letters only.
+1 <= nums.length <= 105
+-4 * 104 <= nums[i] <= 4 * 104
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    int maxFreqSum(string s) {
-        int n = s.length();
-        unordered_map<char, int> vowelCount;
-        unordered_map<char, int> consonantCount;
-        unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
-        for(int i = 0; i < n; i++) {
-            char ch = s[i];
-            if(vowels.find(ch) != vowels.end()) {
-                vowelCount[ch]++;
-            } else {
-                consonantCount[ch]++;
-            }
+    long long maxAlternatingSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<long long> sq(n);
+        for (int i = 0; i < n; ++i) {
+            long long v = nums[i];
+            sq[i] = v * v;
         }
-        int maxVowelFreq = 0, maxConsonantFreq = 0;
-        for(auto it : vowelCount) {
-            maxVowelFreq = max(maxVowelFreq, it.second);
-        }
-        for(auto it : consonantCount) {
-            maxConsonantFreq = max(maxConsonantFreq, it.second);
-        }
-        return maxVowelFreq + maxConsonantFreq;
+        sort(sq.begin(), sq.end());
+        int neg = n / 2;
+        int pos = n - neg;
+        long long ans = 0;
+        for (int i = n - pos; i < n; ++i) ans += sq[i];
+        for (int i = 0; i < neg; ++i) ans -= sq[i];
+        return ans;
     }
 };
 

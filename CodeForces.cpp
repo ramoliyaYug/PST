@@ -1,50 +1,32 @@
 /*
-Xenia lives in a city that has n houses built along the main ringroad. The ringroad houses are numbered 1 through n in the clockwise order. The ringroad traffic is one way and also is clockwise.
-
-Xenia has recently moved into the ringroad house number 1. As a result, she's got m things to do. In order to complete the i-th task, she needs to be in the house number ai and complete all tasks with numbers less than i. Initially, Xenia is in the house number 1, find the minimum time she needs to complete all her tasks if moving from a house to a neighboring one along the ringroad takes one unit of time.
+Ann has recently started commuting by subway. We know that a one ride subway ticket costs a rubles. Besides, Ann found out that she can buy a special ticket for m rides (she can buy it several times). It costs b rubles. Ann did the math; she will need to use subway n times. Help Ann, tell her what is the minimum sum of money she will have to spend to make n rides?
 
 Input
-The first line contains two integers n and m (2 ≤ n ≤ 105, 1 ≤ m ≤ 105). The second line contains m integers a1, a2, ..., am (1 ≤ ai ≤ n). Note that Xenia can have multiple consecutive tasks in one house.
+The single line contains four space-separated integers n, m, a, b (1 ≤ n, m, a, b ≤ 1000) — the number of rides Ann has planned, the number of rides covered by the m ride ticket, the price of a one ride ticket and the price of an m ride ticket.
 
 Output
-Print a single integer — the time Xenia needs to complete all tasks.
-
-Please, do not use the %lld specifier to read or write 64-bit integers in С++. It is preferred to use the cin, cout streams or the %I64d specifier.
+Print a single integer — the minimum sum in rubles that Ann will need to spend.
 
 Examples
 InputCopy
-4 3
-3 2 3
+6 2 1 2
 OutputCopy
 6
 InputCopy
-4 3
-2 3 3
+5 2 2 3
 OutputCopy
-2
+8
 Note
-In the first test example the sequence of Xenia's moves along the ringroad looks as follows: 1 → 2 → 3 → 4 → 1 → 2 → 3. This is optimal sequence. So, she needs 6 time units.
+In the first sample one of the optimal solutions is: each time buy a one ride ticket. There are other optimal solutions. For example, buy three m ride tickets.
+
+
 */
 #include <bits/stdc++.h>
 using namespace std;
 void solve() {
-    int n,m;
-    cin >> n >> m;
-    vector<int> a(m);
-    for (int i = 0; i < m; i++) {
-        cin >> a[i];
-    }
-    long long time = 0;
-    int curr = 1;
-    for (int i = 0; i < m; i++) {
-        if (a[i] >= curr) {
-            time += a[i] - curr;
-        } else {
-            time += n - (curr - a[i]);
-        }
-        curr = a[i];
-    }
-    cout << time << endl;
+    int n,m,a,b;
+    cin>>n>>m>>a>>b;
+    cout<<min(n*a, (n/m)*b + (n%m)*a)<<endl;
 }
 
 int main() {

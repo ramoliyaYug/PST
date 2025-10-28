@@ -1,28 +1,35 @@
 /*
-Given the root of a Binary Search Tree, a target value, and an integer k. Your task is to find the k values in the BST that are closest to the target.
+We run a preorder depth-first search (DFS) on the root of a binary tree.
 
-The closest value is taken by choosing the one that gives minimum absolute difference from target.
+At each node in this traversal, we output D dashes (where D is the depth of this node), then we output the value of this node.  If the depth of a node is D, the depth of its immediate child is D + 1.  The depth of the root node is 0.
 
-Note: In case two values have same absolute difference from target, choose the smaller one. The target may or may not be present in BST.
-You can return the values in any order the driver code will print them in sorted order only.
+If a node has only one child, that child is guaranteed to be the left child.
 
-Examples:
+Given the output traversal of this traversal, recover the tree and return its root.
 
-Input: root = [20, 8, 22, 4, 12, N, N, N, N, 10, 14], target = 17, k = 3
-     
-Output: [14, 20, 12]
-Explanation: Absolute difference of 17 wrt 14 and 20 is 3 and 3, but we choose the smaller value in case of same absolute difference. So, 14 coes first and then 20. Then, 12 and 22 have same absolute difference, i.e., 5 from 17. But we choose the smaller value, i.e., 12.
-     
-Input: root = [5, 4, 8, 1], target = 5, k = 2
-     
-Output: [5, 4]
-Explanation: The absolute difference of 5 wrt 5 is 0, and for 4, the absolute difference is 1.
-    
+ 
+
+Example 1:
+
+
+Input: traversal = "1-2--3--4-5--6--7"
+Output: [1,2,5,3,4,6,7]
+Example 2:
+
+
+Input: traversal = "1-2--3---4-5--6---7"
+Output: [1,2,5,3,null,6,null,4,null,7]
+Example 3:
+
+
+Input: traversal = "1-401--349---90--88"
+Output: [1,401,null,349,88,90]
+ 
+
 Constraints:
-1 ≤ number of nodes, k ≤ 104
-1 ≤ node->data, target ≤ 104
 
-
+The number of nodes in the original tree is in the range [1, 1000].
+1 <= Node.val <= 109
 */
 
 import java.util.ArrayList;
@@ -51,35 +58,9 @@ class TreeNode {
     }
 }
 public class LeetCode {
-    public ArrayList<Integer> getKClosest(Node root, int target, int k) {
-        // code here
-        ArrayList<Integer> list = new ArrayList<>();
-        inorder(root, list);
-        ArrayList<Integer> result = new ArrayList<>();
-        Collections.sort(list, (a, b) -> {
-            int diffA = Math.abs(a - target);
-            int diffB = Math.abs(b - target);
-            if (diffA != diffB) {
-                return diffA - diffB;
-            } else {
-                return a - b;
-            }
-        });
-        for (int i = 0; i < k; i++) {
-            result.add(list.get(i));
-        }
-        return result;
-    }
-    public static ArrayList<Integer> inorder(Node root, ArrayList<Integer> list) {
-        if (root == null) {
-            return list;
-        }
-        inorder(root.left, list);
-        list.add(root.data);
-        inorder(root.right, list);
-        return list;
-    }
+    public TreeNode recoverFromPreorder(String traversal) {
 
+    }
     public static void main(String[] args) {
         LeetCode solution = new LeetCode();
     }
