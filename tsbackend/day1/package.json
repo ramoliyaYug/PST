@@ -1,0 +1,26 @@
+{
+  "name": "day1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon ./src/index.ts",
+    "build" : "tsx ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/express": "^5.0.5",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^24.9.2",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.2",
+    "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}

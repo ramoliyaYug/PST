@@ -1,27 +1,30 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
+// Define slice with both count and step
 const counterSlice = createSlice({
-  name: "counter",
-  initialState: { value: 0 },
+  name: 'counter',
+  initialState: {
+    count: 0,
+    step: 1, // default step
+  },
   reducers: {
+    // Increase count by 'step' value
     increment: (state) => {
-      state.value += 1;
+      state.count += state.step;
     },
+    // Decrease count by 'step' value
     decrement: (state) => {
-      state.value -= 1;
+      state.count -= state.step;
     },
-    reset: (state) => {
-      state.value = 0;
+    // Update the 'step' value from input
+    setStep: (state, action) => {
+      state.step = action.payload;
     },
   },
 });
 
-export const { increment, decrement, reset } = counterSlice.actions;
+// Export actions
+export const { increment, decrement, setStep } = counterSlice.actions;
 
-const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer,
-  },
-});
-
-export default store;
+// Export reducer
+export default counterSlice.reducer;

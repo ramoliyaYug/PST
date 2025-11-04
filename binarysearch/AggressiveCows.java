@@ -33,7 +33,7 @@ public class AggressiveCows {
         int n =stalls.length;
         int count = 1;
         int prev = stalls[0];
-        for(int i = 1;i,=n;i++){
+        for(int i = 1;i<=n;i++){
             if(stalls[i] - prev >= dist){
                 count++;
                 prev = stalls[i];

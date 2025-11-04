@@ -1,32 +1,45 @@
 /*
-Ann has recently started commuting by subway. We know that a one ride subway ticket costs a rubles. Besides, Ann found out that she can buy a special ticket for m rides (she can buy it several times). It costs b rubles. Ann did the math; she will need to use subway n times. Help Ann, tell her what is the minimum sum of money she will have to spend to make n rides?
+Vasya has found a strange device. On the front panel of a device there are: a red button, a blue button and a display showing some positive integer. After clicking the red button, device multiplies the displayed number by two. After clicking the blue button, device subtracts one from the number on the display. If at some point the number stops being positive, the device breaks down. The display can show arbitrarily large numbers. Initially, the display shows number n.
+
+Bob wants to get number m on the display. What minimum number of clicks he has to make in order to achieve this result?
 
 Input
-The single line contains four space-separated integers n, m, a, b (1 ≤ n, m, a, b ≤ 1000) — the number of rides Ann has planned, the number of rides covered by the m ride ticket, the price of a one ride ticket and the price of an m ride ticket.
+The first and the only line of the input contains two distinct integers n and m (1 ≤ n, m ≤ 104), separated by a space .
 
 Output
-Print a single integer — the minimum sum in rubles that Ann will need to spend.
+Print a single number — the minimum number of times one needs to push the button required to get the number m out of number n.
 
 Examples
 InputCopy
-6 2 1 2
+4 6
 OutputCopy
-6
+2
 InputCopy
-5 2 2 3
+10 1
 OutputCopy
-8
+9
 Note
-In the first sample one of the optimal solutions is: each time buy a one ride ticket. There are other optimal solutions. For example, buy three m ride tickets.
+In the first example you need to push the blue button once, and then push the red button once.
 
+In the second example, doubling the number is unnecessary, so we need to push the blue button nine times.
 
+There is, however, an even faster solution. The problem can be reversed as follows: we should get the number n starting from m using the operations "add 1 to the number" and "divide the number by 2 if it is even".
 */
 #include <bits/stdc++.h>
 using namespace std;
 void solve() {
-    int n,m,a,b;
-    cin>>n>>m>>a>>b;
-    cout<<min(n*a, (n/m)*b + (n%m)*a)<<endl;
+    int n,m;
+    cin >> n >> m;
+    int ans = 0;
+    while (m > n) {
+        if (m % 2 == 0) {
+            m /= 2;
+        } else {
+            m += 1;
+        }
+        ans++;
+    }
+    cout << ans + (n - m) << endl;
 }
 
 int main() {

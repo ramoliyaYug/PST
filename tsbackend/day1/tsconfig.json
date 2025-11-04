@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "nodenext",
+    "target": "es2022",
+    "types": [],
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "skipLibCheck": true,
+  }
+}

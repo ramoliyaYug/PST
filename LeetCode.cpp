@@ -1,67 +1,27 @@
 /*
-You are given an integer array nums. You may rearrange the elements in any order.
+Given an array arr of positive integers and an integer x. Return the frequency of x in the array.
 
-The alternating score of an array arr is defined as:
+Examples :
 
-score = arr[0]2 - arr[1]2 + arr[2]2 - arr[3]2 + ...
-Return an integer denoting the maximum possible alternating score of nums after rearranging its elements.
-
- 
-
-Example 1:
-
-Input: nums = [1,2,3]
-
-Output: 12
-
-Explanation:
-
-A possible rearrangement for nums is [2,1,3], which gives the maximum alternating score among all possible rearrangements.
-
-The alternating score is calculated as:
-
-score = 22 - 12 + 32 = 4 - 1 + 9 = 12
-
-Example 2:
-
-Input: nums = [1,-1,2,-2,3,-3]
-
-Output: 16
-
-Explanation:
-
-A possible rearrangement for nums is [-3,-1,-2,1,3,2], which gives the maximum alternating score among all possible rearrangements.
-
-The alternating score is calculated as:
-
-score = (-3)2 - (-1)2 + (-2)2 - (1)2 + (3)2 - (2)2 = 9 - 1 + 4 - 1 + 9 - 4 = 16
-
- 
-
+Input: arr = [1, 1, 1, 1, 1], x = 1
+Output: 5
+Explanation: Frequency of 1 is 5.
+Input: arr = [1, 2, 3, 3, 2, 1], x=2
+Output: 2
+Explanation: Frequency of 2 is 2.
 Constraints:
-
-1 <= nums.length <= 105
--4 * 104 <= nums[i] <= 4 * 104
+1 <= arr.size() <= 105
+1 <= arr[i] <= 105
+1 <= x <= 105
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    long long maxAlternatingSum(vector<int>& nums) {
-        int n = nums.size();
-        vector<long long> sq(n);
-        for (int i = 0; i < n; ++i) {
-            long long v = nums[i];
-            sq[i] = v * v;
-        }
-        sort(sq.begin(), sq.end());
-        int neg = n / 2;
-        int pos = n - neg;
-        long long ans = 0;
-        for (int i = n - pos; i < n; ++i) ans += sq[i];
-        for (int i = 0; i < neg; ++i) ans -= sq[i];
-        return ans;
+    int findFrequency(vector<int> arr, int x) {
+        // Your code here
+        return count(arr.begin(), arr.end(), x);
     }
 };
 
