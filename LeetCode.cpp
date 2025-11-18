@@ -1,27 +1,59 @@
 /*
-Given an array arr of positive integers and an integer x. Return the frequency of x in the array.
+You are given an array nums of non-negative integers. nums is considered special if there exists a number x such that there are exactly x numbers in nums that are greater than or equal to x.
 
-Examples :
+Notice that x does not have to be an element in nums.
 
-Input: arr = [1, 1, 1, 1, 1], x = 1
-Output: 5
-Explanation: Frequency of 1 is 5.
-Input: arr = [1, 2, 3, 3, 2, 1], x=2
+Return x if the array is special, otherwise, return -1. It can be proven that if nums is special, the value for x is unique.
+
+ 
+
+Example 1:
+
+Input: nums = [3,5]
 Output: 2
-Explanation: Frequency of 2 is 2.
+Explanation: There are 2 values (3 and 5) that are greater than or equal to 2.
+Example 2:
+
+Input: nums = [0,0]
+Output: -1
+Explanation: No numbers fit the criteria for x.
+If x = 0, there should be 0 numbers >= x, but there are 2.
+If x = 1, there should be 1 number >= x, but there are 0.
+If x = 2, there should be 2 numbers >= x, but there are 0.
+x cannot be greater since there are only 2 numbers in nums.
+Example 3:
+
+Input: nums = [0,4,3,0,4]
+Output: 3
+Explanation: There are 3 values that are greater than or equal to 3.
+ 
+
 Constraints:
-1 <= arr.size() <= 105
-1 <= arr[i] <= 105
-1 <= x <= 105
+
+1 <= nums.length <= 100
+0 <= nums[i] <= 1000
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    int findFrequency(vector<int> arr, int x) {
-        // Your code here
-        return count(arr.begin(), arr.end(), x);
+    int specialArray(vector<int>& nums) {
+        int n = nums.size();
+        int x = -1;
+        for (int i = 0; i <= n; ++i) {
+            int count = 0;
+            for (int num : nums) {
+                if (num >= i) {
+                    count++;
+                }
+            }
+            if (count == i) {
+                x = i;
+                break;
+            }
+        }
+        return x;
     }
 };
 
