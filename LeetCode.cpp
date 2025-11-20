@@ -1,59 +1,74 @@
 /*
-You are given an array nums of non-negative integers. nums is considered special if there exists a number x such that there are exactly x numbers in nums that are greater than or equal to x.
+You are given an image represented by an m x n grid of integers image, where image[i][j] represents the pixel value of the image. You are also given three integers sr, sc, and color. Your task is to perform a flood fill on the image starting from the pixel image[sr][sc].
 
-Notice that x does not have to be an element in nums.
+To perform a flood fill:
 
-Return x if the array is special, otherwise, return -1. It can be proven that if nums is special, the value for x is unique.
+Begin with the starting pixel and change its color to color.
+Perform the same process for each pixel that is directly adjacent (pixels that share a side with the original pixel, either horizontally or vertically) and shares the same color as the starting pixel.
+Keep repeating this process by checking neighboring pixels of the updated pixels and modifying their color if it matches the original color of the starting pixel.
+The process stops when there are no more adjacent pixels of the original color to update.
+Return the modified image after performing the flood fill.
 
  
 
 Example 1:
 
-Input: nums = [3,5]
-Output: 2
-Explanation: There are 2 values (3 and 5) that are greater than or equal to 2.
+Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2
+
+Output: [[2,2,2],[2,2,0],[2,0,1]]
+
+Explanation:
+
+
+
+From the center of the image with position (sr, sc) = (1, 1) (i.e., the red pixel), all pixels connected by a path of the same color as the starting pixel (i.e., the blue pixels) are colored with the new color.
+
+Note the bottom corner is not colored 2, because it is not horizontally or vertically connected to the starting pixel.
+
 Example 2:
 
-Input: nums = [0,0]
-Output: -1
-Explanation: No numbers fit the criteria for x.
-If x = 0, there should be 0 numbers >= x, but there are 2.
-If x = 1, there should be 1 number >= x, but there are 0.
-If x = 2, there should be 2 numbers >= x, but there are 0.
-x cannot be greater since there are only 2 numbers in nums.
-Example 3:
+Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0
 
-Input: nums = [0,4,3,0,4]
-Output: 3
-Explanation: There are 3 values that are greater than or equal to 3.
+Output: [[0,0,0],[0,0,0]]
+
+Explanation:
+
+The starting pixel is already colored with 0, which is the same as the target color. Therefore, no changes are made to the image.
+
  
 
 Constraints:
 
-1 <= nums.length <= 100
-0 <= nums[i] <= 1000
+m == image.length
+n == image[i].length
+1 <= m, n <= 50
+0 <= image[i][j], color < 216
+0 <= sr < m
+0 <= sc < n
+ 
+
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    int specialArray(vector<int>& nums) {
-        int n = nums.size();
-        int x = -1;
-        for (int i = 0; i <= n; ++i) {
-            int count = 0;
-            for (int num : nums) {
-                if (num >= i) {
-                    count++;
-                }
-            }
-            if (count == i) {
-                x = i;
-                break;
-            }
-        }
-        return x;
+    void dfs(vector<vector<int>>& image, int sr, int sc, int color, int originalColor, int n, int m){
+        if(sr<0 || sc<0 || sr>=n || sc>=m) return;
+        if(image[sr][sc] != originalColor) return;
+        image[sr][sc] = color;
+        dfs(image, sr+1, sc, color, originalColor, n, m);
+        dfs(image, sr-1, sc, color, originalColor, n, m);
+        dfs(image, sr, sc+1, color, originalColor, n, m);
+        dfs(image, sr, sc-1, color, originalColor, n, m);
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int n = image.size();
+        int m = image[0].size();
+        int originalColor = image[sr][sc];
+        if (originalColor == color) return image;
+        dfs(image, sr, sc, color, originalColor, n, m);
+        return image;
     }
 };
 
