@@ -7,6 +7,7 @@
         "format": "cpp",
         "chrono": "cpp",
         "bitset": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "iostream": "cpp"
     }
 }

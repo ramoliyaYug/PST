@@ -1,52 +1,55 @@
 /*
-Given a positive integer n, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
 
  
 
 Example 1:
 
-Input: n = 11
-
-Output: 3
-
-Explanation:
-
-The input binary string 1011 has a total of three set bits.
-
+Input: digits = [1,2,3]
+Output: [1,2,4]
+Explanation: The array represents the integer 123.
+Incrementing by one gives 123 + 1 = 124.
+Thus, the result should be [1,2,4].
 Example 2:
 
-Input: n = 128
-
-Output: 1
-
-Explanation:
-
-The input binary string 10000000 has a total of one set bit.
-
+Input: digits = [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The array represents the integer 4321.
+Incrementing by one gives 4321 + 1 = 4322.
+Thus, the result should be [4,3,2,2].
 Example 3:
 
-Input: n = 2147483645
-
-Output: 30
-
-Explanation:
-
-The input binary string 1111111111111111111111111111101 has a total of thirty set bits.
-
+Input: digits = [9]
+Output: [1,0]
+Explanation: The array represents the integer 9.
+Incrementing by one gives 9 + 1 = 10.
+Thus, the result should be [1,0].
  
 
 Constraints:
 
-1 <= n <= 231 - 1
-
+1 <= digits.length <= 100
+0 <= digits[i] <= 9
+digits does not contain any leading 0's.
 */
 #include <bits/stdc++.h>
 using namespace std;
 
 class LeetCode {
     public:
-    int hammingWeight(int n) {
-        return __builtin_popcount(n);
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        for(int i=n-1;i>=0;i--){
+            if(digits[i] < 9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+        digits.insert(digits.begin(),1);
+        return digits;
     }
 };
 

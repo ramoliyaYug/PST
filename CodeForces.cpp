@@ -1,85 +1,101 @@
 /*
-Kuriyama Mirai has killed many monsters and got many (namely n) stones. She numbers the stones from 1 to n. The cost of the i-th stone is vi. Kuriyama Mirai wants to know something about these stones so she will ask you two kinds of questions:
+You are given a sequence of integers of length n
+ and integer number k
+. You should print any integer number x
+ in the range of [1;109]
+ (i.e. 1≤x≤109
+) such that exactly k
+ elements of given sequence are less than or equal to x
+.
 
-She will tell you two numbers, l and r (1 ≤ l ≤ r ≤ n), and you should tell her .
-Let ui be the cost of the i-th cheapest stone (the cost that will be on the i-th place if we arrange all the stone costs in non-decreasing order). This time she will tell you two numbers, l and r (1 ≤ l ≤ r ≤ n), and you should tell her .
-For every question you should give the correct answer, or Kuriyama Mirai will say "fuyukai desu" and then become unhappy.
+Note that the sequence can contain equal elements.
+
+If there is no such x
+, print "-1" (without quotes).
 
 Input
-The first line contains an integer n (1 ≤ n ≤ 105). The second line contains n integers: v1, v2, ..., vn (1 ≤ vi ≤ 109) — costs of the stones.
-
-The third line contains an integer m (1 ≤ m ≤ 105) — the number of Kuriyama Mirai's questions. Then follow m lines, each line contains three integers type, l and r (1 ≤ l ≤ r ≤ n; 1 ≤ type ≤ 2), describing a question. If type equal to 1, then you should output the answer for the first question, else you should output the answer for the second one.
+The first line of the input contains integer numbers n
+ and k
+ (1≤n≤2⋅105
+, 0≤k≤n
+). The second line of the input contains n
+ integer numbers a1,a2,…,an
+ (1≤ai≤109
+) — the sequence itself.
 
 Output
-Print m lines. Each line must contain an integer — the answer to Kuriyama Mirai's question. Print the answers to the questions in the order of input.
+Print any integer number x
+ from range [1;109]
+ such that exactly k
+ elements of given sequence is less or equal to x
+.
+
+If there is no such x
+, print "-1" (without quotes).
 
 Examples
 InputCopy
+7 4
+3 7 5 1 10 3 20
+OutputCopy
 6
-6 4 2 7 2 7
-3
-2 3 6
-1 3 4
-1 1 6
-OutputCopy
-24
-9
-28
 InputCopy
-4
-5 5 2 3
-10
-1 2 4
-2 1 4
-1 1 1
-2 1 4
-2 1 2
-1 1 1
-1 3 3
-1 1 3
-1 4 4
-1 2 2
+7 2
+3 7 5 1 10 3 20
 OutputCopy
-10
-15
-5
-15
-5
-5
-2
-12
-3
-5
+-1
 Note
-Please note that the answers to the questions may overflow 32-bit integer type.
+In the first example 5
+ is also a valid answer because the elements with indices [1,3,4,6]
+ is less than or equal to 5
+ and obviously less than or equal to 6
+.
+
+In the second example you cannot choose any number that only 2
+ elements of the given sequence will be less than or equal to this number because 3
+ elements of the given sequence will be also less than or equal to this number.
+ In this problem you can do the following thing: firstly, let's sort our array.
+
+Let ans
+ will be the answer. Then you have two cases: if k=0
+ then ans:=a0−1
+ otherwise ans:=ak−1
+ (for 0-indexed array).
+
+Then you need to calculate the number of the elements of the array a
+ that are less than or equal to ans
+. Let it be cnt
+. Then if ans<1
+ or cnt≠k
+ then print "-1" otherwise print ans
+.
 */
 #include <bits/stdc++.h>
 using namespace std;
 void solve() {
-    int n;
-    cin >> n;
-    vector<long long> arr(n);
-    for(int i = 0;i<n;i++){
-        cin >> arr[i];
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
     }
-    vector<long long> sortedArr = arr;
-    sort(sortedArr.begin(), sortedArr.end());
-    vector<long long> prefixSum(n+1, 0);
-    vector<long long> sortedPrefixSum(n+1, 0);
-    for(int i = 1;i<=n;i++){
-        prefixSum[i] = prefixSum[i-1] + arr[i-1];
-        sortedPrefixSum[i] = sortedPrefixSum[i-1] + sortedArr[i-1];
+    sort(a.begin(), a.end());
+    int ans;
+    if (k == 0) {
+        ans = a[0] - 1;
+    } else {
+        ans = a[k - 1];
     }
-    int m;
-    cin >> m;
-    for(int i = 0;i<m;i++){
-        int type, l, r;
-        cin >> type >> l >> r;
-        if(type == 1){
-            cout << prefixSum[r] - prefixSum[l-1] << endl;
-        }else{
-            cout << sortedPrefixSum[r] - sortedPrefixSum[l-1] << endl;
+    int cnt = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] <= ans) {
+            cnt++;
         }
+    }
+    if (ans < 1 || cnt != k) {
+        cout << "-1" << endl;
+    } else {
+        cout << ans << endl;
     }
 }
 

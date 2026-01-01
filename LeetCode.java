@@ -1,34 +1,25 @@
 /*
-There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+You are given the heads of two non-empty singly linked lists, head1 and head2, that intersect at a certain point. Return that Node where these two linked lists intersect.
 
-A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+Note: It is guaranteed that the intersected node always exists.
 
-You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+In the custom input you have to give input for CommonList which pointed at the end of both head1 and head2 to form a Y-shaped linked list.
+Examples:
 
-Return the total number of provinces.
-
- 
-
-Example 1:
-
-
-Input: isConnected = [[1,1,0],[1,1,0],[0,0,1]]
-Output: 2
-Example 2:
-
-
-Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
-Output: 3
- 
-
+Input: head1: 10 -> 15 -> 30, head2: 3 -> 6 -> 9 -> 15 -> 30
+Output: 15
+Explanation: From the above image, it is clearly seen that the common part is 15 -> 30, whose starting point is 15.
+    
+Input: head1: 4 -> 1 -> 8 -> 5, head2: 5 -> 6 -> 1 -> 8 -> 5
+Output: 1
+Explanation: From the above image, it is clearly seen that the common part is 1 -> 8 -> 5, whose starting point is 1.
+    
 Constraints:
+2 ≤ total number of nodes ≤ 2*105
+-104 ≤ node->data ≤ 104
 
-1 <= n <= 200
-n == isConnected.length
-n == isConnected[i].length
-isConnected[i][j] is 1 or 0.
-isConnected[i][i] == 1
-isConnected[i][j] == isConnected[j][i]
+
+
 */
 
 import java.util.ArrayList;
@@ -48,38 +39,35 @@ class Node {
         left = right = null;
     }
 }
-class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode() {}
-     TreeNode(int val) { this.val = val; }
-     TreeNode(int val, TreeNode left, TreeNode right) {
-         this.val = val;
-         this.left = left;
-         this.right = right;
-    }
-}
+// class TreeNode {
+//      int val;
+//      TreeNode left;
+//      TreeNode right;
+//      TreeNode() {}
+//      TreeNode(int val) { this.val = val; }
+//      TreeNode(int val, TreeNode left, TreeNode right) {
+//          this.val = val;
+//          this.left = left;
+//          this.right = right;
+//     }
+// }
 public class LeetCode {
-    public int findCircleNum(int[][] isConnected) {
-        int n = isConnected.length;
-        HashSet<Integer> visited = new HashSet<>();
-        int count = 0;
-        for (int i = 0; i < n; i++) {
-            if (!visited.contains(i)) {
-                count++;
-                dfs(isConnected, visited, i);
-            }
+    public Node intersectPoint(Node head1, Node head2) {
+        // code here
+        HashSet<Node> set = new HashSet<>();
+        Node curr1 = head1;
+        while (curr1 != null) {
+            set.add(curr1);
+            curr1 = curr1.right;
         }
-        return count;
-    }
-    public void dfs(int[][] isConnected, HashSet<Integer> visited, int city) {
-        visited.add(city);
-        for (int j = 0; j < isConnected.length; j++) {
-            if (isConnected[city][j] == 1 && !visited.contains(j)) {
-                dfs(isConnected, visited, j);
+        Node curr2 = head2;
+        while (curr2 != null) {
+            if (set.contains(curr2)) {
+                return curr2;
             }
+            curr2 = curr2.right;
         }
+        return null;
     }
         
     public static void main(String[] args) {
