@@ -1,24 +1,20 @@
 /*
-There are n children standing in a line. Each child is assigned a rating value given in the integer array arr[]. You are giving candies to these children subjected to the following requirements:
-
-Each child must have at least one candy.
-Children with a higher rating than their neighbors get more candies than their neighbors.
-Return the minimum number of candies you need to have to distribute.
-
-Note: The answer will always fit into a 32-bit integer.
+You are given a set of activities, each with a start time and a finish time, represented by the arrays start[] and finish[], respectively. A single person can perform only one activity at a time, meaning no two activities can overlap. Your task is to determine the maximum number of activities that a person can complete in a day.
 
 Examples:
 
-Input: arr[] = [1, 0, 2]
-Output: 5
-Explanation: Children at index 0 and 2 will get 2 candies each as their rating is higher than index 1, and index 1 will get 1 candy. Thus total candies = 2 + 1 + 2 = 5.
-Input: arr[] = [1, 2, 2]
+Input: start[] = [1, 3, 0, 5, 8, 5], finish[] = [2, 4, 6, 7, 9, 9]
 Output: 4
-Explanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively. The third child gets 1 candy because it satisfies the above two conditions.
+Explanation: A person can perform at most four activities. The maximum set of activities that can be executed is {0, 1, 3, 4}
+Input: start[] = [10, 12, 20], finish[] = [20, 25, 30]
+Output: 1
+Explanation: A person can perform at most one activity.
+Input: start[] = [1, 3, 2, 5], finish[] = [2, 4, 3, 6]
+Output: 3
+Explanation: A person can perform activities 0, 1 and 3.
 Constraints:
-1 ≤ arr.size() ≤ 105
-0 ≤ arr[i] ≤ 109
-Iterate twice over the ratings array, first from left end and then from right end.
+1 ≤ start.size() = finish.size() ≤ 2*105
+0 ≤ start[i] ≤ finish[i] ≤ 109
 */
 
 import java.lang.*;
@@ -46,8 +42,32 @@ class TreeNode {
          this.right = right;
     }
 }
+// class Pair{
+//     int first;
+//     int second;
+//     Pair(int first, int second){
+//         this.first = first;
+//         this.second = second;
+//     }
+// }
 public class LeetCode {
-    
+    public int activitySelection(int[] start, int[] finish) {
+        // code here
+        int n = start.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < n; i++) {
+            map.put(finish[i], start[i]);
+        }
+        int ans = 1;
+        int lf = finish[0];
+        for(int i = 1; i < n; i++) {
+            if(map.get(finish[i]) > lf) {
+                ans++;
+                lf = finish[i];
+            }
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         LeetCode solution = new LeetCode();
