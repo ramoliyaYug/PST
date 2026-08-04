@@ -1,20 +1,65 @@
 /*
-You are given a set of activities, each with a start time and a finish time, represented by the arrays start[] and finish[], respectively. A single person can perform only one activity at a time, meaning no two activities can overlap. Your task is to determine the maximum number of activities that a person can complete in a day.
+You are given the root of a complete binary tree.
 
-Examples:
+A node x is called dominant if its value is equal to the maximum value among all nodes in the subtree rooted at x.
 
-Input: start[] = [1, 3, 0, 5, 8, 5], finish[] = [2, 4, 6, 7, 9, 9]
+Return the number of dominant nodes in the tree.
+
+ 
+
+Example 1:
+
+
+
+Input: root = [5,3,8,2,4,7,1]
+
+Output: 5
+
+Explanation:
+
+The leaf nodes with values 2, 4, 7, and 1 are dominant.
+The node with value 8 is dominant because its value is the maximum value in its subtree [8, 7, 1].
+Thus, the answer is 5.
+Example 2:
+
+
+
+Input: root = [1,2,3,1,2]
+
 Output: 4
-Explanation: A person can perform at most four activities. The maximum set of activities that can be executed is {0, 1, 3, 4}
-Input: start[] = [10, 12, 20], finish[] = [20, 25, 30]
-Output: 1
-Explanation: A person can perform at most one activity.
-Input: start[] = [1, 3, 2, 5], finish[] = [2, 4, 3, 6]
-Output: 3
-Explanation: A person can perform activities 0, 1 and 3.
+
+Explanation:
+
+The leaf nodes with values 1, 2, and 3 are dominant.
+The node with value 2 whose subtree is [2, 1, 2] is dominant because its value is the maximum value in its subtree.
+Thus, the answer is 4.
+ 
+
 Constraints:
-1 ≤ start.size() = finish.size() ≤ 2*105
-0 ≤ start[i] ≤ finish[i] ≤ 109
+
+The number of nodes in the tree is in the range [1, 105].
+1 <= Node.val <= 109
+The tree is guaranteed to be a complete binary tree.
+ 
+Seen this question in a real interview before?
+1/6
+Yes
+No
+Accepted
+32,462/45K
+Acceptance Rate
+72.1%
+Topics
+icon
+Companies
+Hint 1
+Process the tree using postorder traversal, so both child subtrees are handled before their parent.
+
+Hint 2
+For each node, compute the maximum value in its subtree from its own value and the maximum values returned by its children.
+
+Hint 3
+A node is dominant if its value is equal to this subtree maximum.
 */
 
 import java.lang.*;
@@ -51,22 +96,24 @@ class TreeNode {
 //     }
 // }
 public class LeetCode {
-    public int activitySelection(int[] start, int[] finish) {
-        // code here
-        int n = start.length;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i < n; i++) {
-            map.put(finish[i], start[i]);
-        }
-        int ans = 1;
-        int lf = finish[0];
-        for(int i = 1; i < n; i++) {
-            if(map.get(finish[i]) > lf) {
-                ans++;
-                lf = finish[i];
-            }
-        }
-        return ans;
+    int count = 0;
+    public int countDominantNodes(TreeNode root) {
+        postorder(root);
+        return count;
+    }
+    public int postorder(TreeNode root) {
+        if (root == null)
+            return Integer.MIN_VALUE;
+
+        int left = postorder(root.left);
+        int right = postorder(root.right);
+
+        int subtreeMax = Math.max(root.val, Math.max(left, right));
+
+        if (root.val == subtreeMax)
+            count++;
+
+        return subtreeMax;
     }
 
     public static void main(String[] args) {

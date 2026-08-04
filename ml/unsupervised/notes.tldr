@@ -7,7 +7,7 @@
 			"com.tldraw.asset": 1,
 			"com.tldraw.camera": 1,
 			"com.tldraw.document": 2,
-			"com.tldraw.instance": 25,
+			"com.tldraw.instance": 26,
 			"com.tldraw.instance_page_state": 5,
 			"com.tldraw.page": 1,
 			"com.tldraw.instance_presence": 6,
@@ -2157,6 +2157,96 @@
 			},
 			"parentId": "page:page",
 			"index": "b32zeSuV8",
+			"typeName": "shape"
+		},
+		{
+			"x": 2057.324414488502,
+			"y": 3291.221969944141,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:SS_dAwfRBM8pytB6u560M",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 159.97134399414062,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "t-sne"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "t-distributed"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "stochastic"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "neighbor"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "embedding"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bC9UQ3kEl",
 			"typeName": "shape"
 		},
 		{
@@ -5454,6 +5544,48 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 2079.5154874499067,
+			"y": 3595.321861182714,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:jaYT1-ab2VQs3BFh97b4S",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 392.26300048828125,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "(low distance)   (high distance)"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCBbGmm1V",
+			"typeName": "shape"
+		},
+		{
 			"x": 1520.8661027162764,
 			"y": 1675.3862591907566,
 			"rotation": 0,
@@ -6884,9 +7016,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -806.1262062527803,
-			"y": -3692.210804737708,
-			"z": 1.087803744532385,
+			"x": 2363.9621480302385,
+			"y": -73.86353669884511,
+			"z": 0.16603754046892472,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -13352,6 +13484,48 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 2053.054513568288,
+			"y": 3752.9462921670884,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:vBbLreL9E0ozM7AaG_RON",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 457.2890625,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "3. map them into a lower dimension "
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCF4uLpuV",
+			"typeName": "shape"
+		},
+		{
 			"x": 1423.7260220778978,
 			"y": 1953.4279513762854,
 			"rotation": 0,
@@ -13821,10 +13995,8 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [
-				"shape:n1aNFJBXaku_vY9sOvksw"
-			],
-			"hoveredShapeId": "shape:I21Yyy89huiplNf8x6C-w",
+			"selectedShapeIds": [],
+			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -14606,6 +14778,48 @@
 			},
 			"parentId": "page:page",
 			"index": "b1FrgsUCx",
+			"typeName": "shape"
+		},
+		{
+			"x": 2044.5080525216583,
+			"y": 3630.342148199931,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:pbwgChwPRmQSDisoVHOGl",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 356.40362548828125,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "2. creating the probabilities "
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCC8QYCpV",
 			"typeName": "shape"
 		},
 		{
@@ -15714,6 +15928,72 @@
 			},
 			"parentId": "page:page",
 			"index": "b8GzooonpO",
+			"typeName": "shape"
+		},
+		{
+			"x": 2044.5080525216583,
+			"y": 3504.592734751972,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:S_ZMdXxYhihovVVDrB5Mw",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 620.3359375,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "1. meassures the pairwise distance of data points"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "   for all the pairs of cell in the dataset"
+								}
+							]
+						},
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "    high similarity & low similarity"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCAcXk9dV",
 			"typeName": "shape"
 		},
 		{
@@ -19774,6 +20054,48 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 2056.1601760081967,
+			"y": 3813.8171941018136,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:rHwZXrL-TcOixmokle1U3",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 315.7265625,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "4. optimizing the dataset"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCGpwlFHV",
+			"typeName": "shape"
+		},
+		{
 			"x": 3124.4999219831316,
 			"y": 1795.7207175831713,
 			"rotation": 0,
@@ -22681,6 +23003,48 @@
 			},
 			"parentId": "page:page",
 			"index": "b0Lg3rtiV",
+			"typeName": "shape"
+		},
+		{
+			"x": 2082.315075748019,
+			"y": 3704.6544514110183,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:ak8oW6y_MJXeDMzINQwR0",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 643.9426879882812,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "low probability of being thr neighbour of datapoint"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCEjRyWpV",
 			"typeName": "shape"
 		},
 		{
@@ -29309,6 +29673,48 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 1314.4851954465848,
+			"y": 4201.946250356352,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:B0pRI4N5x2Zt2gc90HSzO",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 160.1796875,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "cost function"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bC8gQ04xV",
+			"typeName": "shape"
+		},
+		{
 			"x": 1534.6152805058925,
 			"y": 1208.9524925435267,
 			"rotation": 0,
@@ -32149,6 +32555,48 @@
 			"typeName": "shape"
 		},
 		{
+			"x": 2082.315075748019,
+			"y": 3672.2586193492507,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:l_csB6aai5CNqefmcpS6k",
+			"type": "text",
+			"props": {
+				"color": "black",
+				"size": "m",
+				"w": 653.9556884765625,
+				"font": "draw",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"attrs": {
+						"dir": "auto"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "high probability of being thr neighbour of datapoint"
+								}
+							]
+						}
+					]
+				}
+			},
+			"parentId": "page:page",
+			"index": "bCDxLEZvV",
+			"typeName": "shape"
+		},
+		{
 			"x": 387.8408245312895,
 			"y": 1411.8012005332948,
 			"rotation": 0,
@@ -33987,12 +34435,7 @@
 		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
-			"stylesForNextShape": {
-				"tldraw:geo": "rectangle",
-				"tldraw:color": "black",
-				"tldraw:size": "m",
-				"tldraw:dash": "draw"
-			},
+			"stylesForNextShape": {},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
@@ -34006,7 +34449,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1331.6666259765625,
+				"w": 1229.1666259765625,
 				"h": 759.1666259765625
 			},
 			"insets": [
@@ -34030,6 +34473,7 @@
 			"isReadonly": false,
 			"meta": {},
 			"duplicateProps": null,
+			"cameraState": "idle",
 			"id": "instance:instance",
 			"currentPageId": "page:page",
 			"typeName": "instance"
